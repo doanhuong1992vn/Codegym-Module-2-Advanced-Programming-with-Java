@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cd90e8b4-624b-40a1-8157-9c531b6f70f9" name="Changes" comment="" />
+    <list default="true" id="cd90e8b4-624b-40a1-8157-9c531b6f70f9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/hien-thi-cac-loai-hinh/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hien-thi-cac-loai-hinh/out/production/hien-thi-cac-loai-hinh/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/hien-thi-cac-loai-hinh/out/production/hien-thi-cac-loai-hinh/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hien-thi-cac-loai-hinh/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/hien-thi-cac-loai-hinh/src/Main.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="ProjectId" id="2MLWNg8dZCFhHMh7tqEWIVPEWqZ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Codegym/Codegym-Module-2-Advanced-Programming-with-Java/lesson-02-loop-in-java/bai-tap/hien-thi-cac-loai-hinh",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Codegym/Codegym-Module-2-Advanced-Programming-with-Java/lesson-02-loop-in-java/bai-tap/hien-thi-cac-loai-hinh&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -30,6 +37,7 @@
       <option name="presentableId" value="Default" />
       <updated>1677547305066</updated>
       <workItem from="1677547306317" duration="18000" />
+      <workItem from="1677567865147" duration="103000" />
     </task>
     <servers />
   </component>
