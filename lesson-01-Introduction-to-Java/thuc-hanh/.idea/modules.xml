@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/system-time/system-time.iml" filepath="$PROJECT_DIR$/system-time/system-time.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/thuc-hanh.iml" filepath="$PROJECT_DIR$/.idea/thuc-hanh.iml" />
+      <module fileurl="file://$PROJECT_DIR$/variable-dataType/variable-dataType.iml" filepath="$PROJECT_DIR$/variable-dataType/variable-dataType.iml" />
+    </modules>
+  </component>
+</project>
