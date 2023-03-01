@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -20,10 +21,7 @@ public class Main {
                 array[i] = array[i - 1];
             }
             array[index] = element;
-            System.out.print("Element in new array: ");
-            for (int i = 0; i < array.length; i++) {
-                System.out.print(array[i] + "\t");
-            }
+            System.out.print("Element in new array: " + Arrays.toString(array));
         }
     }
 }
