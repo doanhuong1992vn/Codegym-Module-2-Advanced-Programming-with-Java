@@ -57,6 +57,8 @@ public class Main {
                     System.out.println("End time is: " + watch.getEndTime());
                     System.out.println("Distance time in milli second: " + watch.getElapsedTime());
                 }
+                case "N" -> System.out.println("What happen?");
+                default -> System.out.println("Invalid input!");
             }
         } while (!isChoiceSort);
     }

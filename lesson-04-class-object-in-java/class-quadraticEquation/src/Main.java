@@ -3,8 +3,15 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        System.out.println("Enter a:");
-        double a = input.nextDouble();
+        double a;
+        do {
+            System.out.println("Enter a # 0:");
+             a = input.nextDouble();
+            if (a == 0) {
+                System.out.println("a must not equals 0");
+            }
+        } while (a == 0);
+
         System.out.println("Enter b:");
         double b = input.nextDouble();
         System.out.println("Enter c:");
