@@ -39,12 +39,14 @@ public class Main {
                         case 2: {
                             System.out.println("Draw the triangle with the right angle on the Top-right and height = "
                                     + heightTriangle);
+                            final int DESIRED_NUMBER = 3;
+                            int widthTriangle = heightTriangle * DESIRED_NUMBER;
                             for (int i = heightTriangle; i >= 1; i--) {
                                 String text = "";
                                 for (int j = 1; j <= i; j++) {
                                     text += " * ";
                                 }
-                                System.out.printf("%" + heightTriangle * 3 + "s\n", text);
+                                System.out.printf("%" + widthTriangle + "s\n", text);
                             }
                             break;
                         }
@@ -62,12 +64,14 @@ public class Main {
                         case 4: {
                             System.out.println("Draw the triangle with the right angle on the Bottom-right and height = "
                                     + heightTriangle);
+                            final int DESIRED_NUMBER = 3;
+                            int widthTriangle = heightTriangle * DESIRED_NUMBER;
                             for (int i = 1; i <= heightTriangle; i++) {
                                 String text = "";
                                 for (int j = 1; j <= i; j++) {
                                     text += " * ";
                                 }
-                                System.out.printf("%" + heightTriangle * 3 + "s\n", text);
+                                System.out.printf("%" + widthTriangle + "s\n", text);
                             }
                             break;
                         }
