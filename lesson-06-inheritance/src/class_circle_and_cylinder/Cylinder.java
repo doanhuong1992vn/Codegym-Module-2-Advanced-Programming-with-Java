@@ -34,8 +34,8 @@ public class Cylinder extends Circle {
     @Override
     public String toString() {
         return "Cylinder{" +
-                "height=" + height +
+                "height=" + height + "m" +
                 " and " + super.toString() +
-                '}';
+                "} has volume = " + String.format("%.2f", getVolume()) + "m3.";
     }
 }

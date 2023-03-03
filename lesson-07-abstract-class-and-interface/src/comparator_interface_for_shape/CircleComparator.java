@@ -1,0 +1,19 @@
+package comparator_interface_for_shape;
+
+import comparator_interface_for_shape.system_of_shape.Circle;
+
+import java.util.Comparator;
+
+public class CircleComparator implements Comparator<Circle> {
+    @Override
+    public int compare(Circle o1, Circle o2) {
+        if(o1.getRadius() > o2.getRadius()) {
+            //cố tình để return ngược giữa 1 và -1 để đạt được mục đích riêng
+            return -1;
+        } else if (o1.getRadius() < o2.getRadius()) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+}

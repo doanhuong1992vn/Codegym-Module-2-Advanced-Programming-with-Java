@@ -82,7 +82,7 @@ public class Triangle extends Shape{
                 ", side2 = " + side2 + "m" +
                 ", side3 = " + side3 + "m" +
                 "} with " + super.toString() +
-                ", area = " + getArea() + "m2" +
+                ", area = " + String.format("%.2f", getArea()) + "m2" +
                 ", perimeter = " + getPerimeter() + "m";
     }
 }
