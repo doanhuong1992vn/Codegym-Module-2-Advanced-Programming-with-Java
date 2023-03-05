@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="002762e7-59e9-46ba-926d-d01e26155ad3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../lesson-07-abstract-class-and-interface/src/animal_class_and_edible_interface/AbstractAndInterfaceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lesson-07-abstract-class-and-interface/src/animal_class_and_edible_interface/AbstractAndInterfaceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson-08-clean-code-and-refactoring/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lesson-08-clean-code-and-refactoring/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson-08-clean-code-and-refactoring/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lesson-08-clean-code-and-refactoring/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson-08-clean-code-and-refactoring/apj-calculator" beforeDir="false" afterPath="$PROJECT_DIR$/../lesson-08-clean-code-and-refactoring/apj-calculator" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson-08-clean-code-and-refactoring/apj-cylinder-develop/src/com/codegym/Cylinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lesson-08-clean-code-and-refactoring/apj-cylinder-develop/src/com/codegym/Cylinder.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2Ma1QANyaBtv4n87hqgVlNyb5mT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/Codegym/Codegym-Module-2-Advanced-Programming-with-Java/lesson-09-automated-testing-and-TDD/apj-junit-calculator",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="002762e7-59e9-46ba-926d-d01e26155ad3" name="Changes" comment="" />
+      <created>1677990863098</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1677990863098</updated>
+      <workItem from="1677990864322" duration="34000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

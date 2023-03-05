@@ -4,14 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db1cf194-c7e3-4242-a4c7-9aa10a1d73f2" name="Changes" comment="" />
+    <list default="true" id="db1cf194-c7e3-4242-a4c7-9aa10a1d73f2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../lesson-07-abstract-class-and-interface/src/animal_class_and_edible_interface/AbstractAndInterfaceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lesson-07-abstract-class-and-interface/src/animal_class_and_edible_interface/AbstractAndInterfaceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apj-calculator" beforeDir="false" afterPath="$PROJECT_DIR$/apj-calculator" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apj-calculator/CleanCodeRenaming.iml" beforeDir="false" afterPath="$PROJECT_DIR$/apj-calculator/CleanCodeRenaming.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apj-calculator/src/Calculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/apj-calculator/src/Calculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apj-calculator/test/CalculatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/apj-calculator/test/CalculatorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apj-cylinder-develop/src/com/codegym/Cylinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/apj-cylinder-develop/src/com/codegym/Cylinder.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/apj-calculator" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -30,7 +39,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Codegym/Codegym-Module-2-Advanced-Programming-with-Java/lesson-08-clean-code-and-refactoring/apj-fizzbuzz-develop",
+    "last_opened_file_path": "D:/Codegym/Codegym-Module-2-Advanced-Programming-with-Java/lesson-08-clean-code-and-refactoring/apj-calculator",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -53,6 +62,8 @@
       <option name="presentableId" value="Default" />
       <updated>1677939446022</updated>
       <workItem from="1677939447178" duration="1961000" />
+      <workItem from="1677945930545" duration="45000" />
+      <workItem from="1677945986811" duration="7000" />
     </task>
     <servers />
   </component>
