@@ -59,5 +59,33 @@ class NextDayCalculatorTest {
         String result = NextDayCalculator.getNextDay(date);
         assertEquals(expected, result);
     }
+    @Test
+    void testGetNextDayOfError3() {
+        String date = "30/2/2018";
+        String expected = "Invalid input!";
+        String result = NextDayCalculator.getNextDay(date);
+        assertEquals(expected, result);
+    }
+    @Test
+    void testGetNextDayOfError4() {
+        String date = "31/4/2018";
+        String expected = "Invalid input!";
+        String result = NextDayCalculator.getNextDay(date);
+        assertEquals(expected, result);
+    }
+    @Test
+    void testGetNextDayOfError5() {
+        String date = "29/2/2011";
+        String expected = "Invalid input!";
+        String result = NextDayCalculator.getNextDay(date);
+        assertEquals(expected, result);
+    }
+    @Test
+    void testGetNextDayOfError6() {
+        String date = "32/1/2011";
+        String expected = "Invalid input!";
+        String result = NextDayCalculator.getNextDay(date);
+        assertEquals(expected, result);
+    }
 
 }
