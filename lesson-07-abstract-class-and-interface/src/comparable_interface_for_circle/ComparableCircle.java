@@ -16,7 +16,6 @@ public class ComparableCircle extends Circle
 
     @Override
     public int compareTo(ComparableCircle o) {
-        //cố tình để return ngược giữa 1 và -1 để đạt được mục đích riêng
         if (getRadius() < o.getRadius()) {
             return 1;
         } else if (getRadius() > o.getRadius()) {

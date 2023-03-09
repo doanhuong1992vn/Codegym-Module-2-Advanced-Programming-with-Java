@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="002762e7-59e9-46ba-926d-d01e26155ad3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../lesson-07-abstract-class-and-interface/src/animal_class_and_edible_interface/AbstractAndInterfaceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lesson-07-abstract-class-and-interface/src/animal_class_and_edible_interface/AbstractAndInterfaceTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lesson-08-clean-code-and-refactoring/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lesson-08-clean-code-and-refactoring/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lesson-08-clean-code-and-refactoring/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lesson-08-clean-code-and-refactoring/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lesson-10-array-list-and-linked-list/src/mylist_same_arraylist/MyList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lesson-10-array-list-and-linked-list/src/simple_linked_list/MyLinkedList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lesson-10-array-list-and-linked-list/src/simple_linked_list/MyLinkedListTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lesson-10-array-list-and-linked-list/src/simple_list/MyList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lesson-10-array-list-and-linked-list/src/simple_list/MyListTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lesson-10-array-list-and-linked-list/test/mylist_same_arraylist/ArrayListTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lesson-08-clean-code-and-refactoring/apj-calculator" beforeDir="false" afterPath="$PROJECT_DIR$/../lesson-08-clean-code-and-refactoring/apj-calculator" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lesson-08-clean-code-and-refactoring/apj-cylinder-develop/src/com/codegym/Cylinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lesson-08-clean-code-and-refactoring/apj-cylinder-develop/src/com/codegym/Cylinder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +28,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Codegym/Codegym-Module-2-Advanced-Programming-with-Java/lesson-09-automated-testing-and-TDD/apj-junit-calculator",
+    "last_opened_file_path": "D:/Codegym/Codegym-Module-2-Advanced-Programming-with-Java/lesson-09-automated-testing-and-TDD/triangle-classifier",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -39,6 +41,7 @@
       <option name="presentableId" value="Default" />
       <updated>1677990863098</updated>
       <workItem from="1677990864322" duration="34000" />
+      <workItem from="1678162128374" duration="23000" />
     </task>
     <servers />
   </component>
