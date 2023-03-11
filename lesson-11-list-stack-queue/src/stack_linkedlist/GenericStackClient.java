@@ -7,7 +7,8 @@ public class GenericStackClient {
         System.out.println("\n2. Stack of Strings");
         stackOfStrings();
     }
-    private static void stackOfStrings(){
+
+    private static void stackOfStrings() {
         MyGenericStack<String> nameList = new MyGenericStack<>();
         nameList.push("Hưởng");
         nameList.push("Lâm");
@@ -20,7 +21,8 @@ public class GenericStackClient {
         nameList.pop();
         System.out.println("Size of Name's List after pop elements: " + nameList.size());
     }
-    private static void stackOfInteger(){
+
+    private static void stackOfInteger() {
         MyGenericStack<Integer> ageList = new MyGenericStack<>();
         ageList.push(18);
         ageList.push(19);

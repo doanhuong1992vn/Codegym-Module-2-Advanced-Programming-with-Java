@@ -11,9 +11,9 @@ public class TreemapExercise {
         TreeMap<String, Integer> myTreeMap = new TreeMap<>(Comparator.naturalOrder());
         String paragram = getString().toUpperCase();
         String[] wordArray = paragram.split(" ");
-        for(int i = 0; i< wordArray.length; i++){
+        for (int i = 0; i < wordArray.length; i++) {
             //xét xem key này đã có trong treemap hay chưa?
-            if(myTreeMap.containsKey(wordArray[i])){
+            if (myTreeMap.containsKey(wordArray[i])) {
                 //dùng biến currentValue để hứng giá trị được trả về tại Node có key đó
                 int currentValue = myTreeMap.get(wordArray[i]);
                 //dùng repalce(key, newValue) để thay thế value cũ đang liên kết với key được chỉ định thành value mới
@@ -24,12 +24,13 @@ public class TreemapExercise {
         }
         //Sử dụng Map.Entry interface - duyệt các phần tử của TreeMap
         //link hướng dẫn: https://viettuts.vn/java-collection/treemap-trong-java
-        for(Map.Entry<String, Integer> node: myTreeMap.entrySet()) {
+        for (Map.Entry<String, Integer> node : myTreeMap.entrySet()) {
             System.out.println("The word " + node.getKey() + " appears " + node.getValue() + " times.");
         }
 
     }
-    static String getString(){
+
+    static String getString() {
         return "Java là một ngôn ngữ lập trình hướng đối tượng dựa trên lớp được thiết kế để có càng ít phụ thuộc " +
                 "thực thi càng tốt Nó là ngôn ngữ lập trình có mục đích chung cho phép các nhà phát triển ứng dụng " +
                 "viết một lần chạy ở mọi nơi nghĩa là mã Java đã biên dịch có thể chạy trên tất cả các nền tảng hỗ " +

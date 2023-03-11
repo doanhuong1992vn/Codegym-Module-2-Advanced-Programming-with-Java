@@ -3,26 +3,29 @@ package queue_linkedlist;
 public class MyLinkedListQueue {
     private Node head;
     private Node tail;
-    public MyLinkedListQueue(){
+
+    public MyLinkedListQueue() {
         head = null;
         tail = null;
     }
-    public void enqueue(int key){
+
+    public void enqueue(int key) {
         Node temp = new Node(key);
-        if(tail == null){
+        if (tail == null) {
             head = temp;
         } else {
             tail.next = temp;
         }
         tail = temp;
     }
-    public Node dequeue(){
-        if(head == null) {
+
+    public Node dequeue() {
+        if (head == null) {
             return null;
         }
         Node temp = head;
         head = head.next;
-        if (head == null){
+        if (head == null) {
             tail = null;
         }
         return temp;

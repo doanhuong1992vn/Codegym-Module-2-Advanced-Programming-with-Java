@@ -3,9 +3,10 @@ package queue_use_circle_linkedlist;
 public class Queue {
     Node front;
     Node rear;
-    public void enQueue(int data){
+
+    public void enQueue(int data) {
         Node currentNode = new Node(data);
-        if(front == null){
+        if (front == null) {
             front = currentNode;
         } else {
             rear.link = currentNode;
@@ -14,23 +15,25 @@ public class Queue {
         rear = currentNode;
         rear.link = front;
     }
-    public void deQueue(){
-        if(front == null){
+
+    public void deQueue() {
+        if (front == null) {
             return;
         } else {
             if (front.equals(rear)) {
                 front = null;
                 rear = null;
-            } else{
+            } else {
                 front = front.link;
                 rear.link = front;
             }
         }
     }
-    public void displayQueue(){
+
+    public void displayQueue() {
         Node currentNode = front;
         int index = 0;
-        while(!front.equals(currentNode.link)){
+        while (!front.equals(currentNode.link)) {
             System.out.println("Data in node " + index + " is " + currentNode.data);
             currentNode = currentNode.link;
             index++;

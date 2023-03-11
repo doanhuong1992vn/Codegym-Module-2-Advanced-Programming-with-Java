@@ -1,4 +1,5 @@
 package stack_linkedlist;
+
 import java.util.EmptyStackException;
 import java.util.LinkedList;
 
@@ -8,20 +9,24 @@ public class MyGenericStack<instanceOfElements> {
     public MyGenericStack() {
         stack = new LinkedList<>();
     }
-    public void push(instanceOfElements element){
+
+    public void push(instanceOfElements element) {
         stack.addFirst(element);
     }
-    public instanceOfElements pop(){
-        if(stack.isEmpty()){
+
+    public instanceOfElements pop() {
+        if (stack.isEmpty()) {
             throw new EmptyStackException();
         } else {
             return stack.removeFirst();
         }
     }
-    public int size(){
+
+    public int size() {
         return stack.size();
     }
-    public boolean isEmpty(){
+
+    public boolean isEmpty() {
         return stack.isEmpty();
     }
 }
