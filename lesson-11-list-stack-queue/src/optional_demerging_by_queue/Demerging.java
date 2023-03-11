@@ -33,9 +33,7 @@ public class Demerging {
                 femaleList.add(person);
             }
         }
-        while (!maleList.isEmpty()) {
-            femaleList.add(maleList.remove());
-        }
+        femaleList.addAll(maleList);
         System.out.println("New List Of Personnel: ");
         femaleList.forEach(System.out::println);
     }
