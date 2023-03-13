@@ -22,7 +22,6 @@ public class Demerging {
         sourceList.sort(Comparator.comparingLong(Personnel::getMillisOfBirthday));
         System.out.println("Source List Of Personnel: ");
         sourceList.forEach(System.out::println);
-
         Queue<Personnel> maleList = new LinkedList<>();
         Queue<Personnel> femaleList = new LinkedList<>();
 

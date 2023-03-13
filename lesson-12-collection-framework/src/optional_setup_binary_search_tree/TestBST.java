@@ -16,7 +16,7 @@ public class TestBST {
         tree.insert(18);
         tree.insert(23);
         //traverse tree
-        tree.remove(20);
+        tree.remove(12);
         System.out.println("Inorder (sorted): ");
         tree.inorder();
         System.out.println("\nThe number of nodes is: " + tree.getSize());
@@ -25,11 +25,10 @@ public class TestBST {
         System.out.println("\nPreorder (sorted): ");
         tree.preorder();
         System.out.println();
-//        if(tree.contains(9)){
-//            System.out.println("True");
-//        } else {
-//            System.out.println("False");
-//        }
-//        System.out.println(tree.getCurrentElement(9));
+        if(tree.contains(9)){
+            System.out.println("True");
+        } else {
+            System.out.println("False");
+        }
     }
 }

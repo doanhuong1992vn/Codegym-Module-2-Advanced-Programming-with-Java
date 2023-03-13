@@ -11,18 +11,12 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
     public BinarySearchTree() {
     }
 
-    public BinarySearchTree(E[] objects) {
-        for (E object : objects) {
-            insert(object);
-        }
-    }
-
     protected TreeNode<E> createNewNode(E element) {
         return new TreeNode<>(element);
     }
 
     @Override
-    public boolean insert(E element) {
+    public void insert(E element) {
         if (root == null) {
             root = createNewNode(element);
         } else {
@@ -36,7 +30,7 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
                     parent = current;
                     current = current.right;
                 } else {
-                    return false;
+                    return;
                 }
             }
             if (element.compareTo(parent.element) < 0) {
@@ -46,7 +40,6 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
             }
         }
         size++;
-        return true;
     }
 
     @Override
@@ -94,10 +87,6 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
         System.out.print(root.element + " ");
         preorder(root.left);
         preorder(root.right);
-    }
-
-    public E getCurrentElement(E element) {
-        return current.element;
     }
 
     public boolean contains(E element) {

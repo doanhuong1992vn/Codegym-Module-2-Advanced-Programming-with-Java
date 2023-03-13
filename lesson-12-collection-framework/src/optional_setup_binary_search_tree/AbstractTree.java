@@ -2,8 +2,7 @@ package optional_setup_binary_search_tree;
 
 public class AbstractTree<E> implements Tree<E> {
     @Override
-    public boolean insert(E element) {
-        return false;
+    public void insert(E element) {
     }
 
     @Override
