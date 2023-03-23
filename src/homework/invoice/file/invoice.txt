@@ -1,0 +1,7 @@
+Tên người mua	Tên sản phẩm	Giá			Ngày mua hàng
+Hưởng			Điện thoại		30000.0		19 March 2023
+Minh			Quần lửng		200.0		19 March 2023
+Dâm Lê			Mặt nạ dâm		300.0		19 March 2023
+Thái			Quần đùi		40.0		20 March 2023
+Phước			Áo hoa 3D		500.0		20 March 2023
+Khánh			Toy silicon		8000.0		20 March 2023
