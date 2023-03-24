@@ -1,9 +1,9 @@
 package homework.shopee_project.view;
 
-import entity.Category;
-import entity.Product;
-import service.CategoryService;
-import service.ProductService;
+import homework.shopee_project.entity.Category;
+import homework.shopee_project.entity.Product;
+import homework.shopee_project.service.CategoryService;
+import homework.shopee_project.service.ProductService;
 
 import java.util.ArrayList;
 import java.util.List;

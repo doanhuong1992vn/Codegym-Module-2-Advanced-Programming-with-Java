@@ -1,6 +1,6 @@
 package homework.shopee_project.service;
 
-import entity.Product;
+import homework.shopee_project.entity.Product;
 
 import java.util.ArrayList;
 

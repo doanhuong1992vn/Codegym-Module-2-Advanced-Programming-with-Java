@@ -15,4 +15,4 @@
 - Thêm sửa xóa rạp, phong chiếu
 - Thêm sửa xóa lịch chiếu phim
 - Thêm sửa xóa nhân viên
-- Thống kê số lượng vé bán được và doanh thu
+- Thống kê số lượng vé bán được

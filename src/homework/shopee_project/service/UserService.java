@@ -1,6 +1,6 @@
 package homework.shopee_project.service;
 
-import entity.User;
+import homework.shopee_project.entity.User;
 
 import java.util.HashMap;
 

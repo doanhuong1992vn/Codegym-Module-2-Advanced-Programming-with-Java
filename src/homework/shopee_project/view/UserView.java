@@ -1,8 +1,8 @@
 package homework.shopee_project.view;
 
-import entity.User;
-import service.CartService;
-import service.UserService;
+import homework.shopee_project.entity.User;
+import homework.shopee_project.service.CartService;
+import homework.shopee_project.service.UserService;
 
 public class UserView {
     private final static UserService userService = new UserService();

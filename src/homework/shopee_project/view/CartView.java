@@ -1,7 +1,7 @@
 package homework.shopee_project.view;
 
-import entity.Product;
-import service.CartService;
+import homework.shopee_project.entity.Product;
+import homework.shopee_project.service.CartService;
 
 import java.util.Map;
 import java.util.TreeMap;

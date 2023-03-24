@@ -1,6 +1,6 @@
 package homework.shopee_project.service;
 
-import entity.Category;
+import homework.shopee_project.entity.Category;
 
 import java.util.ArrayList;
 

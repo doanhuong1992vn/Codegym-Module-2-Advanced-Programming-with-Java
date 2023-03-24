@@ -1,7 +1,7 @@
 package homework.shopee_project.view;
 
-import entity.Product;
-import entity.User;
+import homework.shopee_project.entity.Product;
+import homework.shopee_project.entity.User;
 
 public class ShopeeView {
     private final static CartView cartView = new CartView();
