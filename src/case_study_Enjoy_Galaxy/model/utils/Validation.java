@@ -1,9 +1,9 @@
-package case_study_Enjoy_Galaxy.model.service;
+package case_study_Enjoy_Galaxy.model.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ValidationService {
+public class Validation {
     private static Pattern pattern;
     private static Matcher matcher;
     private static final String FULL_NAME_REGEX = "^[a-zA-Z\\sàáạã_-]{3,25}$";

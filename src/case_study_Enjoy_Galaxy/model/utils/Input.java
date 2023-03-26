@@ -1,18 +1,15 @@
-package case_study_Enjoy_Galaxy.view;
+package case_study_Enjoy_Galaxy.model.utils;
 
-import case_study_Enjoy_Galaxy.model.service.ValidationService;
-
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Input {
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static int choicePrompt() {
+    public static int choiceIntegerPrompt(String request) {
         int output;
         do {
             try {
-                System.out.println("Enter your choice:");
+                System.out.println(request);
                 output =  Integer.parseInt(scanner.nextLine());
                 break;
             } catch (NumberFormatException e) {
@@ -21,6 +18,7 @@ public class Input {
         } while (true);
         return output;
     }
+
     public static String prompt(String request) {
         System.out.println(request);
         return scanner.nextLine();
@@ -29,10 +27,10 @@ public class Input {
         String text;
         do {
             text = prompt(request);
-            if (!ValidationService.validate(text, regexPattern)) {
+            if (!Validation.validate(text, regexPattern)) {
                 System.err.println("Invalid input! Incorrect format!");
             }
-        } while (!ValidationService.validate(text, regexPattern));
+        } while (!Validation.validate(text, regexPattern));
         return text;
     }
 }

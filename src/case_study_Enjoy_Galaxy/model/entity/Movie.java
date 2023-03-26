@@ -5,17 +5,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Movie {
+    private static int count = 0;
+    private int id;
     private String title;
     private String director;
     private String actors;
     private String movieGenre;
     private Date premiereDate;
-    private long movieDuration;
+    private int movieDuration;
     private String language;
     private String content;
 
     public Movie(String title, String director, String actors, String movieGenre,
-                 String premiereDate, long movieDuration, String language, String content) throws ParseException {
+                 String premiereDate, int movieDuration, String language, String content) throws ParseException {
+        this.id = ++count;
         this.title = title;
         this.director = director;
         this.actors = actors;
@@ -24,6 +27,10 @@ public class Movie {
         this.movieDuration = movieDuration;
         this.language = language;
         this.content = content;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -74,11 +81,11 @@ public class Movie {
         return getPremiereDate().getTime();
     }
 
-    public long getMovieDuration() {
+    public int getMovieDuration() {
         return movieDuration;
     }
 
-    public void setMovieDuration(long movieDuration) {
+    public void setMovieDuration(int movieDuration) {
         this.movieDuration = movieDuration;
     }
 
@@ -97,18 +104,18 @@ public class Movie {
     public void setContent(String content) {
         this.content = content;
     }
-
-    @Override
-    public String toString() {
+    public String toStringDetail() {
         return String.format("""
+                        ID phim: %s
                         Tên phim: %s
                         Đạo diễn: %s
                         Diễn viên: %s
                         Thể loại: %s
                         Khởi chiếu: %s
-                        Thời lượng: %d
+                        Thời lượng: %d phút
                         Ngôn ngữ: %s
                         Nội dung: %s""",
+                getId(),
                 getTitle(),
                 getDirector(),
                 getActors(),
@@ -117,5 +124,15 @@ public class Movie {
                 getMovieDuration(),
                 getLanguage(),
                 getContent());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("ID=%d: %s {Thể loại: %s; Khởi chiếu: %s; Thời lượng: %d phút}",
+                getId(),
+                getTitle(),
+                getMovieGenre(),
+                getStringPremiereDate(),
+                getMovieDuration());
     }
 }

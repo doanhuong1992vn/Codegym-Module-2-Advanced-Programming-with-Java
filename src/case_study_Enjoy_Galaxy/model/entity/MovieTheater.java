@@ -1,13 +1,14 @@
 package case_study_Enjoy_Galaxy.model.entity;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class MovieTheater {
     private String name;
     private String address;
-    private HashMap<String, Cinema> cinemas;
+    private List<Cinema> cinemas;
 
-    public MovieTheater(String name, String address, HashMap<String, Cinema> cinemas) {
+    public MovieTheater(String name, String address, List<Cinema> cinemas) {
         this.name = name;
         this.address = address;
         this.cinemas = cinemas;
@@ -29,11 +30,11 @@ public class MovieTheater {
         this.address = address;
     }
 
-    public HashMap<String, Cinema> getCinemas() {
+    public List<Cinema> getCinemas() {
         return cinemas;
     }
 
-    public void setCinemas(HashMap<String, Cinema> cinemas) {
+    public void setCinemas(List<Cinema> cinemas) {
         this.cinemas = cinemas;
     }
 

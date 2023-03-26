@@ -2,10 +2,11 @@ package case_study_Enjoy_Galaxy.view;
 
 import case_study_Enjoy_Galaxy.model.entity.Movie;
 import case_study_Enjoy_Galaxy.model.service.MovieService;
+import case_study_Enjoy_Galaxy.model.utils.Input;
 
 import java.util.List;
 
-public class MovieTheaterView {
+public class MovieView {
     public static void displayMovieList() {
         MovieService movieService = new MovieService();
         List<Movie> movieList = movieService.getMovieList();
@@ -19,9 +20,9 @@ public class MovieTheaterView {
             System.out.println("""
                 1. Sort by movie duration
                 2. Sort by premiere date
-                3. View movie details by movie title
+                3. View movie details by movie ID
                 4. Go back""");
-            int choice = Input.choicePrompt();
+            int choice = Input.choiceIntegerPrompt("Enter your choice:");
             switch (choice) {
                 case 1 -> {
                     List<Movie> movieList = movieService.getMovieListSortedByDuration();
@@ -31,7 +32,7 @@ public class MovieTheaterView {
                     List<Movie> movieList = movieService.getMovieListSortedByPremiereDate();
                     movieList.forEach(System.out::println);
                 }
-                case 3 -> displaySearchingByMovieTitle();
+                case 3 -> displayChoiceMovieById();
                 case 4 -> {
                     return;
                 }
@@ -40,34 +41,53 @@ public class MovieTheaterView {
         } while (true);
     }
 
-    private static void displaySearchingByMovieTitle() {
-        String title = Input.prompt("Enter movie title that you want to see detail:");
+    private static void displayChoiceMovieById() {
         MovieService movieService = new MovieService();
-        Movie movie = movieService.getMovieByTitle(title);
-        if (movie != null) {
-            String choice = Input.prompt("Do you mean " + movie.getTitle() + " movie? Y/N");
-            switch (choice) {
-                case "Y", "y", "YES", "yes", "Yes" -> displayDetailByMovie(movie);
-                case "N", "n", "NO", "No", "no" -> {
-                    System.out.println("Sorry. Please enter more details!");
-                    displaySearchingByMovieTitle();
-                }
+        do {
+            int idMovie = Input.choiceIntegerPrompt("Enter movie ID:");
+            Movie movie = movieService.getMovieById(idMovie);
+            if (movie != null) {
+                displayDetailByMovie(movie);
+            } else {
+                System.out.println("Invalid input!");
             }
+        } while (true);
+    }
+
+    public static void displaySearchingMovie() {
+        String title = Input.prompt("Enter the name of the movie that you want to find:");
+        MovieService movieService = new MovieService();
+        List<Movie> movieList = movieService.getMovieListByKeyword(title);
+        if (!movieList.isEmpty()) {
+            movieList.forEach(System.out::println);
+            do {
+                System.out.println("""
+                    1. View movie details by movie ID
+                    2. Go back""");
+                int choice = Input.choiceIntegerPrompt("Enter your choice:");
+                switch (choice) {
+                    case 1 -> displayChoiceMovieById();
+                    case 2 -> {
+                        return;
+                    }
+                    default -> System.out.println("Invalid input!");
+                }
+            } while (true);
         } else {
             System.out.println("Movie not found!");
-            displayChoicesOfMovieList();
+            displaySearchingMovie();
         }
     }
 
     private static void displayDetailByMovie(Movie movie) {
-        System.out.println(movie.toString());
+        System.out.println(movie.toStringDetail());
         do {
             System.out.println("""
                 1. Book ticket
                 2. Go back""");
-            int choice = Input.choicePrompt();
+            int choice = Input.choiceIntegerPrompt("Enter your choice:");
             switch (choice) {
-                case 1 -> {}
+                case 1 -> {}//chưa hoàn thiện
                 case 2 -> displayMovieList();
                 default -> System.out.println("Invalid input!");
             }

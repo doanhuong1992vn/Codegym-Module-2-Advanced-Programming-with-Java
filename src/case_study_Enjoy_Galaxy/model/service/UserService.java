@@ -1,6 +1,6 @@
 package case_study_Enjoy_Galaxy.model.service;
 
-import case_study_Enjoy_Galaxy.model.data.ReadUser;
+import case_study_Enjoy_Galaxy.model.utils.FileReadingUtils;
 import case_study_Enjoy_Galaxy.model.entity.users.Customer;
 import case_study_Enjoy_Galaxy.model.entity.users.User;
 
@@ -10,7 +10,9 @@ import java.util.List;
 public class UserService {
     private static final List<User> userList = new ArrayList<>();
     static {
-        userList.addAll(ReadUser.readCustomerData());
+        List<Customer> dataList = FileReadingUtils.readCustomerData(
+                "src\\case_study_Enjoy_Galaxy\\model\\data\\customer.csv");
+        userList.addAll(dataList);
     }
     private String notification;
     private User currentUser;

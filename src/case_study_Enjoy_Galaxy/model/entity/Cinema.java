@@ -6,11 +6,18 @@ public class Cinema {
     private int seatRowNumber;
     private Seat[][] seats;
 
-    public Cinema(String name ,int seatColumnNumber, int seatRowNumber) {
+    public Cinema(String name, int seatRowNumber, int seatColumnNumber) {
         this.name = name;
-        this.seatColumnNumber = seatColumnNumber;
-        this.seatRowNumber = seatRowNumber;
+        setSeats(seatRowNumber, seatColumnNumber);
+    }
+
+    private void createSeats(int seatRowNumber, int seatColumnNumber) {
         seats = new Seat[seatRowNumber][seatColumnNumber];
+        for (int i = 0; i < seatRowNumber; i++) {
+            for (int k = 0; k < seatColumnNumber; k++) {
+                seats[i][k] = new Seat();
+            }
+        }
     }
 
     public String getName() {
@@ -27,7 +34,7 @@ public class Cinema {
 
     public void setSeatColumnNumber(int seatColumnNumber) {
         this.seatColumnNumber = seatColumnNumber;
-        seats = new Seat[seatRowNumber][seatColumnNumber];
+        createSeats(seatRowNumber, seatColumnNumber);
     }
 
     public int getSeatRowNumber() {
@@ -36,7 +43,13 @@ public class Cinema {
 
     public void setSeatRowNumber(int seatRowNumber) {
         this.seatRowNumber = seatRowNumber;
-        seats = new Seat[seatRowNumber][seatColumnNumber];
+        createSeats(seatRowNumber, seatColumnNumber);
+    }
+
+    public void setSeats(int seatRowNumber, int seatColumnNumber) {
+        this.seatColumnNumber = seatColumnNumber;
+        this.seatRowNumber = seatRowNumber;
+        createSeats(seatRowNumber, seatColumnNumber);
     }
 
     public int getSeatsNumber() {

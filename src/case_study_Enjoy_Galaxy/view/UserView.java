@@ -4,6 +4,7 @@ import case_study_Enjoy_Galaxy.model.entity.users.Admin;
 import case_study_Enjoy_Galaxy.model.entity.users.Staff;
 import case_study_Enjoy_Galaxy.model.entity.users.User;
 import case_study_Enjoy_Galaxy.model.service.UserService;
+import case_study_Enjoy_Galaxy.model.utils.Input;
 
 public class UserView {
     private static User currentUser;
@@ -60,7 +61,7 @@ public class UserView {
                 4. Edit password
                 5. Deposit money into wallet
                 6. Go back""");
-            int choice = Input.choicePrompt();
+            int choice = Input.choiceIntegerPrompt("Enter your choice:");
             switch (choice) {
                 case 1 -> displayEditFullName();
                 case 2 -> displayEditPhoneNumber();
