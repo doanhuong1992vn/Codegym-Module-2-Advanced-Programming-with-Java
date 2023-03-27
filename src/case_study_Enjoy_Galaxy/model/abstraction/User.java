@@ -1,4 +1,4 @@
-package case_study_Enjoy_Galaxy.model.entity.users;
+package case_study_Enjoy_Galaxy.model.abstraction;
 
 public abstract class User {
     private String fullName;

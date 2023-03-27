@@ -3,7 +3,7 @@ package case_study_Enjoy_Galaxy.model.factory;
 import case_study_Enjoy_Galaxy.model.entity.users.Admin;
 import case_study_Enjoy_Galaxy.model.entity.users.Customer;
 import case_study_Enjoy_Galaxy.model.entity.users.Staff;
-import case_study_Enjoy_Galaxy.model.entity.users.User;
+import case_study_Enjoy_Galaxy.model.abstraction.User;
 
 public class UserFactory {
     private static final UserFactory userFactory = new UserFactory();
@@ -16,18 +16,16 @@ public class UserFactory {
     }
 
     public User getUser(String fullName, String phoneNumber, String email, String password, String typeUser) {
-        switch (typeUser) {
-            case "customer" -> {
-                return new Customer(fullName, phoneNumber, email, password);
-            }
-            case "staff" -> {
+        String typeUserToUpperCase = typeUser.toUpperCase();
+        switch (typeUserToUpperCase) {
+            case "STAFF" -> {
                 return new Staff(fullName, phoneNumber, email, password);
             }
-            case "admin" -> {
+            case "ADMIN" -> {
                 return new Admin(fullName, phoneNumber, email, password);
             }
             default -> {
-                return null;
+                return new Customer(fullName, phoneNumber, email, password);
             }
         }
     }

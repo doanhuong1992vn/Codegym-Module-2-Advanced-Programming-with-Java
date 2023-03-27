@@ -1,10 +1,21 @@
-package case_study_Enjoy_Galaxy.model.entity;
+package case_study_Enjoy_Galaxy.model.abstraction;
 
-public class Cinema {
+import case_study_Enjoy_Galaxy.model.abstraction.ICapacity;
+import case_study_Enjoy_Galaxy.model.abstraction.IPrice;
+import case_study_Enjoy_Galaxy.model.abstraction.Seat;
+import case_study_Enjoy_Galaxy.model.entity.seat.StandardSeat;
+import case_study_Enjoy_Galaxy.model.factory.SeatFactory;
+
+public abstract class Cinema implements ICapacity, IPrice {
     private String name;
-    private int seatColumnNumber;
-    private int seatRowNumber;
+    private int seatColumnNumber = 4;
+    private int seatRowNumber = 4;
     private Seat[][] seats;
+
+    protected Cinema(String name) {
+        this.name = name;
+        setSeats(seatRowNumber, seatColumnNumber);
+    }
 
     public Cinema(String name, int seatRowNumber, int seatColumnNumber) {
         this.name = name;
@@ -15,7 +26,14 @@ public class Cinema {
         seats = new Seat[seatRowNumber][seatColumnNumber];
         for (int i = 0; i < seatRowNumber; i++) {
             for (int k = 0; k < seatColumnNumber; k++) {
-                seats[i][k] = new Seat();
+                SeatFactory seatFactory = SeatFactory.getInstance();
+                switch (i) {
+                    case 0 -> seats[i][k] = seatFactory.getSeat("standard");
+                    case 1 -> seats[i][k] = seatFactory.getSeat("vipseat");
+                    case 2 -> seats[i][k] = seatFactory.getSeat("deluxeseat");
+                    default -> seats[i][k] = seatFactory.getSeat("sweetbox");
+                }
+
             }
         }
     }
@@ -52,12 +70,13 @@ public class Cinema {
         createSeats(seatRowNumber, seatColumnNumber);
     }
 
-    public int getSeatsNumber() {
+    @Override
+    public int getCapacity() {
         return seatColumnNumber * seatRowNumber;
     }
 
     @Override
     public String toString() {
-        return "Phòng chiếu " + getName() + " có " + getSeatsNumber() + " ghế.";
+        return "Phòng chiếu " + getName() + " có " + getCapacity() + " ghế.";
     }
 }

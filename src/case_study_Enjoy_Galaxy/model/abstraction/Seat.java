@@ -1,10 +1,7 @@
-package case_study_Enjoy_Galaxy.model.entity;
+package case_study_Enjoy_Galaxy.model.abstraction;
 
-public class Seat {
+public abstract class Seat implements ISeat, IPrice, ICapacity {
     private boolean ready = true;
-
-    public Seat() {
-    }
 
     public void setReady(boolean ready) {
         this.ready = ready;

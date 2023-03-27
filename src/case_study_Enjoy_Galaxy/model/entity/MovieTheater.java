@@ -1,11 +1,18 @@
 package case_study_Enjoy_Galaxy.model.entity;
 
+import case_study_Enjoy_Galaxy.model.abstraction.Cinema;
+
 import java.util.List;
 
 public class MovieTheater {
     private String name;
     private String address;
     private List<Cinema> cinemas;
+
+    public MovieTheater(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
 
     public MovieTheater(String name, String address, List<Cinema> cinemas) {
         this.name = name;
