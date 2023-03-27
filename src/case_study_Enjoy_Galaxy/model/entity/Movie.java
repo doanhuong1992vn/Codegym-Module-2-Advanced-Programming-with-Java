@@ -104,6 +104,7 @@ public class Movie {
     public void setContent(String content) {
         this.content = content;
     }
+
     public String toStringDetail() {
         return String.format("""
                         ID phim: %s

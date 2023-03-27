@@ -1,4 +1,4 @@
-package case_study_Enjoy_Galaxy.model.abstraction;
+package case_study_demo.model.abstraction;
 
 public interface IReady {
     boolean isReady();

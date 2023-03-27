@@ -1,19 +1,19 @@
 package case_study_Enjoy_Galaxy.model.entity.users;
 
-public class User {
+public abstract class User {
     private String fullName;
     private String phoneNumber;
     private String email;
     private String password;
     private double wallet;
 
-    public User(String phoneNumber, String email, String password) {
+    protected User(String phoneNumber, String email, String password) {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
     }
 
-    public User(String fullName, String phoneNumber, String email, String password) {
+    protected User(String fullName, String phoneNumber, String email, String password) {
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -59,4 +59,6 @@ public class User {
     public void setWallet(double wallet) {
         this.wallet = wallet;
     }
+
+    public abstract String toString();
 }

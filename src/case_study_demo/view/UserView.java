@@ -1,12 +1,13 @@
-package case_study_Enjoy_Galaxy.view;
+/*
+package case_study_demo.view;
 
-import case_study_Enjoy_Galaxy.model.entity.users.Admin;
-import case_study_Enjoy_Galaxy.model.entity.users.Staff;
-import case_study_Enjoy_Galaxy.model.entity.users.User;
-import case_study_Enjoy_Galaxy.model.service.UserService;
-import case_study_Enjoy_Galaxy.model.utils.Input;
+import case_study_demo.model.entity.users.Admin;
+import case_study_demo.model.entity.users.Staff;
+import case_study_demo.model.entity.users.User;
+import case_study_demo.model.service.UserService;
+import case_study_demo.model.utils.Input;
 
-public class UserView {
+public class CustomerView {
     private static User currentUser;
     private static final String FULL_NAME_PATTERN = "FULL_NAME";
     private static final String PHONE_NUMBER_PATTERN = "PHONE_NUMBER";
@@ -109,3 +110,4 @@ public class UserView {
     }
 
 }
+*/

@@ -7,21 +7,30 @@ import case_study_Enjoy_Galaxy.model.utils.Input;
 import java.util.List;
 
 public class MovieView {
-    public static void displayMovieList() {
-        MovieService movieService = new MovieService();
+    private static final MovieView movieView = new MovieView();
+
+    private MovieView() {
+    }
+
+    public static MovieView getInstance() {
+        return movieView;
+    }
+
+    public void displayMovieList() {
+        MovieService movieService = MovieService.getInstance();
         List<Movie> movieList = movieService.getMovieList();
         movieList.forEach(System.out::println);
         displayChoicesOfMovieList();
     }
 
-    private static void displayChoicesOfMovieList() {
-        MovieService movieService = new MovieService();
+    private void displayChoicesOfMovieList() {
+        MovieService movieService = MovieService.getInstance();
         do {
             System.out.println("""
-                1. Sort by movie duration
-                2. Sort by premiere date
-                3. View movie details by movie ID
-                4. Go back""");
+                    1. Sort by movie duration
+                    2. Sort by premiere date
+                    3. View movie details by movie ID
+                    4. Go back""");
             int choice = Input.choiceIntegerPrompt("Enter your choice:");
             switch (choice) {
                 case 1 -> {
@@ -41,8 +50,8 @@ public class MovieView {
         } while (true);
     }
 
-    private static void displayChoiceMovieById() {
-        MovieService movieService = new MovieService();
+    private void displayChoiceMovieById() {
+        MovieService movieService = MovieService.getInstance();
         do {
             int idMovie = Input.choiceIntegerPrompt("Enter movie ID:");
             Movie movie = movieService.getMovieById(idMovie);
@@ -54,16 +63,16 @@ public class MovieView {
         } while (true);
     }
 
-    public static void displaySearchingMovie() {
+    public void displaySearchingMovie() {
         String title = Input.prompt("Enter the name of the movie that you want to find:");
-        MovieService movieService = new MovieService();
+        MovieService movieService = MovieService.getInstance();
         List<Movie> movieList = movieService.getMovieListByKeyword(title);
         if (!movieList.isEmpty()) {
             movieList.forEach(System.out::println);
             do {
                 System.out.println("""
-                    1. View movie details by movie ID
-                    2. Go back""");
+                        1. View movie details by movie ID
+                        2. Go back""");
                 int choice = Input.choiceIntegerPrompt("Enter your choice:");
                 switch (choice) {
                     case 1 -> displayChoiceMovieById();
@@ -79,24 +88,25 @@ public class MovieView {
         }
     }
 
-    private static void displayDetailByMovie(Movie movie) {
+    private void displayDetailByMovie(Movie movie) {
         System.out.println(movie.toStringDetail());
         do {
             System.out.println("""
-                1. Book ticket
-                2. Go back""");
+                    1. Book ticket
+                    2. Go back""");
             int choice = Input.choiceIntegerPrompt("Enter your choice:");
             switch (choice) {
-                case 1 -> {}//chưa hoàn thiện
+                case 1 -> {
+                }//chưa hoàn thiện
                 case 2 -> displayMovieList();
                 default -> System.out.println("Invalid input!");
             }
         } while (true);
     }
 
-    public static void displayMovieTheaterList() {
+    public void displayMovieTheaterList() {
     }
 
-    public static void displayCheckingTicket() {
+    public void displayCheckingTicket() {
     }
 }

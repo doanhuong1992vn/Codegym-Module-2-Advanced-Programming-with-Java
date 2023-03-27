@@ -11,6 +11,10 @@ public class Staff extends User {
     private Date birthDay;
     private String address;
 
+    public Staff(String fullName, String phoneNumber, String email, String password) {
+        super(fullName, phoneNumber, email, password);
+    }
+
     public Staff(String fullName, String phoneNumber, String email, String password, String education,
                  String jobTitle, double salary, String strBirthDay, String address) throws ParseException {
         super(fullName, phoneNumber, email, password);
@@ -53,7 +57,7 @@ public class Staff extends User {
         long timeBirthDay = birthDay.getTime();
         long timeNow = System.currentTimeMillis();
         final long TIME_OF_YEAR = 1000L * 60 * 60 * 24 * 365;
-        return ((int)((timeNow - timeBirthDay) / TIME_OF_YEAR));
+        return ((int) ((timeNow - timeBirthDay) / TIME_OF_YEAR));
     }
 
     public void setBirthDay(String strBirthDay) throws ParseException {

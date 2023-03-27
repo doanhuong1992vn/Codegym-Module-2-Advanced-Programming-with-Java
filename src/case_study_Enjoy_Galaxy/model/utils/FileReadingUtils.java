@@ -27,6 +27,7 @@ public class FileReadingUtils {
         }
         return objectList;
     }
+
     public static List<Customer> readCustomerData(String path) {
         List<String> propertiesOfCustomerList = readFile(path);
         List<Customer> customerList = new LinkedList<>();
@@ -35,7 +36,7 @@ public class FileReadingUtils {
         final int INDEX_OF_EMAIL = 2;
         final int INDEX_OF_PASSWORD = 3;
 
-        for (String propertiesOfCustomer: propertiesOfCustomerList) {
+        for (String propertiesOfCustomer : propertiesOfCustomerList) {
             if (propertiesOfCustomer.equals(propertiesOfCustomerList.get(0))) { //it's header
                 continue;
             }
@@ -48,6 +49,7 @@ public class FileReadingUtils {
         }
         return customerList;
     }
+
     public static List<Movie> readMovieData(String path) throws ParseException {
         List<String> propertiesOfMovieList = readFile(path);
         List<Movie> movieList = new ArrayList<>();
@@ -60,7 +62,7 @@ public class FileReadingUtils {
         final int INDEX_OF_LANGUAGE = 6;
         final int INDEX_OF_CONTENT = 7;
 
-        for (String propertiesOfMovie: propertiesOfMovieList) {
+        for (String propertiesOfMovie : propertiesOfMovieList) {
             if (propertiesOfMovie.equals(propertiesOfMovieList.get(0))) {
                 continue;
             }

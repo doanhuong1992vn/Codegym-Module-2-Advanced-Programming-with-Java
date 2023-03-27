@@ -10,7 +10,7 @@ public class Input {
         do {
             try {
                 System.out.println(request);
-                output =  Integer.parseInt(scanner.nextLine());
+                output = Integer.parseInt(scanner.nextLine());
                 break;
             } catch (NumberFormatException e) {
                 System.err.println("Invalid input! Incorrect format : " + e.getMessage());
@@ -23,6 +23,7 @@ public class Input {
         System.out.println(request);
         return scanner.nextLine();
     }
+
     public static String prompt(String request, String regexPattern) {
         String text;
         do {

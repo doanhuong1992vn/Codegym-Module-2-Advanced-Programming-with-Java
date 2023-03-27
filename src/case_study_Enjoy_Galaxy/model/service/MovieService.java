@@ -1,7 +1,7 @@
 package case_study_Enjoy_Galaxy.model.service;
 
-import case_study_Enjoy_Galaxy.model.utils.FileReadingUtils;
 import case_study_Enjoy_Galaxy.model.entity.Movie;
+import case_study_Enjoy_Galaxy.model.utils.FileReadingUtils;
 import case_study_Enjoy_Galaxy.model.utils.NormalizerUtils;
 
 import java.text.ParseException;
@@ -10,6 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class MovieService {
+    private static final MovieService movieService = new MovieService();
     private static final List<Movie> movieList = new ArrayList<>();
 
     static {
@@ -19,6 +20,13 @@ public class MovieService {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private MovieService() {
+    }
+
+    public static MovieService getInstance() {
+        return movieService;
     }
 
     public List<Movie> getMovieList() {
@@ -46,8 +54,9 @@ public class MovieService {
         }
         return movies;
     }
+
     public Movie getMovieById(int idMovie) {
-        for (Movie movie: movieList) {
+        for (Movie movie : movieList) {
             if (movie.getId() == idMovie) {
                 return movie;
             }

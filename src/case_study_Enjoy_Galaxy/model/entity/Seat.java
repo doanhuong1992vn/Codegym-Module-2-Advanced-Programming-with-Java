@@ -1,7 +1,5 @@
 package case_study_Enjoy_Galaxy.model.entity;
 
-import case_study_Enjoy_Galaxy.model.abstraction.IReady;
-
 public class Seat {
     private boolean ready = true;
 

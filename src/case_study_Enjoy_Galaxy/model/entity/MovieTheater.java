@@ -1,6 +1,5 @@
 package case_study_Enjoy_Galaxy.model.entity;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class MovieTheater {

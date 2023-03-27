@@ -26,6 +26,7 @@ public class Customer extends User {
     public void setTicketCodesEmpty() {
         ticketCodes.clear();
     }
+
     public void addTicketCode(List<String> ticketCodes) {
         this.ticketCodes.addAll(ticketCodes);
     }

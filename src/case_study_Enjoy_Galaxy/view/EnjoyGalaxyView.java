@@ -1,9 +1,20 @@
 package case_study_Enjoy_Galaxy.view;
 
+import case_study_Enjoy_Galaxy.model.entity.users.User;
 import case_study_Enjoy_Galaxy.model.utils.Input;
+import case_study_Enjoy_Galaxy.view.abstraction.UserView;
 
 public class EnjoyGalaxyView {
-    public static void displayStartMenu() {
+    private static final EnjoyGalaxyView enjoyGalaxyView = new EnjoyGalaxyView();
+
+    private EnjoyGalaxyView() {
+    }
+
+    public static EnjoyGalaxyView getInstance() {
+        return enjoyGalaxyView;
+    }
+
+    public void displayStartMenu() {
         do {
             System.out.println("""
                     *** Welcome to Enjoy Galaxy !!! ***
@@ -14,19 +25,21 @@ public class EnjoyGalaxyView {
                     5. Display movie theater list
                     6. Check ticket""");
             int choice = Input.choiceIntegerPrompt("Enter your choice:");
+            CustomerView customerView = CustomerView.getInstance();
+            MovieView movieView = MovieView.getInstance();
             switch (choice) {
-                case 1 -> UserView.displaySignUp();
+                case 1 -> customerView.displaySignUp();
                 case 2 -> UserView.displaySignIn();
-                case 3 -> MovieView.displaySearchingMovie();
-                case 4 -> MovieView.displayMovieList();
-                case 5 -> MovieView.displayMovieTheaterList();
-                case 6 -> MovieView.displayCheckingTicket();
+                case 3 -> movieView.displaySearchingMovie();
+                case 4 -> movieView.displayMovieList();
+                case 5 -> movieView.displayMovieTheaterList();
+                case 6 -> movieView.displayCheckingTicket();
                 default -> System.err.println("Invalid input!");
             }
         } while (true);
     }
 
-    public static void displayCustomerHomePage() {
+    public void displayCustomerHomePage(User user) {
         do {
             System.out.println("""
                     1. Search movie
@@ -36,19 +49,22 @@ public class EnjoyGalaxyView {
                     5. Update personal information
                     6. Sign out""");
             int choice = Input.choiceIntegerPrompt("Enter your choice:");
+            CustomerView customerView = CustomerView.getInstance();
+            MovieView movieView = MovieView.getInstance();
             switch (choice) {
-                case 1 -> MovieView.displaySearchingMovie();
-                case 2 -> MovieView.displayMovieList();
-                case 3 -> MovieView.displayMovieTheaterList();
-                case 4 -> MovieView.displayCheckingTicket();
-                case 5 -> UserView.displayCustomerInformation();
+                case 1 -> movieView.displaySearchingMovie();
+                case 2 -> movieView.displayMovieList();
+                case 3 -> movieView.displayMovieTheaterList();
+                case 4 -> movieView.displayCheckingTicket();
+                case 5 -> customerView.displayInformation(user);
                 default -> System.err.println("Invalid input!");
             }
         } while (true);
     }
 
-    public static void displayAdminHomePage() {
+    public void displayAdminHomePage(User user) {
     }
-    public static void displayStaffHomePage() {
+
+    public void displayStaffHomePage(User user) {
     }
 }
