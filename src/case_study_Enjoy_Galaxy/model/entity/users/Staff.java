@@ -80,6 +80,5 @@ public class Staff extends User {
                 + "Sinh nhật: " + getBirthDay() + ", "
                 + "Địa chỉ: " + getAddress()
                 + "Tài khoản: " + getWallet() + "}";
-
     }
 }

@@ -5,7 +5,6 @@ import java.util.regex.Pattern;
 
 public class Validation {
     private static Pattern pattern;
-    private static Matcher matcher;
     private static final String FULL_NAME_REGEX = "^[a-zA-Z\\sàáạã_-]{3,25}$";
     private static final String PHONE_NUMBER_REGEX = "^(84|0[3|5|7|8|9])+([0-9]{8})$";
     private static final String PASSWORD_REGEX = "^((?=.*\\\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!]).{6,20})$";
@@ -24,7 +23,7 @@ public class Validation {
             case "DATE" -> pattern = Pattern.compile(DATE_REGEX);
             case "PASSWORD" -> pattern = Pattern.compile(PASSWORD_REGEX);
         }
-        matcher = pattern.matcher(regex);
+        Matcher matcher = pattern.matcher(regex);
         return matcher.matches();
     }
 }
