@@ -2,7 +2,7 @@ package case_study_Enjoy_Galaxy.view.abstraction;
 
 import case_study_Enjoy_Galaxy.model.entity.users.Admin;
 import case_study_Enjoy_Galaxy.model.entity.users.Staff;
-import case_study_Enjoy_Galaxy.model.entity.users.User;
+import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
 import case_study_Enjoy_Galaxy.model.service.UserService;
 import case_study_Enjoy_Galaxy.model.utils.Input;
 import case_study_Enjoy_Galaxy.view.EnjoyGalaxyView;

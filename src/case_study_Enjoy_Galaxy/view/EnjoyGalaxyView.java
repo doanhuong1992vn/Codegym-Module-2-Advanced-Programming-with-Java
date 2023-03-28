@@ -1,6 +1,6 @@
 package case_study_Enjoy_Galaxy.view;
 
-import case_study_Enjoy_Galaxy.model.entity.users.User;
+import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
 import case_study_Enjoy_Galaxy.model.utils.Input;
 import case_study_Enjoy_Galaxy.view.abstraction.UserView;
 
@@ -27,12 +27,13 @@ public class EnjoyGalaxyView {
             int choice = Input.choiceIntegerPrompt("Enter your choice:");
             CustomerView customerView = CustomerView.getInstance();
             MovieView movieView = MovieView.getInstance();
+            MovieTheaterView movieTheaterView = MovieTheaterView.getInstance();
             switch (choice) {
                 case 1 -> customerView.displaySignUp();
                 case 2 -> UserView.displaySignIn();
                 case 3 -> movieView.displaySearchingMovie();
-                case 4 -> movieView.displayMovieList();
-                case 5 -> movieView.displayMovieTheaterList();
+                case 4 -> movieView.displayList();
+                case 5 -> movieTheaterView.displayList();
                 case 6 -> movieView.displayCheckingTicket();
                 default -> System.err.println("Invalid input!");
             }
@@ -51,10 +52,11 @@ public class EnjoyGalaxyView {
             int choice = Input.choiceIntegerPrompt("Enter your choice:");
             CustomerView customerView = CustomerView.getInstance();
             MovieView movieView = MovieView.getInstance();
+            MovieTheaterView movieTheaterView = MovieTheaterView.getInstance();
             switch (choice) {
                 case 1 -> movieView.displaySearchingMovie();
-                case 2 -> movieView.displayMovieList();
-                case 3 -> movieView.displayMovieTheaterList();
+                case 2 -> movieView.displayList();
+                case 3 -> movieTheaterView.displayList();
                 case 4 -> movieView.displayCheckingTicket();
                 case 5 -> customerView.displayInformation(user);
                 default -> System.err.println("Invalid input!");

@@ -1,6 +1,6 @@
 package case_study_Enjoy_Galaxy.model.factory;
 
-import case_study_Enjoy_Galaxy.model.entity.seat.Seat;
+import case_study_Enjoy_Galaxy.model.entity.seat.abstraction.Seat;
 import case_study_Enjoy_Galaxy.model.entity.seat.DeluxeSeat;
 import case_study_Enjoy_Galaxy.model.entity.seat.StandardSeat;
 import case_study_Enjoy_Galaxy.model.entity.seat.SweetBox;

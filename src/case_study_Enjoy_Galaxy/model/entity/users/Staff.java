@@ -1,5 +1,7 @@
 package case_study_Enjoy_Galaxy.model.entity.users;
 
+import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

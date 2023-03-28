@@ -1,7 +1,9 @@
 package case_study_Enjoy_Galaxy.model.utils;
 
 import case_study_Enjoy_Galaxy.model.entity.Movie;
+import case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction.MovieTheater;
 import case_study_Enjoy_Galaxy.model.entity.users.Customer;
+import case_study_Enjoy_Galaxy.model.factory.MovieTheaterFactory;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class FileReadingUtils {
-    private static List<String> readFile(String path) {
+    public static List<String> readFile(String path) {
         List<String> objectList = new ArrayList<>();
         File file = new File(path);
         try (FileReader fileReader = new FileReader(file);
@@ -80,4 +82,26 @@ public class FileReadingUtils {
         }
         return movieList;
     }
+
+    public static List<MovieTheater> readMovieTheaterData(String path) {
+        List<String> informationList = readFile(path);
+        List<MovieTheater> movieTheaterList = new ArrayList<>();
+        final int INDEX_OF_TYPE = 0;
+        final int INDEX_OF_NAME = 1;
+        final int INDEX_OF_ADDRESS = 2;
+        MovieTheaterFactory movieTheaterFactory = MovieTheaterFactory.getInstance();
+        for (String lineOfInformationList: informationList) {
+            if (lineOfInformationList.equals(informationList.get(0))) {
+                continue;
+            }
+            String[] informationArray = lineOfInformationList.split("; ");
+            movieTheaterList.add(movieTheaterFactory.getMovieTheater(
+                    informationArray[INDEX_OF_TYPE],
+                    informationArray[INDEX_OF_NAME],
+                    informationArray[INDEX_OF_ADDRESS]
+            ));
+        }
+        return movieTheaterList;
+    }
+
 }

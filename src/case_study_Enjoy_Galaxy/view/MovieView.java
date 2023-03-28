@@ -3,10 +3,11 @@ package case_study_Enjoy_Galaxy.view;
 import case_study_Enjoy_Galaxy.model.entity.Movie;
 import case_study_Enjoy_Galaxy.model.service.MovieService;
 import case_study_Enjoy_Galaxy.model.utils.Input;
+import case_study_Enjoy_Galaxy.view.abstraction.IDisplayable;
 
 import java.util.List;
 
-public class MovieView {
+public class MovieView implements IDisplayable {
     private static final MovieView movieView = new MovieView();
 
     private MovieView() {
@@ -15,21 +16,21 @@ public class MovieView {
     public static MovieView getInstance() {
         return movieView;
     }
-
-    public void displayMovieList() {
+    @Override
+    public void displayList() {
         MovieService movieService = MovieService.getInstance();
         List<Movie> movieList = movieService.getMovieList();
         movieList.forEach(System.out::println);
-        displayChoicesOfMovieList();
+        displayChoicesOfList();
     }
-
-    private void displayChoicesOfMovieList() {
+    @Override
+    public void displayChoicesOfList() {
         MovieService movieService = MovieService.getInstance();
         do {
             System.out.println("""
                     1. Sort by movie duration
                     2. Sort by premiere date
-                    3. View movie details by movie ID
+                    3. Display movie details by movie ID
                     4. Go back""");
             int choice = Input.choiceIntegerPrompt("Enter your choice:");
             switch (choice) {
@@ -89,7 +90,7 @@ public class MovieView {
     }
 
     private void displayDetailByMovie(Movie movie) {
-        System.out.println(movie.toStringDetail());
+        System.out.println(movie.getDetail());
         do {
             System.out.println("""
                     1. Book ticket
@@ -98,13 +99,10 @@ public class MovieView {
             switch (choice) {
                 case 1 -> {
                 }//chưa hoàn thiện
-                case 2 -> displayMovieList();
+                case 2 -> displayList();
                 default -> System.out.println("Invalid input!");
             }
         } while (true);
-    }
-
-    public void displayMovieTheaterList() {
     }
 
     public void displayCheckingTicket() {

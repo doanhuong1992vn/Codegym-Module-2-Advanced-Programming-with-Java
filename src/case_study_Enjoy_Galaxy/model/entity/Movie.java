@@ -105,7 +105,7 @@ public class Movie {
         this.content = content;
     }
 
-    public String toStringDetail() {
+    public String getDetail() {
         return String.format("""
                         ID phim: %s
                         Tên phim: %s
