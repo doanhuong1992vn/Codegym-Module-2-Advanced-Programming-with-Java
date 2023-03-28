@@ -79,6 +79,10 @@ public abstract class Cinema implements ICapacity, IPrice {
     public TreeMap<Date, Movie> getShowTimeList() {
         return showTimeList;
     }
+
+    public void addShowtime(Date date, Movie movie) {
+        showTimeList.put(date, movie);
+    }
     public abstract String getTypeCinema();
 
     @Override

@@ -52,6 +52,14 @@ public abstract class MovieTheater {
         return getCinemas().size();
     }
 
+    public int getShowtimeNumber() {
+        int number = 0;
+        for (Cinema cinema: getCinemas()) {
+            number += cinema.getShowTimeList().size();
+        }
+        return number;
+    }
+
     public abstract String getTypeMovieTheater();
 
     public abstract String getDetail();

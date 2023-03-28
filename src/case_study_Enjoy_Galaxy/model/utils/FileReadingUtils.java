@@ -1,5 +1,7 @@
 package case_study_Enjoy_Galaxy.model.utils;
 
+import case_study_Enjoy_Galaxy.model.builder.IMovieBuilder;
+import case_study_Enjoy_Galaxy.model.builder.MovieConcreteBuilder;
 import case_study_Enjoy_Galaxy.model.entity.Movie;
 import case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction.MovieTheater;
 import case_study_Enjoy_Galaxy.model.entity.users.Customer;
@@ -55,7 +57,7 @@ public class FileReadingUtils {
     public static List<Movie> readMovieData(String path) throws ParseException {
         List<String> propertiesOfMovieList = readFile(path);
         List<Movie> movieList = new ArrayList<>();
-        final int INDEX_OF_MOVIE_TITLE = 0;
+        final int INDEX_OF_MOVIE_NAME = 0;
         final int INDEX_OF_DIRECTOR = 1;
         final int INDEX_OF_ACTORS = 2;
         final int INDEX_OF_MOVIE_GENRE = 3;
@@ -69,16 +71,16 @@ public class FileReadingUtils {
                 continue;
             }
             String[] properties = propertiesOfMovie.split("; ");
-            movieList.add(new Movie(
-                    properties[INDEX_OF_MOVIE_TITLE],
-                    properties[INDEX_OF_DIRECTOR],
-                    properties[INDEX_OF_ACTORS],
-                    properties[INDEX_OF_MOVIE_GENRE],
-                    properties[INDEX_OF_PREMIERE_DATE],
-                    Integer.parseInt(properties[INDEX_OF_MOVIE_DURATION]),
-                    properties[INDEX_OF_LANGUAGE],
-                    properties[INDEX_OF_CONTENT]
-            ));
+            IMovieBuilder movieBuilder = new MovieConcreteBuilder()
+                    .setMovieDuration(Integer.parseInt(properties[INDEX_OF_MOVIE_DURATION]))
+                    .setMovieGenre(properties[INDEX_OF_MOVIE_GENRE])
+                    .setName(properties[INDEX_OF_MOVIE_NAME])
+                    .setActors(properties[INDEX_OF_ACTORS])
+                    .setDirector(properties[INDEX_OF_DIRECTOR])
+                    .setContent(properties[INDEX_OF_CONTENT])
+                    .setLanguage(properties[INDEX_OF_LANGUAGE])
+                    .setPremiereDate(properties[INDEX_OF_PREMIERE_DATE]);
+            movieList.add(movieBuilder.build());
         }
         return movieList;
     }
@@ -90,7 +92,7 @@ public class FileReadingUtils {
         final int INDEX_OF_NAME = 1;
         final int INDEX_OF_ADDRESS = 2;
         MovieTheaterFactory movieTheaterFactory = MovieTheaterFactory.getInstance();
-        for (String lineOfInformationList: informationList) {
+        for (String lineOfInformationList : informationList) {
             if (lineOfInformationList.equals(informationList.get(0))) {
                 continue;
             }

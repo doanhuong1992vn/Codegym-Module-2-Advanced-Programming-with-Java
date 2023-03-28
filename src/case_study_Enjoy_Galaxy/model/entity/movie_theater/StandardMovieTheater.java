@@ -9,7 +9,11 @@ public class StandardMovieTheater extends MovieTheater {
 
     @Override
     public String toString(){
-        return "ID = " + getId() + ": Rạp " + getName() + " có " + getCinemasNumber() + " phòng chiếu. Địa chỉ: " + getAddress();
+        return "ID = " + getId() +
+                ": Rạp " + getName() +
+                " có " + getCinemasNumber() + " phòng chiếu. " +
+                "Đang có " + getShowtimeNumber() + " suất chiếu. " +
+                "Địa chỉ: " + getAddress();
     }
 
     @Override

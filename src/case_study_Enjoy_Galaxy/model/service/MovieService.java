@@ -46,7 +46,7 @@ public class MovieService {
     public List<Movie> getMovieListByKeyword(String keyword) {
         List<Movie> movies = new ArrayList<>();
         for (Movie movie : movieList) {
-            String movieTitleConverted = NormalizerUtils.removeAccent(movie.getTitle()).toUpperCase();
+            String movieTitleConverted = NormalizerUtils.removeAccent(movie.getName()).toUpperCase();
             String keywordConverted = NormalizerUtils.removeAccent(keyword).toUpperCase();
             if (movieTitleConverted.contains(keywordConverted)) {
                 movies.add(movie);

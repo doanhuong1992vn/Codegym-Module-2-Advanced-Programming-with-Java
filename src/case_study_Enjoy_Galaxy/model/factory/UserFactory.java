@@ -15,7 +15,7 @@ public class UserFactory {
         return userFactory;
     }
 
-    public User getUser(String fullName, String phoneNumber, String email, String password, String typeUser) {
+    public User getUser(String typeUser, String fullName, String phoneNumber, String email, String password) {
         String typeUserToUpperCase = typeUser.toUpperCase();
         switch (typeUserToUpperCase) {
             case "STAFF" -> {

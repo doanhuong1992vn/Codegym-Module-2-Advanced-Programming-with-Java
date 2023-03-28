@@ -22,7 +22,7 @@ public class CustomerView extends UserView {
         String email = Input.prompt("Enter your email:", EMAIL_PATTERN);
         String password = Input.prompt("Enter password:");
         UserService userService = UserService.getInstance();
-        if (userService.createAccount(fullName, phoneNumber, email, password, "customer")) {
+        if (userService.createAccount("customer", fullName, phoneNumber, email, password)) {
             System.out.println(userService.getNotification());
             User user = userService.getCurrentUser();
             EnjoyGalaxyView enjoyGalaxyView = EnjoyGalaxyView.getInstance();

@@ -7,7 +7,7 @@ import java.util.Date;
 public class Movie {
     private static int count = 0;
     private int id;
-    private String title;
+    private String name;
     private String director;
     private String actors;
     private String movieGenre;
@@ -16,14 +16,14 @@ public class Movie {
     private String language;
     private String content;
 
-    public Movie(String title, String director, String actors, String movieGenre,
-                 String premiereDate, int movieDuration, String language, String content) throws ParseException {
+    public Movie(String name, String director, String actors, String movieGenre,
+                 String strPremiereDate, int movieDuration, String language, String content) throws ParseException {
         this.id = ++count;
-        this.title = title;
+        this.name = name;
         this.director = director;
         this.actors = actors;
         this.movieGenre = movieGenre;
-        this.premiereDate = new SimpleDateFormat("dd/MM/yyyy").parse(premiereDate);
+        this.premiereDate = new SimpleDateFormat("dd/MM/yyyy").parse(strPremiereDate);
         this.movieDuration = movieDuration;
         this.language = language;
         this.content = content;
@@ -33,12 +33,12 @@ public class Movie {
         return id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDirector() {
@@ -117,7 +117,7 @@ public class Movie {
                         Ngôn ngữ: %s
                         Nội dung: %s""",
                 getId(),
-                getTitle(),
+                getName(),
                 getDirector(),
                 getActors(),
                 getMovieGenre(),
@@ -131,7 +131,7 @@ public class Movie {
     public String toString() {
         return String.format("ID=%d: %s {Thể loại: %s; Khởi chiếu: %s; Thời lượng: %d phút}",
                 getId(),
-                getTitle(),
+                getName(),
                 getMovieGenre(),
                 getStringPremiereDate(),
                 getMovieDuration());
