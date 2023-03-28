@@ -1,6 +1,6 @@
 package case_study_Enjoy_Galaxy.view;
 
-import case_study_Enjoy_Galaxy.model.abstraction.User;
+import case_study_Enjoy_Galaxy.model.entity.users.User;
 import case_study_Enjoy_Galaxy.model.utils.Input;
 import case_study_Enjoy_Galaxy.view.abstraction.UserView;
 

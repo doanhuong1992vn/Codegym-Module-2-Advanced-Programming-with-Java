@@ -1,7 +1,5 @@
 package case_study_Enjoy_Galaxy.model.entity.users;
 
-import case_study_Enjoy_Galaxy.model.abstraction.User;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

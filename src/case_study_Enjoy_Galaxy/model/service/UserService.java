@@ -1,7 +1,7 @@
 package case_study_Enjoy_Galaxy.model.service;
 
 import case_study_Enjoy_Galaxy.model.entity.users.Customer;
-import case_study_Enjoy_Galaxy.model.abstraction.User;
+import case_study_Enjoy_Galaxy.model.entity.users.User;
 import case_study_Enjoy_Galaxy.model.factory.UserFactory;
 import case_study_Enjoy_Galaxy.model.utils.FileReadingUtils;
 

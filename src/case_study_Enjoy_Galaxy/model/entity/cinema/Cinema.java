@@ -1,23 +1,27 @@
-package case_study_Enjoy_Galaxy.model.abstraction;
+package case_study_Enjoy_Galaxy.model.entity.cinema;
 
 import case_study_Enjoy_Galaxy.model.abstraction.ICapacity;
 import case_study_Enjoy_Galaxy.model.abstraction.IPrice;
-import case_study_Enjoy_Galaxy.model.abstraction.Seat;
-import case_study_Enjoy_Galaxy.model.entity.seat.StandardSeat;
+import case_study_Enjoy_Galaxy.model.entity.seat.Seat;
+import case_study_Enjoy_Galaxy.model.entity.Movie;
 import case_study_Enjoy_Galaxy.model.factory.SeatFactory;
+
+import java.text.SimpleDateFormat;
+import java.util.TreeMap;
 
 public abstract class Cinema implements ICapacity, IPrice {
     private String name;
     private int seatColumnNumber = 4;
     private int seatRowNumber = 4;
     private Seat[][] seats;
+    private TreeMap<SimpleDateFormat, Movie> showTimeList = new TreeMap<>();
 
     protected Cinema(String name) {
         this.name = name;
         setSeats(seatRowNumber, seatColumnNumber);
     }
 
-    public Cinema(String name, int seatRowNumber, int seatColumnNumber) {
+    protected Cinema(String name, int seatRowNumber, int seatColumnNumber) {
         this.name = name;
         setSeats(seatRowNumber, seatColumnNumber);
     }

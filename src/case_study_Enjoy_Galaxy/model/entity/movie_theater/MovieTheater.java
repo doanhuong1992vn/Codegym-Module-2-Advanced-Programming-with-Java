@@ -1,20 +1,20 @@
-package case_study_Enjoy_Galaxy.model.entity;
+package case_study_Enjoy_Galaxy.model.entity.movie_theater;
 
-import case_study_Enjoy_Galaxy.model.abstraction.Cinema;
+import case_study_Enjoy_Galaxy.model.entity.cinema.Cinema;
 
 import java.util.List;
 
-public class MovieTheater {
+public abstract class MovieTheater {
     private String name;
     private String address;
     private List<Cinema> cinemas;
 
-    public MovieTheater(String name, String address) {
+    protected MovieTheater(String name, String address) {
         this.name = name;
         this.address = address;
     }
 
-    public MovieTheater(String name, String address, List<Cinema> cinemas) {
+    protected MovieTheater(String name, String address, List<Cinema> cinemas) {
         this.name = name;
         this.address = address;
         this.cinemas = cinemas;
@@ -49,7 +49,5 @@ public class MovieTheater {
     }
 
     @Override
-    public String toString() {
-        return "Rạp " + getName() + " có " + getCinemasNumber() + " phòng chiếu. Đ/c: " + getAddress();
-    }
+    public abstract String toString();
 }

@@ -3,7 +3,7 @@ package case_study_Enjoy_Galaxy.model.factory;
 import case_study_Enjoy_Galaxy.model.entity.users.Admin;
 import case_study_Enjoy_Galaxy.model.entity.users.Customer;
 import case_study_Enjoy_Galaxy.model.entity.users.Staff;
-import case_study_Enjoy_Galaxy.model.abstraction.User;
+import case_study_Enjoy_Galaxy.model.entity.users.User;
 
 public class UserFactory {
     private static final UserFactory userFactory = new UserFactory();

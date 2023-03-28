@@ -1,7 +1,5 @@
 package case_study_Enjoy_Galaxy.model.entity.seat;
 
-import case_study_Enjoy_Galaxy.model.abstraction.Seat;
-
 public class StandardSeat extends Seat {
     @Override
     public String howToSeat() {

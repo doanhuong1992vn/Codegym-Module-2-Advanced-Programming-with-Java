@@ -1,7 +1,5 @@
 package case_study_Enjoy_Galaxy.model.entity.users;
 
-import case_study_Enjoy_Galaxy.model.abstraction.User;
-
 public class Admin extends User {
     public Admin(String phoneNumber, String email, String password) {
         super(phoneNumber, email, password);
