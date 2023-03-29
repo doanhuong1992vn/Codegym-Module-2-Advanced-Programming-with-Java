@@ -28,16 +28,14 @@ public class UserService {
     private String notification;
     private User currentUser;
 
-    public boolean createAccount(String typeUser, String fullName, String phoneNumber, String email, String password) {
+    public void createAccount(String typeUser, String fullName, String phoneNumber, String email, String password) {
         if (checkEmailAndPhoneNumber(email, phoneNumber)) {
             notification = "Phone number or email is already registered";
-            return false;
         } else {
             UserFactory userFactory = UserFactory.getInstance();
             currentUser = userFactory.getUser(typeUser, fullName, phoneNumber, email, password);
             USER_LIST.add(currentUser);
             notification = "Successful registration. Welcome " + fullName + " to Enjoy Galaxy!";
-            return true;
         }
     }
 

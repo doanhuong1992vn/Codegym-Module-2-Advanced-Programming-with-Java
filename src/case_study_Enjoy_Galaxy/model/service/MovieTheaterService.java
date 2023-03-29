@@ -6,11 +6,10 @@ import case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction.MovieTheat
 import case_study_Enjoy_Galaxy.model.factory.CinemaFactory;
 import case_study_Enjoy_Galaxy.model.utils.FileReadingUtils;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class MovieTheaterService {
     private static final MovieTheaterService movieTheaterService = new MovieTheaterService();
@@ -56,7 +55,7 @@ public class MovieTheaterService {
             for (MovieTheater movieTheater : movieTheaterList) {
                 String nameOfMovieTheater = movieTheater.getName();
                 if (nameOfMovieTheater.equals(informationArray[INDEX_OF_NAME_MOVIE_THEATER])) {
-                    List<Cinema> cinemas = movieTheater.getCinemas();
+                    List<Cinema> cinemas = movieTheater.getCinemaList();
                     for (Cinema cinema : cinemas) {
                         String nameOfCinema = cinema.getName();
                         if (nameOfCinema.equals(informationArray[INDEX_OF_NAME_CINEMA])) {
@@ -103,5 +102,74 @@ public class MovieTheaterService {
             }
         }
         return null;
+    }
+
+    public String getTodayToString() {
+        Date date = new Date();
+        return new SimpleDateFormat("dd/MM/yyyy").format(date);
+    }
+
+    public List<StringBuilder> getShowtimeListInDayByMovie(Movie movie, Date date) throws ParseException {
+        List<StringBuilder> result = new ArrayList<>();
+        for (MovieTheater movieTheater : movieTheaterList) {
+            StringBuilder elementOfResult = new StringBuilder();
+            elementOfResult.append("<ID: ")
+                    .append(movieTheater.getId())
+                    .append("> Rạp ")
+                    .append(movieTheater.getName())
+                    .append(": ");
+            StringBuilder showtimeInMovieTheater = new StringBuilder();
+            for (Cinema cinema : movieTheater.getCinemaList()) {
+                TreeMap<Date, Movie> showtimeList = cinema.getShowTimeList();
+                for (Map.Entry<Date, Movie> entry : showtimeList.entrySet()) {
+                    Date today = getBeginningOfDate(date);
+                    final long TIME_OF_TODAY = today.getTime();
+                    final long TIME_OF_ONE_DAY = 1000L * 60 * 60 * 24;
+                    final long TIME_OF_TOMORROW = TIME_OF_TODAY + TIME_OF_ONE_DAY;
+                    final long TIME_OF_SHOWTIME = entry.getKey().getTime();
+                    final long TIME_OF_NOW = date.getTime();
+                    if (TIME_OF_SHOWTIME > TIME_OF_NOW
+                            && TIME_OF_SHOWTIME < TIME_OF_TOMORROW
+                            && movie.equals(entry.getValue())) {
+                        String showtime = DateFormat.getTimeInstance(DateFormat.SHORT).format(entry.getKey());
+                        showtimeInMovieTheater.append(showtime).append("\t");
+                    }
+                }
+            }
+            if (!showtimeInMovieTheater.isEmpty()) {
+                elementOfResult.append(showtimeInMovieTheater);
+                result.add(elementOfResult);
+            }
+        }
+        return result;
+    }
+
+    private static Date getBeginningOfDate(Date date) throws ParseException {
+        String todayFormat = new SimpleDateFormat("dd/MM/yyyy").format(date);
+        return new SimpleDateFormat("dd/MM/yyyy").parse(todayFormat);
+    }
+
+    public Map<Date, Integer> getDateMapByMovie(Movie movie) throws ParseException {
+        Map<Date, Integer> resultMap = new TreeMap<>(Comparator.comparingLong(Date::getTime));
+        for (MovieTheater movieTheater : movieTheaterList) {
+            for (Cinema cinema : movieTheater.getCinemaList()) {
+                TreeMap<Date, Movie> showtimeList = cinema.getShowTimeList();
+                for (Map.Entry<Date, Movie> entry : showtimeList.entrySet()) {
+                    if (movie.equals(entry.getValue())) {
+                        Date showtimeDate = getBeginningOfDate(entry.getKey());
+                        if (resultMap.isEmpty()) {
+                            resultMap.put(showtimeDate, 1);
+                        } else if (resultMap.containsKey(showtimeDate)) {
+                            int showtimeNumber = resultMap.get(showtimeDate);
+                            int newShowtimeNumber = showtimeNumber + 1;
+                            resultMap.replace(showtimeDate, newShowtimeNumber);
+                        } else {
+                            resultMap.put(showtimeDate, 1);
+                        }
+                    }
+                }
+            }
+        }
+        return resultMap;
     }
 }

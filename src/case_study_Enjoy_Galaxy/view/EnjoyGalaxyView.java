@@ -4,6 +4,8 @@ import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
 import case_study_Enjoy_Galaxy.model.utils.Input;
 import case_study_Enjoy_Galaxy.view.abstraction.UserView;
 
+import java.text.ParseException;
+
 public class EnjoyGalaxyView {
     private static final EnjoyGalaxyView enjoyGalaxyView = new EnjoyGalaxyView();
 
@@ -14,10 +16,9 @@ public class EnjoyGalaxyView {
         return enjoyGalaxyView;
     }
 
-    public void displayStartMenu() {
+    public void displayStartMenu() throws ParseException {
         do {
             System.out.println("""
-                    *** Welcome to Enjoy Galaxy !!! ***
                     1. Sign up
                     2. Sign in
                     3. Search movie
@@ -40,7 +41,7 @@ public class EnjoyGalaxyView {
         } while (true);
     }
 
-    public void displayCustomerHomePage(User user) {
+    public void displayCustomerHomePage(User user) throws ParseException {
         do {
             System.out.println("""
                     1. Search movie

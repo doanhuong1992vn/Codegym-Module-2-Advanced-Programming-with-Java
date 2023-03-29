@@ -40,7 +40,7 @@ public abstract class MovieTheater {
         this.address = address;
     }
 
-    public List<Cinema> getCinemas() {
+    public List<Cinema> getCinemaList() {
         return cinemas;
     }
 
@@ -49,12 +49,12 @@ public abstract class MovieTheater {
     }
 
     public int getCinemasNumber() {
-        return getCinemas().size();
+        return getCinemaList().size();
     }
 
     public int getShowtimeNumber() {
         int number = 0;
-        for (Cinema cinema: getCinemas()) {
+        for (Cinema cinema: getCinemaList()) {
             number += cinema.getShowTimeList().size();
         }
         return number;
