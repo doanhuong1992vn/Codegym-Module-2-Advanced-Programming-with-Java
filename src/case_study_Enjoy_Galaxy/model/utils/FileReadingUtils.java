@@ -1,7 +1,7 @@
 package case_study_Enjoy_Galaxy.model.utils;
 
-import case_study_Enjoy_Galaxy.model.builder.IMovieBuilder;
-import case_study_Enjoy_Galaxy.model.builder.MovieConcreteBuilder;
+import case_study_Enjoy_Galaxy.model.builder.movie_builder.IMovieBuilder;
+import case_study_Enjoy_Galaxy.model.builder.movie_builder.MovieConcreteBuilder;
 import case_study_Enjoy_Galaxy.model.entity.Movie;
 import case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction.MovieTheater;
 import case_study_Enjoy_Galaxy.model.entity.users.Customer;

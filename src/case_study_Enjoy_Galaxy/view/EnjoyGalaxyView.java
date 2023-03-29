@@ -1,6 +1,9 @@
 package case_study_Enjoy_Galaxy.view;
 
+import case_study_Enjoy_Galaxy.model.entity.users.Admin;
+import case_study_Enjoy_Galaxy.model.entity.users.Staff;
 import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
+import case_study_Enjoy_Galaxy.model.service.UserService;
 import case_study_Enjoy_Galaxy.model.utils.Input;
 import case_study_Enjoy_Galaxy.view.abstraction.UserView;
 
@@ -31,7 +34,18 @@ public class EnjoyGalaxyView {
             MovieTheaterView movieTheaterView = MovieTheaterView.getInstance();
             switch (choice) {
                 case 1 -> customerView.displaySignUp();
-                case 2 -> UserView.displaySignIn();
+                case 2 -> {
+                    UserView.displaySignIn();
+                    UserService userService = UserService.getInstance();
+                    User user = userService.getCurrentUser();
+                    if (user instanceof Admin) {
+                        displayAdminHomePage(user);
+                    } else if (user instanceof Staff) {
+                        displayStaffHomePage(user);
+                    } else {
+                        displayCustomerHomePage(user);
+                    }
+                }
                 case 3 -> movieView.displaySearchingMovie();
                 case 4 -> movieView.displayList();
                 case 5 -> movieTheaterView.displayList();

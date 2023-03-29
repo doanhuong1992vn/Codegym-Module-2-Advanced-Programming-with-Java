@@ -14,13 +14,13 @@ import java.util.*;
 public class MovieTheaterService {
     private static final MovieTheaterService movieTheaterService = new MovieTheaterService();
     private static final List<MovieTheater> movieTheaterList = new ArrayList<>();
+    private static final String PATH_MOVIE_THEATER_DATA = "src\\case_study_Enjoy_Galaxy\\model\\data\\movie-theater.csv";
+    private static final String PATH_CINEMA_DATA = "src\\case_study_Enjoy_Galaxy\\model\\data\\cinema.csv";
+    private static final String PATH_SHOWTIME_DATA = "src\\case_study_Enjoy_Galaxy\\model\\data\\showtime.csv";
 
     static {
-        movieTheaterList.addAll(FileReadingUtils.readMovieTheaterData(
-                "src\\case_study_Enjoy_Galaxy\\model\\data\\movie-theater.csv"));
-        List<String> cinemaList = FileReadingUtils.readFile(
-                "src\\case_study_Enjoy_Galaxy\\model\\data\\cinema.csv"
-        );
+        movieTheaterList.addAll(FileReadingUtils.readMovieTheaterData(PATH_MOVIE_THEATER_DATA));
+        List<String> cinemaList = FileReadingUtils.readFile(PATH_CINEMA_DATA);
         for (String lineOfCinemaList : cinemaList) {
             if (lineOfCinemaList.equals(cinemaList.get(0))) {
                 continue;
@@ -40,9 +40,7 @@ public class MovieTheaterService {
                 }
             }
         }
-        List<String> showtimeList = FileReadingUtils.readFile(
-                "src\\case_study_Enjoy_Galaxy\\model\\data\\showtime.csv"
-        );
+        List<String> showtimeList = FileReadingUtils.readFile(PATH_SHOWTIME_DATA);
         for (String lineOfShowtimeList : showtimeList) {
             if (lineOfShowtimeList.equals(showtimeList.get(0))) {
                 continue;
@@ -113,12 +111,13 @@ public class MovieTheaterService {
         List<StringBuilder> result = new ArrayList<>();
         for (MovieTheater movieTheater : movieTheaterList) {
             StringBuilder elementOfResult = new StringBuilder();
-            elementOfResult.append("<ID: ")
-                    .append(movieTheater.getId())
-                    .append("> Rạp ")
-                    .append(movieTheater.getName())
-                    .append(": ");
+            final String ID_AND_NAME_OF_MOVIE_THEATER =
+                    "<ID: " + movieTheater.getId() + "> " +
+                            "Rạp " + movieTheater.getName() +
+                            " (" + movieTheater.getAddress() + ") ";
+            elementOfResult.append(ID_AND_NAME_OF_MOVIE_THEATER);
             StringBuilder showtimeInMovieTheater = new StringBuilder();
+            int showtimeNumber = 0;
             for (Cinema cinema : movieTheater.getCinemaList()) {
                 TreeMap<Date, Movie> showtimeList = cinema.getShowTimeList();
                 for (Map.Entry<Date, Movie> entry : showtimeList.entrySet()) {
@@ -131,12 +130,18 @@ public class MovieTheaterService {
                     if (TIME_OF_SHOWTIME > TIME_OF_NOW
                             && TIME_OF_SHOWTIME < TIME_OF_TOMORROW
                             && movie.equals(entry.getValue())) {
+                        ++showtimeNumber;
                         String showtime = DateFormat.getTimeInstance(DateFormat.SHORT).format(entry.getKey());
-                        showtimeInMovieTheater.append(showtime).append("\t");
+                        final String INFORMATION_OF_SHOWTIME =
+                                "\t\tPhòng chiếu " + cinema.getName() + " <ID: " + cinema.getId() + "> " +
+                                        "có suất chiếu lúc: " + showtime + "\n";
+                        showtimeInMovieTheater.append(INFORMATION_OF_SHOWTIME);
                     }
                 }
             }
             if (!showtimeInMovieTheater.isEmpty()) {
+                final String NOTIFICATION_ABOUT_SHOWTIME_NUMBER = "có " + showtimeNumber + " suất chiếu:\n";
+                elementOfResult.append(NOTIFICATION_ABOUT_SHOWTIME_NUMBER);
                 elementOfResult.append(showtimeInMovieTheater);
                 result.add(elementOfResult);
             }

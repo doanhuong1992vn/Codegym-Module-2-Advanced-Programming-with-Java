@@ -12,11 +12,11 @@ import java.util.List;
 public class MovieService {
     private static final MovieService movieService = new MovieService();
     private static final List<Movie> movieList = new ArrayList<>();
+    private static final String PATH = "src\\case_study_Enjoy_Galaxy\\model\\data\\movie.csv";
 
     static {
         try {
-            movieList.addAll(FileReadingUtils.readMovieData(
-                    "src\\case_study_Enjoy_Galaxy\\model\\data\\movie.csv"));
+            movieList.addAll(FileReadingUtils.readMovieData(PATH));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

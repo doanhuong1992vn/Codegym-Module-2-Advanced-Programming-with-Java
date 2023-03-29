@@ -1,4 +1,4 @@
-package case_study_Enjoy_Galaxy.model.builder;
+package case_study_Enjoy_Galaxy.model.builder.movie_builder;
 
 import case_study_Enjoy_Galaxy.model.entity.Movie;
 

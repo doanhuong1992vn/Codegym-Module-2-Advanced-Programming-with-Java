@@ -19,23 +19,16 @@ public abstract class UserView {
     public abstract void displaySignUp() throws ParseException;
 
     public static void displaySignIn() throws ParseException {
-        String username = Input.prompt("Enter email or phone number to sign in:");
+        String phoneNumberOrEmail = Input.prompt("Enter email or phone number to sign in:");
         String password = Input.prompt("Enter password");
         UserService userService = UserService.getInstance();
-        if (userService.checkEmailAndPhoneNumber(username, username)) {
+        if (userService.checkEmailAndPhoneNumber(phoneNumberOrEmail, phoneNumberOrEmail)) {
             User user = userService.getCurrentUser();
             if (password.equals(user.getPassword())) {
                 System.out.println("Hello " + user.getFullName() + ". Thank you for coming back!");
-                EnjoyGalaxyView enjoyGalaxyView = EnjoyGalaxyView.getInstance();
-                if (user instanceof Admin) {
-                    enjoyGalaxyView.displayAdminHomePage(user);
-                } else if (user instanceof Staff) {
-                    enjoyGalaxyView.displayStaffHomePage(user);
-                } else {
-                    enjoyGalaxyView.displayCustomerHomePage(user);
-                }
             } else {
                 System.out.println("Wrong password!");
+                displaySignIn();
             }
         } else {
             System.out.println("Email or phone number is not registered.");

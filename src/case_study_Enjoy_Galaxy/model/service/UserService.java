@@ -11,10 +11,10 @@ import java.util.List;
 public class UserService {
     private static final UserService userService = new UserService();
     private static final List<User> USER_LIST = new ArrayList<>();
+    private static final String PATH = "src\\case_study_Enjoy_Galaxy\\model\\data\\customer.csv";
 
     static {
-        List<Customer> dataList = FileReadingUtils.readCustomerData(
-                "src\\case_study_Enjoy_Galaxy\\model\\data\\customer.csv");
+        List<Customer> dataList = FileReadingUtils.readCustomerData(PATH);
         USER_LIST.addAll(dataList);
     }
 

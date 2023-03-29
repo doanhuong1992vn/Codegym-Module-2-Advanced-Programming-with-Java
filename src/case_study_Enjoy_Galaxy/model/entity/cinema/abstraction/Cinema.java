@@ -1,5 +1,6 @@
 package case_study_Enjoy_Galaxy.model.entity.cinema.abstraction;
 
+import case_study_Enjoy_Galaxy.model.entity.Showtime;
 import case_study_Enjoy_Galaxy.model.general_abstraction.ICapacity;
 import case_study_Enjoy_Galaxy.model.general_abstraction.IPrice;
 import case_study_Enjoy_Galaxy.model.entity.seat.abstraction.Seat;
@@ -7,23 +8,26 @@ import case_study_Enjoy_Galaxy.model.entity.Movie;
 import case_study_Enjoy_Galaxy.model.factory.SeatFactory;
 
 import java.text.SimpleDateFormat;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.TreeMap;
+import java.util.*;
 
 public abstract class Cinema implements ICapacity, IPrice {
+    private static int count = 0;
+    private int id;
     private String name;
     private int seatColumnNumber = 4;
     private int seatRowNumber = 4;
     private Seat[][] seats;
     private TreeMap<Date, Movie> showTimeList = new TreeMap<>(Comparator.comparingLong(Date::getTime));
+    private List<Showtime> newShowtimeList = new ArrayList<>((Collection) Comparator.comparingLong(Showtime::getTimeOfShowtime));
 
     protected Cinema(String name) {
+        this.id = ++count;
         this.name = name;
         setSeats(seatRowNumber, seatColumnNumber);
     }
 
     protected Cinema(String name, int seatRowNumber, int seatColumnNumber) {
+        this.id = ++count;
         this.name = name;
         setSeats(seatRowNumber, seatColumnNumber);
     }
@@ -44,12 +48,20 @@ public abstract class Cinema implements ICapacity, IPrice {
         }
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Seat[][] getSeats() {
+        return seats;
     }
 
     public int getSeatColumnNumber() {
@@ -79,6 +91,10 @@ public abstract class Cinema implements ICapacity, IPrice {
     public TreeMap<Date, Movie> getShowTimeList() {
         return showTimeList;
     }
+    public List<Showtime> getNewShowtimeList() {
+        return newShowtimeList;
+    }
+
 
     public void addShowtime(Date date, Movie movie) {
         showTimeList.put(date, movie);

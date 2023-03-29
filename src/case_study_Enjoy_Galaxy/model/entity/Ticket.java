@@ -1,21 +1,30 @@
 package case_study_Enjoy_Galaxy.model.entity;
 
+import case_study_Enjoy_Galaxy.model.entity.cinema.abstraction.Cinema;
+import case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction.MovieTheater;
+
 public class Ticket {
+    private static int count = 0;
+    private int id;
     private String ticketCode;
-    private double price;
-    private final String nameOfCinemaSystem = "Enjoy Galaxy";
-    private String nameOfMovieTheater;
-    private String addressOfMovieTheater;
-    private String nameOfCinema;
-    private String nameOfMovie;
+    private MovieTheater movieTheater;
+    private Cinema cinema;
+    private Movie movie;
     private String seatCode;
     private String showtime;
     private int personNumber;
+    private double price;
     private boolean paid = false;
     private boolean checked = false;
 
-    public Ticket(String ticketCode, double price) {
-        this.ticketCode = ticketCode;
+    public Ticket(MovieTheater movieTheater, Cinema cinema, Movie movie, String seatCode, String showtime, int personNumber, double price) {
+        this.id = ++count;
+        this.movieTheater = movieTheater;
+        this.cinema = cinema;
+        this.movie = movie;
+        this.seatCode = seatCode;
+        this.showtime = showtime;
+        this.personNumber = personNumber;
         this.price = price;
     }
 
@@ -27,24 +36,8 @@ public class Ticket {
         return price;
     }
 
-    public String getNameOfCinemaSystem() {
-        return nameOfCinemaSystem;
-    }
-
-    public String getNameOfMovieTheater() {
-        return nameOfMovieTheater;
-    }
-
-    public String getAddressOfMovieTheater() {
-        return addressOfMovieTheater;
-    }
-
-    public String getNameOfCinema() {
-        return nameOfCinema;
-    }
-
-    public String getNameOfMovie() {
-        return nameOfMovie;
+    public String getStringENJOYGALAXY() {
+        return "ENJOY GALAXY";
     }
 
     public String getSeatCode() {
