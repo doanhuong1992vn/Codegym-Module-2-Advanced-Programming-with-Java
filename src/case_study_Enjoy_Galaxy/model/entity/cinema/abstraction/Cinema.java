@@ -4,21 +4,20 @@ import case_study_Enjoy_Galaxy.model.entity.Showtime;
 import case_study_Enjoy_Galaxy.model.general_abstraction.ICapacity;
 import case_study_Enjoy_Galaxy.model.general_abstraction.IPrice;
 import case_study_Enjoy_Galaxy.model.entity.seat.abstraction.Seat;
-import case_study_Enjoy_Galaxy.model.entity.Movie;
 import case_study_Enjoy_Galaxy.model.factory.SeatFactory;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public abstract class Cinema implements ICapacity, IPrice {
+    private static final String[] seatCodes =
+            {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"};
     private static int count = 0;
     private int id;
     private String name;
     private int seatColumnNumber = 4;
     private int seatRowNumber = 4;
     private Seat[][] seats;
-    private TreeMap<Date, Movie> showTimeList = new TreeMap<>(Comparator.comparingLong(Date::getTime));
-    private List<Showtime> newShowtimeList = new ArrayList<>((Collection) Comparator.comparingLong(Showtime::getTimeOfShowtime));
+    private List<Showtime> showtimeList = new ArrayList<>();
 
     protected Cinema(String name) {
         this.id = ++count;
@@ -37,11 +36,12 @@ public abstract class Cinema implements ICapacity, IPrice {
         for (int i = 0; i < seatRowNumber; i++) {
             for (int k = 0; k < seatColumnNumber; k++) {
                 SeatFactory seatFactory = SeatFactory.getInstance();
+                String seatCode = seatCodes[i] + String.valueOf(k + 1);
                 switch (i) {
-                    case 0 -> seats[i][k] = seatFactory.getSeat("standard");
-                    case 1 -> seats[i][k] = seatFactory.getSeat("vipseat");
-                    case 2 -> seats[i][k] = seatFactory.getSeat("deluxeseat");
-                    default -> seats[i][k] = seatFactory.getSeat("sweetbox");
+                    case 0 -> seats[i][k] = seatFactory.getSeat("standard", seatCode);
+                    case 1 -> seats[i][k] = seatFactory.getSeat("vipseat", seatCode);
+                    case 2 -> seats[i][k] = seatFactory.getSeat("deluxeseat", seatCode);
+                    default -> seats[i][k] = seatFactory.getSeat("sweetbox", seatCode);
                 }
 
             }
@@ -88,16 +88,13 @@ public abstract class Cinema implements ICapacity, IPrice {
         createSeats(seatRowNumber, seatColumnNumber);
     }
 
-    public TreeMap<Date, Movie> getShowTimeList() {
-        return showTimeList;
-    }
-    public List<Showtime> getNewShowtimeList() {
-        return newShowtimeList;
+    public List<Showtime> getShowtimeList() {
+        return showtimeList;
     }
 
 
-    public void addShowtime(Date date, Movie movie) {
-        showTimeList.put(date, movie);
+    public void addShowtime(Showtime showtime) {
+        showtimeList.add(showtime);
     }
     public abstract String getTypeCinema();
 

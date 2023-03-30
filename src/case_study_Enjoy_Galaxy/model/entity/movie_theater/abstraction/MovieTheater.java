@@ -55,7 +55,7 @@ public abstract class MovieTheater {
     public int getShowtimeNumber() {
         int number = 0;
         for (Cinema cinema: getCinemaList()) {
-            number += cinema.getShowTimeList().size();
+            number += cinema.getShowtimeList().size();
         }
         return number;
     }

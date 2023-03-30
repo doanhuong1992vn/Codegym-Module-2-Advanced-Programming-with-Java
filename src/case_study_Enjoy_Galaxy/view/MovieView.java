@@ -1,6 +1,7 @@
 package case_study_Enjoy_Galaxy.view;
 
 import case_study_Enjoy_Galaxy.model.entity.Movie;
+import case_study_Enjoy_Galaxy.model.entity.seat.abstraction.Seat;
 import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
 import case_study_Enjoy_Galaxy.model.service.MovieService;
 import case_study_Enjoy_Galaxy.model.service.MovieTheaterService;
@@ -11,6 +12,7 @@ import case_study_Enjoy_Galaxy.view.abstraction.UserView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -153,10 +155,18 @@ public class MovieView implements IDisplayable {
             int choice = Input.choiceIntegerPrompt("Enter your choice: ");
             switch (choice) {
                 case 1 -> {
-                    int idMovieTheater = Input.choiceIntegerPrompt("Enter movie theater ID: ");
-                    int idCinema = Input.choiceIntegerPrompt("Enter cinema ID: ");
-                    String showtime = Input.prompt("Enter time of showtime with format \"hh:mm\": ");
-                    String timeBooking = dateToString + " " + showtime + ":00";
+                    int idShowtime = Input.choiceIntegerPrompt("Enter showtime ID: ");
+                    Seat[][] seats = movieTheaterService.getSeatsByShowtimeId(idShowtime);
+                    System.out.println("\t[SCREEN]");
+                    for (int i = 0; i < seats.length; i++) {
+                        System.out.println(Arrays.toString(seats[i]));
+                    }
+                    System.out.println(movieTheaterService.getEmptySeats(seats));
+                    System.out.println("""
+                            1. Select seat code
+                            2. Go back""");
+                    
+                    ////////////////////////////
                 }
                 case 2 -> displaySelectionDateToBookTicket(movie, dateToString);
                 default -> System.out.println("Invalid input!");

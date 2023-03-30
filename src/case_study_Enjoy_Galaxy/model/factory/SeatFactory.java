@@ -13,20 +13,20 @@ public class SeatFactory {
     public static SeatFactory getInstance() {
         return seatFactory;
     }
-    public Seat getSeat(String typeSeat) {
+    public Seat getSeat(String typeSeat, String seatCode) {
         String typeSeatToUpperCase = typeSeat.toUpperCase();
         switch (typeSeatToUpperCase) {
             case "SWEETBOX" -> {
-                return new SweetBox();
+                return new SweetBox(seatCode);
             }
             case "DELUXESEAT" -> {
-                return new DeluxeSeat();
+                return new DeluxeSeat(seatCode);
             }
             case "VIPSEAT" -> {
-                return new VipSeat();
+                return new VipSeat(seatCode);
             }
             default -> {
-                return new StandardSeat();
+                return new StandardSeat(seatCode);
             }
         }
     }

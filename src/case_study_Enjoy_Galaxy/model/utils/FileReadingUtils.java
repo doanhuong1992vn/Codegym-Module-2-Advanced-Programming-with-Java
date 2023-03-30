@@ -44,7 +44,7 @@ public class FileReadingUtils {
             if (propertiesOfCustomer.equals(propertiesOfCustomerList.get(0))) { //it's header
                 continue;
             }
-            String[] properties = propertiesOfCustomer.split("; ");
+            String[] properties = propertiesOfCustomer.split(";");
             customerList.add(new Customer(
                     properties[INDEX_OF_FULL_NAME],
                     properties[INDEX_OF_PHONE_NUMBER],
@@ -70,7 +70,7 @@ public class FileReadingUtils {
             if (propertiesOfMovie.equals(propertiesOfMovieList.get(0))) {
                 continue;
             }
-            String[] properties = propertiesOfMovie.split("; ");
+            String[] properties = propertiesOfMovie.split(";");
             IMovieBuilder movieBuilder = new MovieConcreteBuilder()
                     .setMovieDuration(Integer.parseInt(properties[INDEX_OF_MOVIE_DURATION]))
                     .setMovieGenre(properties[INDEX_OF_MOVIE_GENRE])
@@ -96,7 +96,7 @@ public class FileReadingUtils {
             if (lineOfInformationList.equals(informationList.get(0))) {
                 continue;
             }
-            String[] informationArray = lineOfInformationList.split("; ");
+            String[] informationArray = lineOfInformationList.split(";");
             movieTheaterList.add(movieTheaterFactory.getMovieTheater(
                     informationArray[INDEX_OF_TYPE],
                     informationArray[INDEX_OF_NAME],
