@@ -74,6 +74,11 @@ public class EnjoyGalaxyView {
                 case 3 -> movieTheaterView.displayList();
                 case 4 -> movieView.displayCheckingTicket();
                 case 5 -> customerView.displayInformation(user);
+                case 6 -> {
+                    UserService userService = UserService.getInstance();
+                    userService.setCurrentUser(null);
+                    displayStartMenu();
+                }
                 default -> System.err.println("Invalid input!");
             }
         } while (true);

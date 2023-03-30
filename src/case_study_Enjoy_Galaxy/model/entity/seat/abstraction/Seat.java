@@ -19,8 +19,16 @@ public abstract class Seat implements ISeat, IPrice, ICapacity {
         return ready;
     }
 
+    public String getSeatCode() {
+        return seatCode;
+    }
+
+    public void setSeatCode(String seatCode) {
+        this.seatCode = seatCode;
+    }
+
     @Override
     public String toString() {
-        return seatCode;
+        return getSeatCode();
     }
 }

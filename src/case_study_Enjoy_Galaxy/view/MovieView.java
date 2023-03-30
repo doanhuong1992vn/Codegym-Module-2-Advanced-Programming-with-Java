@@ -1,10 +1,14 @@
 package case_study_Enjoy_Galaxy.view;
 
 import case_study_Enjoy_Galaxy.model.entity.Movie;
+import case_study_Enjoy_Galaxy.model.entity.Ticket;
 import case_study_Enjoy_Galaxy.model.entity.seat.abstraction.Seat;
+import case_study_Enjoy_Galaxy.model.entity.users.Admin;
+import case_study_Enjoy_Galaxy.model.entity.users.Staff;
 import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
 import case_study_Enjoy_Galaxy.model.service.MovieService;
 import case_study_Enjoy_Galaxy.model.service.MovieTheaterService;
+import case_study_Enjoy_Galaxy.model.service.TicketService;
 import case_study_Enjoy_Galaxy.model.service.UserService;
 import case_study_Enjoy_Galaxy.model.utils.Input;
 import case_study_Enjoy_Galaxy.view.abstraction.IDisplayable;
@@ -56,7 +60,18 @@ public class MovieView implements IDisplayable {
                 }
                 case 3 -> displayChoiceMovieById();
                 case 4 -> {
-                    return;
+                    EnjoyGalaxyView enjoyGalaxyView = EnjoyGalaxyView.getInstance();
+                    UserService userService = UserService.getInstance();
+                    User user = userService.getCurrentUser();
+                    if (user == null) {
+                        enjoyGalaxyView.displayStartMenu();
+                    } else if (user instanceof Admin) {
+                        enjoyGalaxyView.displayAdminHomePage(user);
+                    } else if (user instanceof Staff) {
+                        enjoyGalaxyView.displayStaffHomePage(user);
+                    } else {
+                        enjoyGalaxyView.displayCustomerHomePage(user);
+                    }
                 }
                 default -> System.out.println("Invalid input!");
             }
@@ -127,26 +142,18 @@ public class MovieView implements IDisplayable {
     }
 
     public void displayShowtimeOfMovieAtDate(Movie movie, Date date) throws ParseException {
-        String dateToString = new SimpleDateFormat("dd/MM/yyyy").format(date);
+        String dateFormat = new SimpleDateFormat("dd/MM/yyyy").format(date);
         MovieTheaterService movieTheaterService = MovieTheaterService.getInstance();
         List<StringBuilder> showtimeList = movieTheaterService.getShowtimeListInDayByMovie(movie, date);
         if (showtimeList.isEmpty()) {
             System.out.println("Xin lỗi, không có suất chiếu " + movie.getName() +
-                    " trong ngày " + dateToString +
+                    " trong ngày " + dateFormat +
                     ", hãy chọn một ngày khác.");
-            System.out.println("""
-                    1. Select another date
-                    2. Search another movie""");
-            int choice = Input.choiceIntegerPrompt("Enter your choice: ");
-            switch (choice) {
-                case 1 -> displaySelectionDateToBookTicket(movie, dateToString);
-                case 2 -> displaySearchingMovie();
-                default -> System.out.println("Invalid input!");
-            }
+            displayAnotherDateSelectionScreenByMovieAndDateFormat(movie, dateFormat);
         } else {
             System.out.println("Có " + showtimeList.size() +
                     " suất chiếu " + movie.getName() +
-                    " trong ngày " + dateToString +
+                    " trong ngày " + dateFormat +
                     ":");
             showtimeList.forEach(System.out::println);
             System.out.println("""
@@ -158,20 +165,48 @@ public class MovieView implements IDisplayable {
                     int idShowtime = Input.choiceIntegerPrompt("Enter showtime ID: ");
                     Seat[][] seats = movieTheaterService.getSeatsByShowtimeId(idShowtime);
                     System.out.println("\t[SCREEN]");
-                    for (int i = 0; i < seats.length; i++) {
-                        System.out.println(Arrays.toString(seats[i]));
+                    for (Seat[] seat : seats) {
+                        System.out.println(Arrays.toString(seat));
                     }
                     System.out.println(movieTheaterService.getEmptySeats(seats));
                     System.out.println("""
-                            1. Select seat code
+                            1. Select seat code to book ticket
                             2. Go back""");
-                    
+                    int select = Input.choiceIntegerPrompt("Enter your choice: ");
+                    switch (select) {
+                        case 1 -> {
+                            String seatCode = Input.prompt("Enter seat code: ");
+                            TicketService ticketService = TicketService.getInstance();
+                            Ticket ticket = ticketService.getTicket(idShowtime, seatCode);
+                            System.out.println("Vui lòng kiểm tra kỹ thông tin trước khi xác nhận!");
+                            System.out.println(ticket);
+                            String confirm = Input.prompt("Xác nhận đặt vé: Y/N");
+
+
+                            
+                        }
+                    }
                     ////////////////////////////
                 }
-                case 2 -> displaySelectionDateToBookTicket(movie, dateToString);
+                case 2 -> displaySelectionDateToBookTicket(movie, dateFormat);
                 default -> System.out.println("Invalid input!");
             }
         }
+
+    }
+
+    private void displayAnotherDateSelectionScreenByMovieAndDateFormat(Movie movie, String dateToString) throws ParseException {
+        do {
+            System.out.println("""
+                1. Select another date
+                2. Search another movie""");
+            int choice = Input.choiceIntegerPrompt("Enter your choice: ");
+            switch (choice) {
+                case 1 -> displaySelectionDateToBookTicket(movie, dateToString);
+                case 2 -> displaySearchingMovie();
+                default -> System.out.println("Invalid input!");
+            }
+        } while (true);
 
     }
 

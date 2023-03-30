@@ -53,6 +53,10 @@ public class UserService {
         return currentUser;
     }
 
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+
     public String getNotification() {
         return notification;
     }

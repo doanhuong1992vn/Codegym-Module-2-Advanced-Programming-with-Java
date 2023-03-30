@@ -28,10 +28,10 @@ public class Input {
         String text;
         do {
             text = prompt(request);
-            if (!Validation.validate(text, regexPattern)) {
+            if (Validation.invalidate(text, regexPattern)) {
                 System.err.println("Invalid input! Incorrect format!");
             }
-        } while (!Validation.validate(text, regexPattern));
+        } while (Validation.invalidate(text, regexPattern));
         return text;
     }
 }

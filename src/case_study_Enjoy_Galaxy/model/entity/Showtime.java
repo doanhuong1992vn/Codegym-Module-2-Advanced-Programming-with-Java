@@ -107,7 +107,7 @@ public class Showtime {
         this.seats = seats;
     }
 
-    public long getStartTime() {
+    public long getStartShowtime() {
         return date.getTime();
     }
 }

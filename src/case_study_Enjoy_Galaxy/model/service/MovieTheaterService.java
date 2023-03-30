@@ -62,7 +62,14 @@ public class MovieTheaterService {
         }
     }
 
-    private static void addShowtime(int idMovieTheater, int idCinema, String startShowtime, int idMovie) {
+    private MovieTheaterService() {
+    }
+
+    public static MovieTheaterService getInstance() {
+        return movieTheaterService;
+    }
+
+    public static void addShowtime(int idMovieTheater, int idCinema, String startShowtime, int idMovie) {
         for (MovieTheater movieTheater : movieTheaterList) {
             if (movieTheater.getId() == idMovieTheater) {
                 for (Cinema cinema : movieTheater.getCinemaList()) {
@@ -95,13 +102,6 @@ public class MovieTheaterService {
                 }
             }
         }
-    }
-
-    private MovieTheaterService() {
-    }
-
-    public static MovieTheaterService getInstance() {
-        return movieTheaterService;
     }
 
     public List<MovieTheater> getMovieTheaterList() {
@@ -138,7 +138,7 @@ public class MovieTheaterService {
                     final long TIME_OF_TODAY = today.getTime();
                     final long TIME_OF_ONE_DAY = 1000L * 60 * 60 * 24;
                     final long TIME_OF_TOMORROW = TIME_OF_TODAY + TIME_OF_ONE_DAY;
-                    final long TIME_OF_SHOWTIME = showtime.getStartTime();
+                    final long TIME_OF_SHOWTIME = showtime.getStartShowtime();
                     final long TIME_OF_NOW = date.getTime();
                     if (TIME_OF_SHOWTIME > TIME_OF_NOW
                             && TIME_OF_SHOWTIME < TIME_OF_TOMORROW
@@ -226,4 +226,6 @@ public class MovieTheaterService {
         }
         return result;
     }
+
+
 }

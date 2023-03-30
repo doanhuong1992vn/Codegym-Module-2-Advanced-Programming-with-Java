@@ -13,5 +13,14 @@ public interface ITicketBuilder {
     ITicketBuilder setShowtime(String showtime);
     ITicketBuilder setPersonNumber(int personNumber);
     ITicketBuilder setPrice(double price);
+    ITicketBuilder setIdMovieTheater(int idMovieTheater);
+    ITicketBuilder setMovieTheaterName(String movieTheaterName);
+    ITicketBuilder setMovieTheaterAddress(String movieTheaterAddress);
+    ITicketBuilder setIdCinema(int idCinema);
+    ITicketBuilder setCinemaName(String cinemaName);
+    ITicketBuilder setMovieName(String movieName);
+    ITicketBuilder setStartTime(String startTime);
+    ITicketBuilder setEndTime(String endTime);
     Ticket build();
+    Ticket buildFullOption();
 }
