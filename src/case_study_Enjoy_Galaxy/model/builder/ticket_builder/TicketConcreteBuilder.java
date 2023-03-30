@@ -7,6 +7,14 @@ import case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction.MovieTheat
 
 public class TicketConcreteBuilder implements ITicketBuilder{
     private MovieTheater movieTheater;
+    private String userName;
+
+    @Override
+    public ITicketBuilder setUserName(String userName) {
+        this.userName = userName;
+        return this;
+    }
+
     private int idMovieTheater;
     private String movieTheaterName;
     private String movieTheaterAddress;
@@ -124,7 +132,8 @@ public class TicketConcreteBuilder implements ITicketBuilder{
 
     @Override
     public Ticket buildFullOption() {
-        return new Ticket(idMovieTheater,
+        return new Ticket(userName,
+                idMovieTheater,
                 movieTheaterName,
                 movieTheaterAddress,
                 idCinema,

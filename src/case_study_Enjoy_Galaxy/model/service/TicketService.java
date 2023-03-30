@@ -38,8 +38,10 @@ public class TicketService {
                                     Date endTimeOfShowtime = new Date(TIME_OF_END_SHOWTIME);
                                     final String END_TIME_FORMAT = new SimpleDateFormat("dd MMMM yyyy hh:mm")
                                             .format(endTimeOfShowtime);
-                                    double price = cinema.getPrice() + seat.getPrice();
+                                    final double TOTAL_PRICE = cinema.getPrice() + seat.getPrice() * seat.getCapacity();
+                                    UserService userService = UserService.getInstance();
                                     ITicketBuilder ticketBuilder = new TicketConcreteBuilder()
+                                            .setUserName(userService.getCurrentUser().getFullName())
                                             .setIdMovieTheater(movieTheater.getId())
                                             .setMovieTheaterName(movieTheater.getName())
                                             .setMovieTheaterAddress(movieTheater.getAddress())
@@ -50,7 +52,7 @@ public class TicketService {
                                             .setEndTime(END_TIME_FORMAT)
                                             .setSeatCode(seatCode)
                                             .setPersonNumber(seat.getCapacity())
-                                            .setPrice(price);
+                                            .setPrice(TOTAL_PRICE);
                                     return ticketBuilder.buildFullOption();
                                 }
                             }

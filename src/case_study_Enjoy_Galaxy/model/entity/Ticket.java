@@ -9,6 +9,7 @@ public class Ticket {
     private int id;
     private String ticketCode;
     private MovieTheater movieTheater;
+    private String userName;
     private int idMovieTheater;
     private String movieTheaterName;
     private String movieTheaterAddress;
@@ -36,7 +37,9 @@ public class Ticket {
         this.personNumber = personNumber;
         this.price = price;
     }
-    public Ticket(int idMovieTheater,
+
+    public Ticket(String userName,
+                  int idMovieTheater,
                   String movieTheaterName,
                   String movieTheaterAddress,
                   int idCinema,
@@ -48,6 +51,7 @@ public class Ticket {
                   int personNumber,
                   double price) {
         this.id = ++count;
+        this.userName = userName;
         this.idMovieTheater = idMovieTheater;
         this.movieTheaterName = movieTheaterName;
         this.movieTheaterAddress = movieTheaterAddress;
@@ -60,7 +64,6 @@ public class Ticket {
         this.personNumber = personNumber;
         this.price = price;
     }
-
 
 
     public String getTicketCode() {
@@ -78,9 +81,6 @@ public class Ticket {
         return price;
     }
 
-    public String getStringENJOYGALAXY() {
-        return "ENJOY GALAXY";
-    }
 
     public String getSeatCode() {
         return seatCode;
@@ -234,23 +234,33 @@ public class Ticket {
         this.price = price;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     @Override
     public String toString() {
-        String paidStatus = isPaid()?"Đã thanh toán":"Chưa thanh toán";
+        String paidStatus = isPaid() ? "Đã thanh toán" : "Chưa thanh toán";
         return String.format("""
-                ENJOY GALAXY
-                Mã vé: %s
-                Tên phim: %s
-                Thời gian chiếu: %s
-                Thời gian kết thúc: %s
-                Mã chỗ ngồi: %s
-                Số người: %d
-                Tên phòng chiếu: %s
-                Tên rạp: %s
-                Địa chỉ rạp: %s
-                Tổng thiệt hại: %f VNĐ
-                Trạng thái thanh toán: %s
-                """,
+                        ENJOY GALAXY
+                        Khách hàng: %s
+                        Mã vé: %s
+                        Tên phim: %s
+                        Thời gian chiếu: %s
+                        Thời gian kết thúc: %s
+                        Mã chỗ ngồi: %s
+                        Số người: %d
+                        Tên phòng chiếu: %s
+                        Tên rạp: %s
+                        Địa chỉ rạp: %s
+                        Tổng thiệt hại: %f VNĐ
+                        Trạng thái thanh toán: %s
+                        """,
+                getUserName(),
                 getTicketCode(),
                 getMovieName(),
                 getStartTime(),

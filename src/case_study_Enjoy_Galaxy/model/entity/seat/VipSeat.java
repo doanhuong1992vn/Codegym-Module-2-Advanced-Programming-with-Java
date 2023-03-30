@@ -21,4 +21,9 @@ public class VipSeat extends Seat {
     public int getCapacity() {
         return 1;
     }
+
+    @Override
+    public String getSeatType() {
+        return "Vip Seat";
+    }
 }

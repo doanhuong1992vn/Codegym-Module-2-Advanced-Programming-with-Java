@@ -10,16 +10,14 @@ import case_study_Enjoy_Galaxy.model.service.MovieService;
 import case_study_Enjoy_Galaxy.model.service.MovieTheaterService;
 import case_study_Enjoy_Galaxy.model.service.TicketService;
 import case_study_Enjoy_Galaxy.model.service.UserService;
+import case_study_Enjoy_Galaxy.model.utils.DateFormatConverter;
 import case_study_Enjoy_Galaxy.model.utils.Input;
 import case_study_Enjoy_Galaxy.view.abstraction.IDisplayable;
 import case_study_Enjoy_Galaxy.view.abstraction.UserView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MovieView implements IDisplayable {
     private static final MovieView movieView = new MovieView();
@@ -162,20 +160,48 @@ public class MovieView implements IDisplayable {
             int choice = Input.choiceIntegerPrompt("Enter your choice: ");
             switch (choice) {
                 case 1 -> {
-                    int idShowtime = Input.choiceIntegerPrompt("Enter showtime ID: ");
+                    int idShowtime;
+                    boolean isShowtimeListNotContainShowtimeIdInput = true;
+                    do {
+                        idShowtime = Input.choiceIntegerPrompt("Enter showtime ID: ");
+                        String showtimeIdFormatConverted = "<ID SHOWTIME = " + idShowtime + ">";
+                        for (StringBuilder element : showtimeList) {
+                            if (element.toString().contains(showtimeIdFormatConverted)) {
+                                isShowtimeListNotContainShowtimeIdInput = false;
+                                break;
+                            }
+                        }
+                        if (isShowtimeListNotContainShowtimeIdInput) {
+                            System.out.println("Showtime ID " + idShowtime + " does not exist in above list. " +
+                                    "Please re-enter");
+                        }
+                    } while (isShowtimeListNotContainShowtimeIdInput);
                     Seat[][] seats = movieTheaterService.getSeatsByShowtimeId(idShowtime);
                     System.out.println("\t[SCREEN]");
                     for (Seat[] seat : seats) {
                         System.out.println(Arrays.toString(seat));
                     }
-                    System.out.println(movieTheaterService.getEmptySeats(seats));
+                    StringBuilder informationInSeats = movieTheaterService.getInformationInSeats(seats);
+                    System.out.println(informationInSeats);
+                    StringBuilder emptySeats = movieTheaterService.getEmptySeats(seats);
+                    System.out.println(emptySeats);
                     System.out.println("""
                             1. Select seat code to book ticket
                             2. Go back""");
                     int select = Input.choiceIntegerPrompt("Enter your choice: ");
                     switch (select) {
                         case 1 -> {
-                            String seatCode = Input.prompt("Enter seat code: ");
+                            String seatCode;
+                            boolean isEmptySeatsNotContainSeatCodeInput;
+                            do {
+                                seatCode = Input.prompt("Enter seat code: ");
+                                seatCode = seatCode.trim().toUpperCase();
+                                isEmptySeatsNotContainSeatCodeInput =
+                                        !emptySeats.toString().contains(seatCode);
+                                if (isEmptySeatsNotContainSeatCodeInput) {
+                                    System.out.println("Seat code " + seatCode + " has been booked or does not exist");
+                                }
+                            } while (isEmptySeatsNotContainSeatCodeInput);
                             TicketService ticketService = TicketService.getInstance();
                             Ticket ticket = ticketService.getTicket(idShowtime, seatCode);
                             System.out.println("Vui lòng kiểm tra kỹ thông tin trước khi xác nhận!");
@@ -183,12 +209,11 @@ public class MovieView implements IDisplayable {
                             String confirm = Input.prompt("Xác nhận đặt vé: Y/N");
 
 
-                            
                         }
                     }
                     ////////////////////////////
                 }
-                case 2 -> displaySelectionDateToBookTicket(movie, dateFormat);
+                case 2 -> displaySelectionDateToBookTicket(movie);
                 default -> System.out.println("Invalid input!");
             }
         }
@@ -198,11 +223,11 @@ public class MovieView implements IDisplayable {
     private void displayAnotherDateSelectionScreenByMovieAndDateFormat(Movie movie, String dateToString) throws ParseException {
         do {
             System.out.println("""
-                1. Select another date
-                2. Search another movie""");
+                    1. Select another date
+                    2. Search another movie""");
             int choice = Input.choiceIntegerPrompt("Enter your choice: ");
             switch (choice) {
-                case 1 -> displaySelectionDateToBookTicket(movie, dateToString);
+                case 1 -> displaySelectionDateToBookTicket(movie);
                 case 2 -> displaySearchingMovie();
                 default -> System.out.println("Invalid input!");
             }
@@ -210,17 +235,14 @@ public class MovieView implements IDisplayable {
 
     }
 
-    private void displaySelectionDateToBookTicket(Movie movie, String dateToString) throws ParseException {
+    private void displaySelectionDateToBookTicket(Movie movie) throws ParseException {
         MovieTheaterService movieTheaterService = MovieTheaterService.getInstance();
         Map<Date, Integer> dateList = movieTheaterService.getDateMapByMovie(movie);
+        List<String> dateFormatList = new ArrayList<>();
         for (Map.Entry<Date, Integer> entry : dateList.entrySet()) {
-            String dateInMapToString = new SimpleDateFormat("dd/MM/yyyy").format(entry.getKey());
-            if (dateToString.equals(dateInMapToString)) {
-                continue;
-            } else {
-                System.out.println("Ngày " + dateInMapToString +
-                        " có " + entry.getValue() + " suất chiếu.");
-            }
+            String dateFormat = new SimpleDateFormat("dd/MM/yyyy").format(entry.getKey());
+            dateFormatList.add(dateFormat);
+            System.out.println("Ngày " + dateFormat + " có " + entry.getValue() + " suất chiếu.");
         }
         System.out.println("""
                 1. Select date to book ticket
@@ -228,10 +250,19 @@ public class MovieView implements IDisplayable {
         int selection = Input.choiceIntegerPrompt("Enter your choice: ");
         switch (selection) {
             case 1 -> {
-                String dateInputByString = Input.prompt(
-                        "Enter date with format \"dd/mm/yyyy\": ",
-                        "DATE");
-                Date dateInput = new SimpleDateFormat("dd/MM/yyyy").parse(dateInputByString);
+                String dateFormatConverted;
+                do {
+                    String dateFormatInput = Input.prompt(
+                            "Enter date with format \"dd/mm/yyyy\": ",
+                            "DATE");
+                    dateFormatConverted = DateFormatConverter.convertDateFormat(dateFormatInput);
+                    if (!dateFormatList.contains(dateFormatConverted)) {
+                        System.out.println("Xin lỗi, không có suất chiếu " + movie.getName() +
+                                " trong ngày " + dateFormatConverted +
+                                ", hãy chọn một ngày khác.");
+                    }
+                } while (!dateFormatList.contains(dateFormatConverted));
+                Date dateInput = new SimpleDateFormat("dd/MM/yyyy").parse(dateFormatConverted);
                 displayShowtimeOfMovieAtDate(movie, dateInput);
             }
             case 2 -> {

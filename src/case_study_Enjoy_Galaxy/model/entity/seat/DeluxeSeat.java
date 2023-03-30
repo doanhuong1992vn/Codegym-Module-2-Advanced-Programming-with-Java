@@ -21,4 +21,9 @@ public class DeluxeSeat extends Seat {
     public double getPrice() {
         return 90000;
     }
+
+    @Override
+    public String getSeatType() {
+        return "Deluxe Seat";
+    }
 }

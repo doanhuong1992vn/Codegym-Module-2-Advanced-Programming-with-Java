@@ -11,6 +11,7 @@ import case_study_Enjoy_Galaxy.model.factory.CinemaFactory;
 import case_study_Enjoy_Galaxy.model.utils.FileReadingUtils;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -117,11 +118,6 @@ public class MovieTheaterService {
         return null;
     }
 
-    public String getTodayToString() {
-        Date date = new Date();
-        return new SimpleDateFormat("dd/MM/yyyy").format(date);
-    }
-
     public List<StringBuilder> getShowtimeListInDayByMovie(Movie movie, Date date) throws ParseException {
         List<StringBuilder> result = new ArrayList<>();
         for (MovieTheater movieTheater : movieTheaterList) {
@@ -149,7 +145,7 @@ public class MovieTheaterService {
                         final String INFORMATION_OF_SHOWTIME =
                                 "\n\t\tPhòng chiếu " + cinema.getName() +
                                         " có suất chiếu lúc: " + startShowtimeToString +
-                                        " <ID SHOWTIME: " + showtime.getId() + ">";
+                                        " <ID SHOWTIME = " + showtime.getId() + ">";
                         showtimeInMovieTheater.append(INFORMATION_OF_SHOWTIME);
                     }
                 }
@@ -174,7 +170,8 @@ public class MovieTheaterService {
         for (MovieTheater movieTheater : movieTheaterList) {
             for (Cinema cinema : movieTheater.getCinemaList()) {
                 for (Showtime showtime : cinema.getShowtimeList()) {
-                    if (movie.equals(showtime.getMovie())) {
+                    boolean isShowtimeAfterNow = showtime.getDate().getTime() > new Date().getTime();
+                    if (movie.equals(showtime.getMovie()) && isShowtimeAfterNow) {
                         Date showtimeDate = getBeginningOfDate(showtime.getDate());
                         if (resultMap.isEmpty()) {
                             resultMap.put(showtimeDate, 1);
@@ -191,6 +188,7 @@ public class MovieTheaterService {
         }
         return resultMap;
     }
+
 
     public Seat[][] getSeatsByShowtimeId(int idShowtime) {
         for (MovieTheater movieTheater : movieTheaterList) {
@@ -227,5 +225,28 @@ public class MovieTheaterService {
         return result;
     }
 
-
+    public StringBuilder getInformationInSeats(Seat[][] seats) {
+        StringBuilder result = new StringBuilder();
+        for (Seat[] rowSeat : seats) {
+            for (Seat seat : rowSeat) {
+                Locale localeVN = new Locale("vi", "VN");
+                NumberFormat numberFormat = NumberFormat.getCurrencyInstance(localeVN);
+                String priceFormat = numberFormat.format(seat.getPrice());
+                final String NOTIFICATION = "Hàng %s là loại ghế %s dành cho %d người. " +
+                        "Kiểu %s. Giá chỉ %s chưa tính phụ thu\n";
+                String informationEachRow = String.format(NOTIFICATION,
+                        seat.getSeatCode().charAt(0),
+                        seat.getSeatType(),
+                        seat.getCapacity(),
+                        seat.howToSeat(),
+                        priceFormat);
+                result.append(informationEachRow);
+                break;
+            }
+        }
+        final int START_INDEX_OF_NEWLINE_SYMBOL = result.lastIndexOf("\n");
+        final int LAST_INDEX_OF_RESULT = result.length();
+        result.delete(START_INDEX_OF_NEWLINE_SYMBOL, LAST_INDEX_OF_RESULT);
+        return result;
+    }
 }

@@ -9,7 +9,7 @@ public class SweetBox extends Seat {
 
     @Override
     public String howToSeat() {
-        return "ngồi ngọt ngào theo cặp đôi";
+        return "cho cặp đôi chim chuột nhau";
     }
 
     @Override
@@ -20,5 +20,10 @@ public class SweetBox extends Seat {
     @Override
     public int getCapacity() {
         return 2;
+    }
+
+    @Override
+    public String getSeatType() {
+        return "Sweet Box";
     }
 }

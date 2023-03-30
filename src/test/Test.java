@@ -12,6 +12,7 @@ public class Test {
     }
 
     public static void main(String []args){
+        System.out.println(Test.class);
         System.out.println(removeAccent("xin chào đồng chí! ă Â àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễòóọỏõôồốộổỗơờớợởỡìíịỉĩùúụủũưừứựửữỳýỵỷỹ"));
     }
 }
