@@ -33,13 +33,20 @@ public class MovieService {
         return movieList;
     }
 
-    public List<Movie> getMovieListSortedByDuration() {
+    public List<Movie> getMovieListSortedByShortestMovieDuration() {
         movieList.sort(Comparator.comparingLong(Movie::getMovieDuration));
         return movieList;
     }
-
-    public List<Movie> getMovieListSortedByPremiereDate() {
+    public List<Movie> getMovieListSortedByLongestMovieDuration() {
+        movieList.sort(Comparator.comparingLong(Movie::getMovieDuration).reversed());
+        return movieList;
+    }
+    public List<Movie> getMovieListSortedByOldestMovie() {
         movieList.sort(Comparator.comparingLong(Movie::getTimeOfPremiereDate));
+        return movieList;
+    }
+    public List<Movie> getMovieListSortedByLatestMovie() {
+        movieList.sort(Comparator.comparingLong(Movie::getTimeOfPremiereDate).reversed());
         return movieList;
     }
 

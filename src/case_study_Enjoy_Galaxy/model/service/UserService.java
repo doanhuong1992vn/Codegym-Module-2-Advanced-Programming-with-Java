@@ -29,19 +29,29 @@ public class UserService {
     private User currentUser;
 
     public void createAccount(String typeUser, String fullName, String phoneNumber, String email, String password) {
-        if (checkEmailAndPhoneNumber(email, phoneNumber)) {
+        if (checkEmailAndPhoneNumberWhenSignUp(email, phoneNumber)) {
             notification = "Phone number or email is already registered";
         } else {
             UserFactory userFactory = UserFactory.getInstance();
             currentUser = userFactory.getUser(typeUser, fullName, phoneNumber, email, password);
             USER_LIST.add(currentUser);
             notification = "Successful registration. Welcome " + fullName + " to Enjoy Galaxy!";
+
         }
     }
 
-    public boolean checkEmailAndPhoneNumber(String email, String phoneNumber) {
+    public boolean checkEmailAndPhoneNumberWhenSignUp(String email, String phoneNumber) {
         for (User user : USER_LIST) {
             if (email.equals(user.getEmail()) || phoneNumber.equals(user.getPhoneNumber())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkEmailAndPhoneNumber(String phoneNumberOrEmail) {
+        for (User user : USER_LIST) {
+            if (phoneNumberOrEmail.equals(user.getEmail()) || phoneNumberOrEmail.equals(user.getPhoneNumber())) {
                 currentUser = user;
                 return true;
             }

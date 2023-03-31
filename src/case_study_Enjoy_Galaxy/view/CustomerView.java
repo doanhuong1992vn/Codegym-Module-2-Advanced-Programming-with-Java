@@ -27,6 +27,7 @@ public class CustomerView extends UserView {
         EnjoyGalaxyView enjoyGalaxyView = EnjoyGalaxyView.getInstance();
         userService.createAccount("customer", fullName, phoneNumber, email, password);
         System.out.println(userService.getNotification());
+
         enjoyGalaxyView.displayStartMenu();
     }
 

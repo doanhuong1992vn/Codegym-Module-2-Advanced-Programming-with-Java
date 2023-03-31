@@ -22,11 +22,12 @@ public abstract class UserView {
         String phoneNumberOrEmail = Input.prompt("Enter email or phone number to sign in:");
         String password = Input.prompt("Enter password");
         UserService userService = UserService.getInstance();
-        if (userService.checkEmailAndPhoneNumber(phoneNumberOrEmail, phoneNumberOrEmail)) {
+        if (userService.checkEmailAndPhoneNumber(phoneNumberOrEmail)) {
             User user = userService.getCurrentUser();
             if (password.equals(user.getPassword())) {
                 System.out.println("Hello " + user.getFullName() + ". Thank you for coming back!");
             } else {
+                userService.setCurrentUser(null);
                 System.out.println("Wrong password!");
                 displaySignIn();
             }
