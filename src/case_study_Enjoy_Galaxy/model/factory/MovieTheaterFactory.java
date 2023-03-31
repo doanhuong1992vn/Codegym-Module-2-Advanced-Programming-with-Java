@@ -12,13 +12,9 @@ public class MovieTheaterFactory {
     }
     public MovieTheater getMovieTheater(String typeMovieTheater, String name, String address) {
         String typeMovieTheaterToUpperCase = typeMovieTheater.toUpperCase();
-        switch (typeMovieTheaterToUpperCase) {
-            case "STANDARD" -> {
-                return new StandardMovieTheater(name, address);
-            }
-            default -> {
-                return null;
-            }
+        if (typeMovieTheaterToUpperCase.equals("STANDARD")) {
+            return new StandardMovieTheater(name, address);
         }
+        return null;
     }
 }

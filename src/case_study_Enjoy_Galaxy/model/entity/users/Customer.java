@@ -24,7 +24,7 @@ public class Customer extends User {
         } else {
             StringBuilder ticketCodes = new StringBuilder();
             for (Ticket ticket : ticketList) {
-                ticketCodes.append(ticket.getTicketCode()).append(" ");
+                ticketCodes.append(ticket.getTicketCode()).append("\t");
             }
             return ticketCodes.toString();
         }

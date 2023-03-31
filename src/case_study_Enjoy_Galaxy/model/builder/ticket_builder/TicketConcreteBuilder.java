@@ -2,6 +2,8 @@ package case_study_Enjoy_Galaxy.model.builder.ticket_builder;
 
 import case_study_Enjoy_Galaxy.model.entity.Ticket;
 
+import java.util.Date;
+
 public class TicketConcreteBuilder implements ITicketBuilder {
     private String userName;
     private int idMovieTheater;
@@ -12,8 +14,8 @@ public class TicketConcreteBuilder implements ITicketBuilder {
     private String movieName;
     private int movieDuration;
     private String seatCode;
-    private String startTime;
-    private String endTime;
+    private Date showtime;
+    private Date endTime;
     private int personNumber;
     private double price;
 
@@ -84,13 +86,13 @@ public class TicketConcreteBuilder implements ITicketBuilder {
     }
 
     @Override
-    public ITicketBuilder setStartTime(String startTime) {
-        this.startTime = startTime;
+    public ITicketBuilder setShowtime(Date startTime) {
+        this.showtime = startTime;
         return this;
     }
 
     @Override
-    public ITicketBuilder setEndTime(String endTime) {
+    public ITicketBuilder setEndTime(Date endTime) {
         this.endTime = endTime;
         return this;
     }
@@ -106,7 +108,7 @@ public class TicketConcreteBuilder implements ITicketBuilder {
                 movieName,
                 movieDuration,
                 seatCode,
-                startTime,
+                showtime,
                 endTime,
                 personNumber,
                 price);

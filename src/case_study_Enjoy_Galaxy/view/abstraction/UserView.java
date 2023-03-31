@@ -11,11 +11,11 @@ public abstract class UserView {
     public final String PHONE_NUMBER_PATTERN = "PHONE_NUMBER";
     public final String EMAIL_PATTERN = "EMAIL";
 
-    public abstract void displayInformation(User user);
+    public abstract void displayInformation();
 
     public abstract void displaySignUp() throws ParseException;
 
-    public static void displaySignIn() {
+    public void displaySignIn() {
         String phoneNumberOrEmail = Input.prompt("Enter email or phone number to sign in:");
         String password = Input.prompt("Enter password");
         UserService userService = UserService.getInstance();
@@ -57,6 +57,7 @@ public abstract class UserView {
         UserService userService = UserService.getInstance();
         userService.editPassword(password);
     }
+
     public void displayDepositMoney() {
         UserService userService = UserService.getInstance();
         do {

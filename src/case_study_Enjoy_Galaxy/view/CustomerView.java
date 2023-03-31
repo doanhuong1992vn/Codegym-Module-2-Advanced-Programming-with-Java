@@ -1,11 +1,8 @@
 package case_study_Enjoy_Galaxy.view;
 
-import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
 import case_study_Enjoy_Galaxy.model.service.UserService;
 import case_study_Enjoy_Galaxy.model.utils.Input;
 import case_study_Enjoy_Galaxy.view.abstraction.UserView;
-
-import java.text.ParseException;
 
 public class CustomerView extends UserView {
     private static final CustomerView customerView = new CustomerView();
@@ -18,23 +15,21 @@ public class CustomerView extends UserView {
     }
 
     @Override
-    public void displaySignUp() throws ParseException {
+    public void displaySignUp() {
         String fullName = Input.prompt("Enter your full name:", FULL_NAME_PATTERN);
         String phoneNumber = Input.prompt("Enter your phone number:", PHONE_NUMBER_PATTERN);
         String email = Input.prompt("Enter your email:", EMAIL_PATTERN);
         String password = Input.prompt("Enter password:");
         UserService userService = UserService.getInstance();
-        EnjoyGalaxyView enjoyGalaxyView = EnjoyGalaxyView.getInstance();
         userService.createAccount("customer", fullName, phoneNumber, email, password);
         System.out.println(userService.getNotification());
-
-        enjoyGalaxyView.displayStartMenu();
     }
 
     @Override
-    public void displayInformation(User user) {
+    public void displayInformation() {
+        UserService userService = UserService.getInstance();
         do {
-            System.out.println(user.toString());
+            System.out.println(userService.getCurrentUser().toString());
             System.out.println("""
                     1. Edit full name
                     2. Edit phone number

@@ -40,4 +40,12 @@ public class Converter {
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(localeVN);
         return numberFormat.format(price);
     }
+
+    public static String getDateFormat24H(Date date) {
+        return new SimpleDateFormat("dd MMMM yyyy HH:mm a").format(date);
+    }
+
+    public static String getHourFormat24HByDate(Date date) {
+        return new SimpleDateFormat("HH:mm a").format(date);
+    }
 }

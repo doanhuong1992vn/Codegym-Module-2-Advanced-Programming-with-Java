@@ -4,6 +4,7 @@ import case_study_Enjoy_Galaxy.model.entity.users.Admin;
 import case_study_Enjoy_Galaxy.model.entity.users.Customer;
 import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
 import case_study_Enjoy_Galaxy.model.factory.UserFactory;
+import case_study_Enjoy_Galaxy.model.utils.Converter;
 import case_study_Enjoy_Galaxy.model.utils.FileReadingUtils;
 
 import java.util.ArrayList;
@@ -103,4 +104,7 @@ public class UserService {
         currentUser.setWallet(amountAvailable + money);
     }
 
+    public String getWalletFormatOfUser() {
+        return Converter.formatPrice(currentUser.getWallet());
+    }
 }

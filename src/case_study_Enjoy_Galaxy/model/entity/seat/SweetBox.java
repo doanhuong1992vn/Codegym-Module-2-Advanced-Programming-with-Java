@@ -14,7 +14,7 @@ public class SweetBox extends Seat {
 
     @Override
     public double getPrice() {
-        return 100000;
+        return 200000;
     }
 
     @Override

@@ -12,7 +12,7 @@ public class Showtime {
     private String movieTheaterName;
     private String movieTheaterAddress;
     private String cinemaName;
-    private Date date;
+    private Date showtime;
     private Movie movie;
     private Seat[][] seats;
 
@@ -21,7 +21,7 @@ public class Showtime {
                     String movieTheaterName,
                     String movieTheaterAddress,
                     String cinemaName,
-                    Date date,
+                    Date showtime,
                     Movie movie,
                     Seat[][] seats) {
         this.id = ++count;
@@ -30,7 +30,7 @@ public class Showtime {
         this.movieTheaterName = movieTheaterName;
         this.movieTheaterAddress = movieTheaterAddress;
         this.cinemaName = cinemaName;
-        this.date = date;
+        this.showtime = showtime;
         this.movie = movie;
         this.seats = seats;
     }
@@ -83,12 +83,12 @@ public class Showtime {
         this.cinemaName = cinemaName;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getShowtime() {
+        return showtime;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setShowtime(Date showtime) {
+        this.showtime = showtime;
     }
 
     public Movie getMovie() {
@@ -108,6 +108,6 @@ public class Showtime {
     }
 
     public long getStartShowtime() {
-        return date.getTime();
+        return showtime.getTime();
     }
 }

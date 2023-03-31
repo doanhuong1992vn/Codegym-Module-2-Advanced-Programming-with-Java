@@ -11,7 +11,6 @@ import case_study_Enjoy_Galaxy.model.factory.CinemaFactory;
 import case_study_Enjoy_Galaxy.model.utils.Converter;
 import case_study_Enjoy_Galaxy.model.utils.FileReadingUtils;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -140,11 +139,10 @@ public class MovieTheaterService {
                             && TIME_OF_SHOWTIME < TIME_OF_TOMORROW
                             && movie.equals(showtime.getMovie())) {
                         ++showtimeNumber;
-                        String startShowtimeFormat =
-                                DateFormat.getTimeInstance(DateFormat.SHORT).format(showtime.getDate());
+                        String showtimeFormat = Converter.getHourFormat24HByDate(showtime.getShowtime());
                         final String INFORMATION_OF_SHOWTIME =
                                 "\n\t\tPhòng chiếu " + cinema.getName() +
-                                        " có suất chiếu lúc: " + startShowtimeFormat +
+                                        " có suất chiếu lúc: " + showtimeFormat +
                                         " <ID SHOWTIME = " + showtime.getId() + ">";
                         showtimeInMovieTheater.append(INFORMATION_OF_SHOWTIME);
                     }
@@ -160,14 +158,14 @@ public class MovieTheaterService {
         return result;
     }
 
-    public Map<Date, Integer> getDateMapByMovie(Movie movie) throws ParseException {
+    public Map<Date, Integer> getShowtimeDateMapByMovie(Movie movie) throws ParseException {
         Map<Date, Integer> resultMap = new TreeMap<>(Comparator.comparingLong(Date::getTime));
         for (MovieTheater movieTheater : movieTheaterList) {
             for (Cinema cinema : movieTheater.getCinemaList()) {
                 for (Showtime showtime : cinema.getShowtimeList()) {
-                    boolean isShowtimeAfterNow = showtime.getDate().getTime() > new Date().getTime();
+                    boolean isShowtimeAfterNow = showtime.getShowtime().getTime() > new Date().getTime();
                     if (movie.equals(showtime.getMovie()) && isShowtimeAfterNow) {
-                        Date showtimeDate = Converter.convertToBeginningOfDate(showtime.getDate());
+                        Date showtimeDate = Converter.convertToBeginningOfDate(showtime.getShowtime());
                         if (resultMap.isEmpty()) {
                             resultMap.put(showtimeDate, 1);
                         } else if (resultMap.containsKey(showtimeDate)) {
