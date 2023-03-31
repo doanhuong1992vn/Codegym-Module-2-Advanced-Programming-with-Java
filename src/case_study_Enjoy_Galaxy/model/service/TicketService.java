@@ -7,6 +7,8 @@ import case_study_Enjoy_Galaxy.model.entity.Ticket;
 import case_study_Enjoy_Galaxy.model.entity.cinema.abstraction.Cinema;
 import case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction.MovieTheater;
 import case_study_Enjoy_Galaxy.model.entity.seat.abstraction.Seat;
+import case_study_Enjoy_Galaxy.model.entity.users.Customer;
+import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -65,5 +67,24 @@ public class TicketService {
         }
         return null;
     }
+
+    public void addTicketWithoutPayment(Ticket ticket) {
+        ticket.setDateOfBooking(new Date());
+        TICKET_LIST.add(ticket);
+        UserService userService = UserService.getInstance();
+        Customer user = (Customer) userService.getCurrentUser();
+        user.addTicket(ticket);
+    }
+
+    public void addTicketAfterPaid(Ticket ticket) {
+        ticket.setPaid(true);
+        ticket.setDateOfBooking(new Date());
+        ticket.setDateOfPayment(new Date());
+        TICKET_LIST.add(ticket);
+        UserService userService = UserService.getInstance();
+        Customer user = (Customer) userService.getCurrentUser();
+        user.addTicket(ticket);
+    }
+
 
 }

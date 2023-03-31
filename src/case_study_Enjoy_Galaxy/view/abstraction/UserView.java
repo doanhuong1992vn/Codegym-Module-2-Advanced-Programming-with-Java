@@ -40,18 +40,34 @@ public abstract class UserView {
         userService.editFullName(fullName);
     }
 
-    public void displayEditPhoneNumber(User user) {
+    public void displayEditPhoneNumber() {
         String phoneNumber = Input.prompt("Enter new phone number:", PHONE_NUMBER_PATTERN);
-        user.setPhoneNumber(phoneNumber);
+        UserService userService = UserService.getInstance();
+        userService.editPhoneNumber(phoneNumber);
     }
 
-    public void displayEditEmail(User user) {
+    public void displayEditEmail() {
         String email = Input.prompt("Enter new email:", EMAIL_PATTERN);
-        user.setEmail(email);
+        UserService userService = UserService.getInstance();
+        userService.editEmail(email);
     }
 
-    public void displayEditPassword(User user) {
+    public void displayEditPassword() {
         String password = Input.prompt("Enter new password");
-        user.setPassword(password);
+        UserService userService = UserService.getInstance();
+        userService.editPassword(password);
     }
+    public void displayDepositMoney() {
+        UserService userService = UserService.getInstance();
+        do {
+            try {
+                double money = Double.parseDouble(Input.prompt("Enter the amount you want to deposit:"));
+                userService.depositMoney(money);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input! " + e.getMessage());
+            }
+        } while (true);
+    }
+
 }

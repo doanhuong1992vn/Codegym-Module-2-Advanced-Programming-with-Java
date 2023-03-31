@@ -186,7 +186,7 @@ public class MovieView implements IDisplayable {
         }
     }
 
-    private void displayDiagramOfCinemaByShowtimeId(int idShowtime) {
+    private void displayDiagramOfCinemaByShowtimeId(int idShowtime) throws ParseException {
         MovieTheaterService movieTheaterService = MovieTheaterService.getInstance();
         Seat[][] seats = movieTheaterService.getSeatsByShowtimeId(idShowtime);
         System.out.println("\t[SCREEN]");
@@ -222,7 +222,7 @@ public class MovieView implements IDisplayable {
         } while (true);
     }
 
-    private void displayTicketAfterSelectSeatCode(int idShowtime, StringBuilder emptySeats) {
+    private void displayTicketAfterSelectSeatCode(int idShowtime, StringBuilder emptySeats) throws ParseException {
         String seatCode;
         boolean isEmptySeatsNotContainSeatCodeInput;
         do {
@@ -243,20 +243,36 @@ public class MovieView implements IDisplayable {
             switch (firstConfirm) {
                 case "Y", "y", "YES", "yes", "Yes" -> {
                     do {
-                        String lastConfirm = Input.prompt("Do you want to pay now? Y/N");
+                        String lastConfirm = Input.prompt("Book ticket successful. Do you want to pay now? Y/N");
                         switch (lastConfirm) {
                             case "Y", "y", "YES", "yes", "Yes" -> {
                                 UserService userService = UserService.getInstance();
-                                while (!userService.isPaymentSuccess(ticket.getPrice())) {
+                                while (userService.isPaymentFailed(ticket.getPrice())) {
                                     System.out.println("You not enough money in wallet. " +
                                             "Please add more money to your wallet");
                                     CustomerView customerView = CustomerView.getInstance();
-                                    customerView.displayDepositMoney(userService.getCurrentUser());
+                                    customerView.displayDepositMoney();
+                                    if (userService.isPaymentFailed(ticket.getPrice())) {
+                                        System.out.println("You have not deposited enough money. Please top up");
+                                    }
                                 }
-
+                                System.out.println("Payment successful! Thank you!");
+                                ticketService.addTicketAfterPaid(ticket);
+                                System.out.println(ticket);
+                                String choice = Input.prompt("Bạn có đặt thêm vé nào nữa không? Y/N");
+                                switch (choice) {
+                                    case "Y", "y", "YES", "yes", "Yes" -> {
+                                        displayDiagramOfCinemaByShowtimeId(idShowtime);
+                                    }
+                                    case "N", "n", "NO", "no", "No" -> {
+                                        EnjoyGalaxyView.getInstance().displayCustomerHomePage(userService.getCurrentUser());
+                                    }
+                                }
                             }
                             case "N", "n", "NO", "no", "No" -> {
-
+                                System.out.println("Thank you!");
+                                ticketService.addTicketWithoutPayment(ticket);
+                                System.out.println(ticket);
                             }
                             default -> System.out.println("Invalid input!");
                         }

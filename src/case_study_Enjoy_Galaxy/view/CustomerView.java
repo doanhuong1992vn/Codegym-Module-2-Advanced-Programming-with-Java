@@ -45,10 +45,10 @@ public class CustomerView extends UserView {
             int choice = Input.choiceIntegerPrompt("Enter your choice:");
             switch (choice) {
                 case 1 -> displayEditFullName();
-                case 2 -> displayEditPhoneNumber(user);
-                case 3 -> displayEditEmail(user);
-                case 4 -> displayEditPassword(user);
-                case 5 -> displayDepositMoney(user);
+                case 2 -> displayEditPhoneNumber();
+                case 3 -> displayEditEmail();
+                case 4 -> displayEditPassword();
+                case 5 -> displayDepositMoney();
                 case 6 -> {
                     return;
                 }
@@ -56,18 +56,4 @@ public class CustomerView extends UserView {
             }
         } while (true);
     }
-
-    public void displayDepositMoney(User user) {
-        do {
-            try {
-                double money = Double.parseDouble(Input.prompt("Enter the amount you want to deposit:"));
-                double amountAvailable = user.getWallet();
-                user.setWallet(amountAvailable + money);
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input! " + e.getMessage());
-            }
-        } while (true);
-    }
-
 }

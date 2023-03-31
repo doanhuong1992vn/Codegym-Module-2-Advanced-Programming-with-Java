@@ -2,6 +2,10 @@ package case_study_Enjoy_Galaxy.model.entity;
 
 import case_study_Enjoy_Galaxy.model.utils.Converter;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Ticket {
     private static int count = 0;
     private int id;
@@ -16,9 +20,11 @@ public class Ticket {
     private String seatCode;
     private String startTime;
     private String endTime;
-    private int personNumber;
+    private int numberOfPerson;
     private double price;
+    private Date dateOfBooking;
     private boolean paid = false;
+    private Date dateOfPayment;
     private boolean checked = false;
 
     public Ticket(String userName,
@@ -32,7 +38,7 @@ public class Ticket {
                   String seatCode,
                   String startTime,
                   String endTime,
-                  int personNumber,
+                  int numberOfPerson,
                   double price) {
         this.id = ++count;
         this.userName = userName;
@@ -46,7 +52,7 @@ public class Ticket {
         this.seatCode = seatCode;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.personNumber = personNumber;
+        this.numberOfPerson = numberOfPerson;
         this.price = price;
     }
 
@@ -62,6 +68,22 @@ public class Ticket {
                 codeMovie;
     }
 
+    public Date getDateOfBooking() {
+        return dateOfBooking;
+    }
+
+    public void setDateOfBooking(Date dateOfBooking) {
+        this.dateOfBooking = dateOfBooking;
+    }
+
+    public Date getDateOfPayment() {
+        return dateOfPayment;
+    }
+
+    public void setDateOfPayment(Date dateOfPayment) {
+        this.dateOfPayment = dateOfPayment;
+    }
+
     public double getPrice() {
         return price;
     }
@@ -72,8 +94,8 @@ public class Ticket {
     }
 
 
-    public int getPersonNumber() {
-        return personNumber;
+    public int getNumberOfPerson() {
+        return numberOfPerson;
     }
 
     public boolean isPaid() {
@@ -176,8 +198,8 @@ public class Ticket {
         this.endTime = endTime;
     }
 
-    public void setPersonNumber(int personNumber) {
-        this.personNumber = personNumber;
+    public void setNumberOfPerson(int numberOfPerson) {
+        this.numberOfPerson = numberOfPerson;
     }
 
     public void setPrice(double price) {
@@ -202,9 +224,20 @@ public class Ticket {
 
     @Override
     public String toString() {
-        final String PAID_STATUS = isPaid() ? "Đã thanh toán" : "Chưa thanh toán";
+        final String DATE_OF_PAYMENT =
+                getDateOfPayment() == null ?
+                        "Chưa thanh toán" :
+                        new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(getDateOfPayment());
+        String paidStatus = String.format("""
+                        Trạng thái thanh toán: Đã thanh toán
+                        Ngày thanh toán: %s""",
+                DATE_OF_PAYMENT);
         final String PRICE_FORMAT = Converter.formatPrice(getPrice());
-        return String.format("""
+        final String DATE_OF_BOOKING =
+                getDateOfBooking() == null ?
+                        "Chưa xác nhận" :
+                        new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(getDateOfBooking());
+        String simpleResult = String.format("""
                         ENJOY GALAXY MOVIE TICKET
                         Khách hàng: %s
                         Mã vé: %s
@@ -217,9 +250,8 @@ public class Ticket {
                         Tên phòng chiếu: %s
                         Tên rạp: %s
                         Địa chỉ rạp: %s
-                        Tổng thiệt hại: %s
-                        Trạng thái thanh toán: %s
-                        """,
+                        Ngày đặt vé: %s
+                        Tổng thiệt hại: %s""",
                 getUserName(),
                 getTicketCode(),
                 getMovieName(),
@@ -227,11 +259,15 @@ public class Ticket {
                 getStartTime(),
                 getEndTime(),
                 getSeatCode(),
-                getPersonNumber(),
+                getNumberOfPerson(),
                 getCinemaName(),
                 getMovieTheaterName(),
                 getMovieTheaterAddress(),
-                PRICE_FORMAT,
-                PAID_STATUS);
+                DATE_OF_BOOKING,
+                PRICE_FORMAT);
+        if (isPaid()) {
+            return simpleResult.concat(paidStatus);
+        }
+        return simpleResult;
     }
 }

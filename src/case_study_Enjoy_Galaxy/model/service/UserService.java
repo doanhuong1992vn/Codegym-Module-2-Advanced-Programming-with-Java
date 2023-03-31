@@ -71,19 +71,36 @@ public class UserService {
     public String getNotification() {
         return notification;
     }
-    public boolean isPaymentSuccess(double price) {
+    public boolean isPaymentFailed(double price) {
         if (currentUser.getWallet() >= price) {
             final double AMOUNT_AFTER_PAYMENT = currentUser.getWallet() - price;
             currentUser.setWallet(AMOUNT_AFTER_PAYMENT);
             Admin admin = Admin.getInstance();
             final double AMOUNT_AVAILABLE_OF_ADMIN = admin.getWallet();
             admin.setWallet(AMOUNT_AVAILABLE_OF_ADMIN + price);
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
     public void editFullName(String fullName) {
         currentUser.setFullName(fullName);
+    }
+
+    public void editPhoneNumber(String phoneNumber) {
+        currentUser.setPhoneNumber(phoneNumber);
+    }
+
+    public void editEmail(String email) {
+        currentUser.setEmail(email);
+    }
+
+    public void editPassword(String password) {
+        currentUser.setPassword(password);
+    }
+
+    public void depositMoney(double money) {
+        double amountAvailable = currentUser.getWallet();
+        currentUser.setWallet(amountAvailable + money);
     }
 
 }

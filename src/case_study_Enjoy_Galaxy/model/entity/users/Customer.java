@@ -1,5 +1,6 @@
 package case_study_Enjoy_Galaxy.model.entity.users;
 
+import case_study_Enjoy_Galaxy.model.entity.Ticket;
 import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
 
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Customer extends User {
-    private final List<String> ticketCodes = new ArrayList<>();
+    private final List<Ticket> ticketList = new ArrayList<>();
 
     public Customer(String phoneNumber, String email, String password) {
         super(phoneNumber, email, password);
@@ -18,19 +19,22 @@ public class Customer extends User {
     }
 
     public String getTicketCode() {
-        if (ticketCodes.isEmpty()) {
+        if (ticketList.isEmpty()) {
             return "Chưa mua vé";
         } else {
-            return Arrays.toString(ticketCodes.toArray());
+            StringBuilder ticketCodes = new StringBuilder();
+            for (Ticket ticket : ticketList) {
+                ticketCodes.append(ticket.getTicketCode()).append(" ");
+            }
+            return ticketCodes.toString();
         }
     }
-
     public void setTicketCodesEmpty() {
-        ticketCodes.clear();
+        ticketList.clear();
     }
 
-    public void addTicketCode(List<String> ticketCodes) {
-        this.ticketCodes.addAll(ticketCodes);
+    public void addTicket(Ticket ticket) {
+        this.ticketList.add(ticket);
     }
 
     @Override
