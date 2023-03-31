@@ -1,11 +1,8 @@
 package case_study_Enjoy_Galaxy.view.abstraction;
 
-import case_study_Enjoy_Galaxy.model.entity.users.Admin;
-import case_study_Enjoy_Galaxy.model.entity.users.Staff;
 import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
 import case_study_Enjoy_Galaxy.model.service.UserService;
 import case_study_Enjoy_Galaxy.model.utils.Input;
-import case_study_Enjoy_Galaxy.view.EnjoyGalaxyView;
 
 import java.text.ParseException;
 
@@ -18,7 +15,7 @@ public abstract class UserView {
 
     public abstract void displaySignUp() throws ParseException;
 
-    public static void displaySignIn() throws ParseException {
+    public static void displaySignIn() {
         String phoneNumberOrEmail = Input.prompt("Enter email or phone number to sign in:");
         String password = Input.prompt("Enter password");
         UserService userService = UserService.getInstance();
@@ -37,10 +34,10 @@ public abstract class UserView {
         }
     }
 
-
-    public void displayEditFullName(User user) {
+    public void displayEditFullName() {
         String fullName = Input.prompt("Enter new full name:", FULL_NAME_PATTERN);
-        user.setFullName(fullName);
+        UserService userService = UserService.getInstance();
+        userService.editFullName(fullName);
     }
 
     public void displayEditPhoneNumber(User user) {

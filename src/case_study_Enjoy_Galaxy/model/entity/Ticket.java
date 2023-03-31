@@ -1,42 +1,25 @@
 package case_study_Enjoy_Galaxy.model.entity;
 
-import case_study_Enjoy_Galaxy.model.entity.cinema.abstraction.Cinema;
-import case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction.MovieTheater;
-import case_study_Enjoy_Galaxy.model.utils.CodeGenerator;
+import case_study_Enjoy_Galaxy.model.utils.Converter;
 
 public class Ticket {
     private static int count = 0;
     private int id;
-    private String ticketCode;
-    private MovieTheater movieTheater;
     private String userName;
     private int idMovieTheater;
     private String movieTheaterName;
     private String movieTheaterAddress;
-    private Cinema cinema;
     private int idCinema;
     private String cinemaName;
-    private Movie movie;
     private String movieName;
+    private int movieDuration;
     private String seatCode;
-    private String showtime;
     private String startTime;
     private String endTime;
     private int personNumber;
     private double price;
     private boolean paid = false;
     private boolean checked = false;
-
-    public Ticket(MovieTheater movieTheater, Cinema cinema, Movie movie, String seatCode, String showtime, int personNumber, double price) {
-        this.id = ++count;
-        this.movieTheater = movieTheater;
-        this.cinema = cinema;
-        this.movie = movie;
-        this.seatCode = seatCode;
-        this.showtime = showtime;
-        this.personNumber = personNumber;
-        this.price = price;
-    }
 
     public Ticket(String userName,
                   int idMovieTheater,
@@ -45,6 +28,7 @@ public class Ticket {
                   int idCinema,
                   String cinemaName,
                   String movieName,
+                  int movieDuration,
                   String seatCode,
                   String startTime,
                   String endTime,
@@ -58,6 +42,7 @@ public class Ticket {
         this.idCinema = idCinema;
         this.cinemaName = cinemaName;
         this.movieName = movieName;
+        this.movieDuration = movieDuration;
         this.seatCode = seatCode;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -67,9 +52,9 @@ public class Ticket {
 
 
     public String getTicketCode() {
-        StringBuilder codeMovieTheater = CodeGenerator.getCodeOfName(getMovieTheaterName());
-        StringBuilder codeCinema = CodeGenerator.getCodeOfName(getCinemaName());
-        StringBuilder codeMovie = CodeGenerator.getCodeOfName(getMovieName());
+        StringBuilder codeMovieTheater = Converter.convertToCodeByName(getMovieTheaterName());
+        StringBuilder codeCinema = Converter.convertToCodeByName(getCinemaName());
+        StringBuilder codeMovie = Converter.convertToCodeByName(getMovieName());
         return "EG" + getId() + "-" +
                 codeMovieTheater + getIdMovieTheater() + "-" +
                 codeCinema + getIdCinema() + "-" +
@@ -86,9 +71,6 @@ public class Ticket {
         return seatCode;
     }
 
-    public String getShowtime() {
-        return showtime;
-    }
 
     public int getPersonNumber() {
         return personNumber;
@@ -126,18 +108,6 @@ public class Ticket {
         this.id = id;
     }
 
-    public void setTicketCode(String ticketCode) {
-        this.ticketCode = ticketCode;
-    }
-
-    public MovieTheater getMovieTheater() {
-        return movieTheater;
-    }
-
-    public void setMovieTheater(MovieTheater movieTheater) {
-        this.movieTheater = movieTheater;
-    }
-
     public int getIdMovieTheater() {
         return idMovieTheater;
     }
@@ -162,14 +132,6 @@ public class Ticket {
         this.movieTheaterAddress = movieTheaterAddress;
     }
 
-    public Cinema getCinema() {
-        return cinema;
-    }
-
-    public void setCinema(Cinema cinema) {
-        this.cinema = cinema;
-    }
-
     public int getIdCinema() {
         return idCinema;
     }
@@ -186,14 +148,6 @@ public class Ticket {
         this.cinemaName = cinemaName;
     }
 
-    public Movie getMovie() {
-        return movie;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }
-
     public String getMovieName() {
         return movieName;
     }
@@ -204,10 +158,6 @@ public class Ticket {
 
     public void setSeatCode(String seatCode) {
         this.seatCode = seatCode;
-    }
-
-    public void setShowtime(String showtime) {
-        this.showtime = showtime;
     }
 
     public String getStartTime() {
@@ -234,6 +184,14 @@ public class Ticket {
         this.price = price;
     }
 
+    public int getMovieDuration() {
+        return movieDuration;
+    }
+
+    public void setMovieDuration(int movieDuration) {
+        this.movieDuration = movieDuration;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -244,12 +202,14 @@ public class Ticket {
 
     @Override
     public String toString() {
-        String paidStatus = isPaid() ? "Đã thanh toán" : "Chưa thanh toán";
+        final String PAID_STATUS = isPaid() ? "Đã thanh toán" : "Chưa thanh toán";
+        final String PRICE_FORMAT = Converter.formatPrice(getPrice());
         return String.format("""
-                        ENJOY GALAXY
+                        ENJOY GALAXY MOVIE TICKET
                         Khách hàng: %s
                         Mã vé: %s
                         Tên phim: %s
+                        Thời lượng: %d phút
                         Thời gian chiếu: %s
                         Thời gian kết thúc: %s
                         Mã chỗ ngồi: %s
@@ -257,12 +217,13 @@ public class Ticket {
                         Tên phòng chiếu: %s
                         Tên rạp: %s
                         Địa chỉ rạp: %s
-                        Tổng thiệt hại: %f VNĐ
+                        Tổng thiệt hại: %s
                         Trạng thái thanh toán: %s
                         """,
                 getUserName(),
                 getTicketCode(),
                 getMovieName(),
+                getMovieDuration(),
                 getStartTime(),
                 getEndTime(),
                 getSeatCode(),
@@ -270,7 +231,7 @@ public class Ticket {
                 getCinemaName(),
                 getMovieTheaterName(),
                 getMovieTheaterAddress(),
-                getPrice(),
-                paidStatus);
+                PRICE_FORMAT,
+                PAID_STATUS);
     }
 }

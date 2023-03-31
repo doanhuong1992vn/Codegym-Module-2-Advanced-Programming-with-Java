@@ -6,11 +6,7 @@ import case_study_Enjoy_Galaxy.model.entity.cinema.abstraction.Cinema;
 import case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction.MovieTheater;
 
 public interface ITicketBuilder {
-    ITicketBuilder setMovieTheater(MovieTheater movieTheater);
-    ITicketBuilder setCinema(Cinema cinema);
-    ITicketBuilder setMovie(Movie movie);
     ITicketBuilder setSeatCode(String seatCode);
-    ITicketBuilder setShowtime(String showtime);
     ITicketBuilder setPersonNumber(int personNumber);
     ITicketBuilder setPrice(double price);
     ITicketBuilder setUserName(String userName);
@@ -20,8 +16,8 @@ public interface ITicketBuilder {
     ITicketBuilder setIdCinema(int idCinema);
     ITicketBuilder setCinemaName(String cinemaName);
     ITicketBuilder setMovieName(String movieName);
+    ITicketBuilder setMovieDuration(int movieDuration);
     ITicketBuilder setStartTime(String startTime);
     ITicketBuilder setEndTime(String endTime);
     Ticket build();
-    Ticket buildFullOption();
 }

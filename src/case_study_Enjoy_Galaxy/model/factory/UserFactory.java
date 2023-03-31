@@ -17,16 +17,9 @@ public class UserFactory {
 
     public User getUser(String typeUser, String fullName, String phoneNumber, String email, String password) {
         String typeUserToUpperCase = typeUser.toUpperCase();
-        switch (typeUserToUpperCase) {
-            case "STAFF" -> {
-                return new Staff(fullName, phoneNumber, email, password);
-            }
-            case "ADMIN" -> {
-                return new Admin(fullName, phoneNumber, email, password);
-            }
-            default -> {
-                return new Customer(fullName, phoneNumber, email, password);
-            }
+        if (typeUserToUpperCase.equals("STAFF")) {
+            return new Staff(fullName, phoneNumber, email, password);
         }
+        return new Customer(fullName, phoneNumber, email, password);
     }
 }

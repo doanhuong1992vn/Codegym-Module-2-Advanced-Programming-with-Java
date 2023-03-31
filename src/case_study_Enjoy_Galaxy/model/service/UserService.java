@@ -1,5 +1,6 @@
 package case_study_Enjoy_Galaxy.model.service;
 
+import case_study_Enjoy_Galaxy.model.entity.users.Admin;
 import case_study_Enjoy_Galaxy.model.entity.users.Customer;
 import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
 import case_study_Enjoy_Galaxy.model.factory.UserFactory;
@@ -70,4 +71,19 @@ public class UserService {
     public String getNotification() {
         return notification;
     }
+    public boolean isPaymentSuccess(double price) {
+        if (currentUser.getWallet() >= price) {
+            final double AMOUNT_AFTER_PAYMENT = currentUser.getWallet() - price;
+            currentUser.setWallet(AMOUNT_AFTER_PAYMENT);
+            Admin admin = Admin.getInstance();
+            final double AMOUNT_AVAILABLE_OF_ADMIN = admin.getWallet();
+            admin.setWallet(AMOUNT_AVAILABLE_OF_ADMIN + price);
+            return true;
+        }
+        return false;
+    }
+    public void editFullName(String fullName) {
+        currentUser.setFullName(fullName);
+    }
+
 }

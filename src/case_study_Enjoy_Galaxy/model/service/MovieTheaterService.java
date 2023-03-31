@@ -8,10 +8,10 @@ import case_study_Enjoy_Galaxy.model.entity.cinema.abstraction.Cinema;
 import case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction.MovieTheater;
 import case_study_Enjoy_Galaxy.model.entity.seat.abstraction.Seat;
 import case_study_Enjoy_Galaxy.model.factory.CinemaFactory;
+import case_study_Enjoy_Galaxy.model.utils.Converter;
 import case_study_Enjoy_Galaxy.model.utils.FileReadingUtils;
 
 import java.text.DateFormat;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -130,7 +130,7 @@ public class MovieTheaterService {
             int showtimeNumber = 0;
             for (Cinema cinema : movieTheater.getCinemaList()) {
                 for (Showtime showtime : cinema.getShowtimeList()) {
-                    Date today = getBeginningOfDate(date);
+                    Date today = Converter.convertToBeginningOfDate(date);
                     final long TIME_OF_TODAY = today.getTime();
                     final long TIME_OF_ONE_DAY = 1000L * 60 * 60 * 24;
                     final long TIME_OF_TOMORROW = TIME_OF_TODAY + TIME_OF_ONE_DAY;
@@ -140,11 +140,11 @@ public class MovieTheaterService {
                             && TIME_OF_SHOWTIME < TIME_OF_TOMORROW
                             && movie.equals(showtime.getMovie())) {
                         ++showtimeNumber;
-                        String startShowtimeToString =
+                        String startShowtimeFormat =
                                 DateFormat.getTimeInstance(DateFormat.SHORT).format(showtime.getDate());
                         final String INFORMATION_OF_SHOWTIME =
                                 "\n\t\tPhòng chiếu " + cinema.getName() +
-                                        " có suất chiếu lúc: " + startShowtimeToString +
+                                        " có suất chiếu lúc: " + startShowtimeFormat +
                                         " <ID SHOWTIME = " + showtime.getId() + ">";
                         showtimeInMovieTheater.append(INFORMATION_OF_SHOWTIME);
                     }
@@ -160,11 +160,6 @@ public class MovieTheaterService {
         return result;
     }
 
-    private static Date getBeginningOfDate(Date date) throws ParseException {
-        String todayFormat = new SimpleDateFormat("dd/MM/yyyy").format(date);
-        return new SimpleDateFormat("dd/MM/yyyy").parse(todayFormat);
-    }
-
     public Map<Date, Integer> getDateMapByMovie(Movie movie) throws ParseException {
         Map<Date, Integer> resultMap = new TreeMap<>(Comparator.comparingLong(Date::getTime));
         for (MovieTheater movieTheater : movieTheaterList) {
@@ -172,7 +167,7 @@ public class MovieTheaterService {
                 for (Showtime showtime : cinema.getShowtimeList()) {
                     boolean isShowtimeAfterNow = showtime.getDate().getTime() > new Date().getTime();
                     if (movie.equals(showtime.getMovie()) && isShowtimeAfterNow) {
-                        Date showtimeDate = getBeginningOfDate(showtime.getDate());
+                        Date showtimeDate = Converter.convertToBeginningOfDate(showtime.getDate());
                         if (resultMap.isEmpty()) {
                             resultMap.put(showtimeDate, 1);
                         } else if (resultMap.containsKey(showtimeDate)) {
@@ -209,7 +204,7 @@ public class MovieTheaterService {
         for (Seat[] rowSeat : seats) {
             for (Seat seat : rowSeat) {
                 if (seat.isReady()) {
-                    emptySeats.append(seat.toString());
+                    emptySeats.append(seat);
                     emptySeats.append(" ");
                 }
             }
@@ -229,9 +224,7 @@ public class MovieTheaterService {
         StringBuilder result = new StringBuilder();
         for (Seat[] rowSeat : seats) {
             for (Seat seat : rowSeat) {
-                Locale localeVN = new Locale("vi", "VN");
-                NumberFormat numberFormat = NumberFormat.getCurrencyInstance(localeVN);
-                String priceFormat = numberFormat.format(seat.getPrice());
+                String priceFormat = Converter.formatPrice(seat.getPrice());
                 final String NOTIFICATION = "Hàng %s là loại ghế %s dành cho %d người. " +
                         "Kiểu %s. Giá chỉ %s chưa tính phụ thu\n";
                 String informationEachRow = String.format(NOTIFICATION,

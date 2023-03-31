@@ -1,13 +1,21 @@
 package case_study_Enjoy_Galaxy.model.builder.ticket_builder;
 
-import case_study_Enjoy_Galaxy.model.entity.Movie;
 import case_study_Enjoy_Galaxy.model.entity.Ticket;
-import case_study_Enjoy_Galaxy.model.entity.cinema.abstraction.Cinema;
-import case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction.MovieTheater;
 
-public class TicketConcreteBuilder implements ITicketBuilder{
-    private MovieTheater movieTheater;
+public class TicketConcreteBuilder implements ITicketBuilder {
     private String userName;
+    private int idMovieTheater;
+    private String movieTheaterName;
+    private String movieTheaterAddress;
+    private int idCinema;
+    private String cinemaName;
+    private String movieName;
+    private int movieDuration;
+    private String seatCode;
+    private String startTime;
+    private String endTime;
+    private int personNumber;
+    private double price;
 
     @Override
     public ITicketBuilder setUserName(String userName) {
@@ -15,47 +23,9 @@ public class TicketConcreteBuilder implements ITicketBuilder{
         return this;
     }
 
-    private int idMovieTheater;
-    private String movieTheaterName;
-    private String movieTheaterAddress;
-    private Cinema cinema;
-    private int idCinema;
-    private String cinemaName;
-    private Movie movie;
-    private String movieName;
-    private String seatCode;
-    private String showtime;
-    private String startTime;
-    private String endTime;
-    private int personNumber;
-    private double price;
-    @Override
-    public ITicketBuilder setMovieTheater(MovieTheater movieTheater) {
-        this.movieTheater = movieTheater;
-        return this;
-    }
-
-    @Override
-    public ITicketBuilder setCinema(Cinema cinema) {
-        this.cinema = cinema;
-        return this;
-    }
-
-    @Override
-    public ITicketBuilder setMovie(Movie movie) {
-        this.movie = movie;
-        return this;
-    }
-
     @Override
     public ITicketBuilder setSeatCode(String seatCode) {
         this.seatCode = seatCode;
-        return this;
-    }
-
-    @Override
-    public ITicketBuilder setShowtime(String showtime) {
-        this.showtime = showtime;
         return this;
     }
 
@@ -108,6 +78,12 @@ public class TicketConcreteBuilder implements ITicketBuilder{
     }
 
     @Override
+    public ITicketBuilder setMovieDuration(int movieDuration) {
+        this.movieDuration = movieDuration;
+        return this;
+    }
+
+    @Override
     public ITicketBuilder setStartTime(String startTime) {
         this.startTime = startTime;
         return this;
@@ -121,17 +97,6 @@ public class TicketConcreteBuilder implements ITicketBuilder{
 
     @Override
     public Ticket build() {
-        return new Ticket(movieTheater,
-                cinema,
-                movie,
-                seatCode,
-                showtime,
-                personNumber,
-                price);
-    }
-
-    @Override
-    public Ticket buildFullOption() {
         return new Ticket(userName,
                 idMovieTheater,
                 movieTheaterName,
@@ -139,6 +104,7 @@ public class TicketConcreteBuilder implements ITicketBuilder{
                 idCinema,
                 cinemaName,
                 movieName,
+                movieDuration,
                 seatCode,
                 startTime,
                 endTime,

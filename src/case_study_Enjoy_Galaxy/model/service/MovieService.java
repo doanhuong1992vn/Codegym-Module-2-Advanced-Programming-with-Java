@@ -1,8 +1,8 @@
 package case_study_Enjoy_Galaxy.model.service;
 
 import case_study_Enjoy_Galaxy.model.entity.Movie;
+import case_study_Enjoy_Galaxy.model.utils.Converter;
 import case_study_Enjoy_Galaxy.model.utils.FileReadingUtils;
-import case_study_Enjoy_Galaxy.model.utils.NormalizerUtils;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -53,8 +53,8 @@ public class MovieService {
     public List<Movie> getMovieListByKeyword(String keyword) {
         List<Movie> movies = new ArrayList<>();
         for (Movie movie : movieList) {
-            String movieTitleConverted = NormalizerUtils.removeAccent(movie.getName()).toUpperCase();
-            String keywordConverted = NormalizerUtils.removeAccent(keyword).toUpperCase();
+            String movieTitleConverted = Converter.removeAccent(movie.getName()).toUpperCase();
+            String keywordConverted = Converter.removeAccent(keyword).toUpperCase();
             if (movieTitleConverted.contains(keywordConverted)) {
                 movies.add(movie);
             }

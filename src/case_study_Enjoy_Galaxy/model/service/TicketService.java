@@ -8,10 +8,13 @@ import case_study_Enjoy_Galaxy.model.entity.cinema.abstraction.Cinema;
 import case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction.MovieTheater;
 import case_study_Enjoy_Galaxy.model.entity.seat.abstraction.Seat;
 
-import java.text.SimpleDateFormat;
+import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class TicketService {
+    private static final List<Ticket> TICKET_LIST = new ArrayList<>();
     private static final TicketService ticketService = new TicketService();
     private TicketService() {
     }
@@ -27,16 +30,14 @@ public class TicketService {
                         for (Seat[] seatRow : showtime.getSeats()) {
                             for (Seat seat : seatRow) {
                                 if (seatCode.equals(seat.getSeatCode())) {
-                                    final String START_TIME_FORMAT = new SimpleDateFormat("dd MMMM yyyy hh:mm")
+                                    final String START_TIME_FORMAT = DateFormat.getTimeInstance(DateFormat.SHORT)
                                             .format(showtime.getDate());
                                     final long MOVIE_DURATION = showtime.getMovie().getMovieDuration() * 60 * 1000L;
-                                    final long TIME_OF_CLEANING = 1000L * 60 * 15;
                                     final long TIME_OF_END_SHOWTIME =
                                             showtime.getStartShowtime()
-                                            + MOVIE_DURATION
-                                            + TIME_OF_CLEANING;
+                                            + MOVIE_DURATION;
                                     Date endTimeOfShowtime = new Date(TIME_OF_END_SHOWTIME);
-                                    final String END_TIME_FORMAT = new SimpleDateFormat("dd MMMM yyyy hh:mm")
+                                    final String END_TIME_FORMAT = DateFormat.getTimeInstance(DateFormat.SHORT)
                                             .format(endTimeOfShowtime);
                                     final double TOTAL_PRICE = cinema.getPrice() + seat.getPrice() * seat.getCapacity();
                                     UserService userService = UserService.getInstance();
@@ -48,12 +49,13 @@ public class TicketService {
                                             .setIdCinema(cinema.getId())
                                             .setCinemaName(cinema.getName())
                                             .setMovieName(showtime.getMovie().getName())
+                                            .setMovieDuration(showtime.getMovie().getMovieDuration())
                                             .setStartTime(START_TIME_FORMAT)
                                             .setEndTime(END_TIME_FORMAT)
                                             .setSeatCode(seatCode)
                                             .setPersonNumber(seat.getCapacity())
                                             .setPrice(TOTAL_PRICE);
-                                    return ticketBuilder.buildFullOption();
+                                    return ticketBuilder.build();
                                 }
                             }
                         }
@@ -63,4 +65,5 @@ public class TicketService {
         }
         return null;
     }
+
 }

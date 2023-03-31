@@ -24,7 +24,6 @@ public class MovieTheaterView implements IDisplayable {
 
     @Override
     public void displayChoicesOfList() {
-        MovieTheaterService movieTheaterService = MovieTheaterService.getInstance();
         do {
             System.out.println("""
                     1. Display movie theater details by movie theater ID
