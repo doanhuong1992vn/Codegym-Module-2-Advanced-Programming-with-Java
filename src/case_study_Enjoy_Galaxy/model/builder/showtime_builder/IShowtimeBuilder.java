@@ -15,5 +15,6 @@ public interface IShowtimeBuilder {
     IShowtimeBuilder setDate(Date date);
     IShowtimeBuilder setMovie(Movie movie);
     IShowtimeBuilder setSeats(Seat[][] seats);
+    IShowtimeBuilder setPrice(double price);
     Showtime build();
 }

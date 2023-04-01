@@ -9,20 +9,24 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class Converter {
-    public static StringBuilder convertToCodeByName(String name) {
+    public static StringBuilder convertNameToCode(String name) {
         String[] arrayOfWordsInMovieTheaterName = name.split(" ");
         StringBuilder code = new StringBuilder();
         for (String word : arrayOfWordsInMovieTheaterName) {
             code.append(word.charAt(0));
         }
-        return code;
+        return removeAccent(code);
+    }
+    public static StringBuilder removeAccent(StringBuilder text) {
+        return new StringBuilder(removeAccent(text.toString()));
     }
 
     public static String removeAccent(String text) {
+        text = text.toUpperCase().trim();
         String temp = Normalizer.normalize(text, Normalizer.Form.NFD);
         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
         temp = pattern.matcher(temp).replaceAll("");
-        return temp.replaceAll("đ", "d");
+        return temp.replaceAll("Đ", "D");
     }
 
     public static String convertDateFormat(String dateFormatInput) throws ParseException {
@@ -48,4 +52,5 @@ public class Converter {
     public static String getHourFormat24HByDate(Date date) {
         return new SimpleDateFormat("HH:mm a").format(date);
     }
+
 }

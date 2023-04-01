@@ -10,6 +10,8 @@ public abstract class UserView {
     public final String FULL_NAME_PATTERN = "FULL_NAME";
     public final String PHONE_NUMBER_PATTERN = "PHONE_NUMBER";
     public final String EMAIL_PATTERN = "EMAIL";
+    public final String PASSWORD = "PASSWORD";
+    public final String DATE = "DATE";
 
     public abstract void displayInformation();
 

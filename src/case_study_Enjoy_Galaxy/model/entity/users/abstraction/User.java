@@ -1,6 +1,12 @@
 package case_study_Enjoy_Galaxy.model.entity.users.abstraction;
 
+import case_study_Enjoy_Galaxy.model.entity.Ticket;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class User {
+    private final List<Ticket> ticketList = new ArrayList<>();
     private String fullName;
     private String phoneNumber;
     private String email;
@@ -18,6 +24,26 @@ public abstract class User {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
+    }
+
+    public String getTicketCode() {
+        if (ticketList.isEmpty()) {
+            return "Chưa mua vé";
+        } else {
+            StringBuilder ticketCodes = new StringBuilder();
+            for (Ticket ticket : ticketList) {
+                ticketCodes.append(ticket.getTicketCode()).append("\t");
+            }
+            return ticketCodes.toString();
+        }
+    }
+
+    public List<Ticket> getTicketList() {
+        return ticketList;
+    }
+
+    public void addTicket(Ticket ticket) {
+        this.ticketList.add(ticket);
     }
 
     public String getFullName() {

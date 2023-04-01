@@ -1,6 +1,7 @@
 package case_study_Enjoy_Galaxy.model.entity.users;
 
 import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
+import case_study_Enjoy_Galaxy.model.utils.Converter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,12 +19,12 @@ public class Staff extends User {
     }
 
     public Staff(String fullName, String phoneNumber, String email, String password, String education,
-                 String jobTitle, double salary, String strBirthDay, String address) throws ParseException {
+                 String jobTitle, double salary, Date birthDay, String address) {
         super(fullName, phoneNumber, email, password);
         this.education = education;
         this.jobTitle = jobTitle;
         this.salary = salary;
-        this.birthDay = new SimpleDateFormat("dd/MM/yyyy").parse(strBirthDay);
+        this.birthDay = birthDay;
         this.address = address;
     }
 
@@ -82,9 +83,9 @@ public class Staff extends User {
                 + "Tuổi: " + getAge() + ", "
                 + "Học vấn: " + getEducation() + ", "
                 + "Chức vụ: " + getJobTitle() + ", "
-                + "Lương: " + getSalary() + ", "
+                + "Lương: " + Converter.formatPrice(getSalary()) + ", "
                 + "Sinh nhật: " + getBirthDay() + ", "
-                + "Địa chỉ: " + getAddress()
-                + "Tài khoản: " + getWallet() + "}";
+                + "Địa chỉ: " + getAddress() + ", "
+                + "Tài khoản: " + Converter.formatPrice(getWallet()) + "}";
     }
 }

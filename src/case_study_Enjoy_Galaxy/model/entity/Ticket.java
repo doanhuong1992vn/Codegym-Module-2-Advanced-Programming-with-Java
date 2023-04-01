@@ -2,6 +2,7 @@ package case_study_Enjoy_Galaxy.model.entity;
 
 import case_study_Enjoy_Galaxy.model.utils.Converter;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Ticket {
@@ -56,9 +57,9 @@ public class Ticket {
 
 
     public String getTicketCode() {
-        StringBuilder codeMovieTheater = Converter.convertToCodeByName(getNameOfMovieTheater());
-        StringBuilder codeCinema = Converter.convertToCodeByName(getNameOfCinema());
-        StringBuilder codeMovie = Converter.convertToCodeByName(getNameOfMovie());
+        StringBuilder codeMovieTheater = Converter.convertNameToCode(getNameOfMovieTheater());
+        StringBuilder codeCinema = Converter.convertNameToCode(getNameOfCinema());
+        StringBuilder codeMovie = Converter.convertNameToCode(getNameOfMovie());
         return "EG" + getId() + "-" +
                 codeMovieTheater + getIdMovieTheater() + "-" +
                 codeCinema + getIdCinema() + "-" +
@@ -166,4 +167,11 @@ public class Ticket {
         return userName;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Mã vé: %s. Giá: %s. Bán ngày: %s",
+                getTicketCode(),
+                Converter.formatPrice(getPrice()),
+                new SimpleDateFormat("dd MMMM yyyy HH:mm:ss a").format(getPaymentTime()));
+    }
 }

@@ -14,6 +14,7 @@ public class ShowtimeConcreteBuilder implements IShowtimeBuilder {
     private String cinemaName;
     private Date date;
     private Movie movie;
+    private double price;
     private Seat[][] seats;
 
     @Override
@@ -65,6 +66,12 @@ public class ShowtimeConcreteBuilder implements IShowtimeBuilder {
     }
 
     @Override
+    public IShowtimeBuilder setPrice(double price) {
+        this.price = price;
+        return this;
+    }
+
+    @Override
     public Showtime build() {
         return new Showtime(
                 idMovieTheater,
@@ -74,6 +81,7 @@ public class ShowtimeConcreteBuilder implements IShowtimeBuilder {
                 cinemaName,
                 date,
                 movie,
+                price,
                 seats);
     }
 }

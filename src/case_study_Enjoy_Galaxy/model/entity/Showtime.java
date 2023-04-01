@@ -14,6 +14,7 @@ public class Showtime {
     private String cinemaName;
     private Date showtime;
     private Movie movie;
+    private double price;
     private Seat[][] seats;
 
     public Showtime(int idMovieTheater,
@@ -23,6 +24,7 @@ public class Showtime {
                     String cinemaName,
                     Date showtime,
                     Movie movie,
+                    double price,
                     Seat[][] seats) {
         this.id = ++count;
         this.idMovieTheater = idMovieTheater;
@@ -32,6 +34,7 @@ public class Showtime {
         this.cinemaName = cinemaName;
         this.showtime = showtime;
         this.movie = movie;
+        this.price = price;
         this.seats = seats;
     }
 
@@ -109,5 +112,13 @@ public class Showtime {
 
     public long getStartShowtime() {
         return showtime.getTime();
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

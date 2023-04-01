@@ -34,4 +34,22 @@ public class Input {
         } while (Validation.invalidate(text, regexPattern));
         return text;
     }
+
+    public static int promptOfMonth(String request) {
+        int output;
+        do {
+            try {
+                System.out.println(request);
+                output = Integer.parseInt(scanner.nextLine());
+                if (output < 1 || output > 12) {
+                    System.err.println("Tháng " + output + " không tồn tại");
+                } else {
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.err.println("Invalid input! Incorrect format : " + e.getMessage());
+            }
+        } while (true);
+        return output;
+    }
 }

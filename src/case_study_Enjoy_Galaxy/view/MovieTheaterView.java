@@ -5,6 +5,7 @@ import case_study_Enjoy_Galaxy.model.service.MovieTheaterService;
 import case_study_Enjoy_Galaxy.model.utils.Input;
 import case_study_Enjoy_Galaxy.view.abstraction.IDisplayable;
 
+import java.text.ParseException;
 import java.util.List;
 
 public class MovieTheaterView implements IDisplayable {
@@ -15,7 +16,7 @@ public class MovieTheaterView implements IDisplayable {
         return movieTheaterView;
     }
     @Override
-    public void displayList() {
+    public void displayList() throws ParseException {
         MovieTheaterService movieTheaterService = MovieTheaterService.getInstance();
         List<MovieTheater> movieTheaterList = movieTheaterService.getMovieTheaterList();
         movieTheaterList.forEach(System.out::println);
@@ -23,7 +24,7 @@ public class MovieTheaterView implements IDisplayable {
     }
 
     @Override
-    public void displayChoicesOfList() {
+    public void displayChoicesOfList() throws ParseException {
         do {
             System.out.println("""
                     1. Display movie theater details by movie theater ID
@@ -31,15 +32,13 @@ public class MovieTheaterView implements IDisplayable {
             int choice = Input.choiceIntegerPrompt("Enter your choice: ");
             switch (choice) {
                 case 1 -> displayChoiceMovieTheaterById();
-                case 2 -> {
-                    return;
-                }
+                case 2 -> EnjoyGalaxyView.getInstance().displayHomePageByUser();
                 default -> System.out.println("Invalid input!!!");
             }
         } while (true);
     }
 
-    private void displayChoiceMovieTheaterById() {
+    private void displayChoiceMovieTheaterById() throws ParseException {
         MovieTheaterService movieTheaterService = MovieTheaterService.getInstance();
         do {
             int idMovieTheater = Input.choiceIntegerPrompt("Enter movie theater ID:");
@@ -52,7 +51,8 @@ public class MovieTheaterView implements IDisplayable {
         } while (true);
     }
 
-    private void displayDetailByMovieTheater(MovieTheater movieTheater) {
+    private void displayDetailByMovieTheater(MovieTheater movieTheater) throws ParseException {
         System.out.println(movieTheater.getDetail());
+        displayChoicesOfList();
     }
 }

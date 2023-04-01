@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Customer extends User {
-    private final List<Ticket> ticketList = new ArrayList<>();
 
     public Customer(String phoneNumber, String email, String password) {
         super(phoneNumber, email, password);
@@ -16,25 +15,6 @@ public class Customer extends User {
 
     public Customer(String fullName, String phoneNumber, String email, String password) {
         super(fullName, phoneNumber, email, password);
-    }
-
-    public String getTicketCode() {
-        if (ticketList.isEmpty()) {
-            return "Chưa mua vé";
-        } else {
-            StringBuilder ticketCodes = new StringBuilder();
-            for (Ticket ticket : ticketList) {
-                ticketCodes.append(ticket.getTicketCode()).append("\t");
-            }
-            return ticketCodes.toString();
-        }
-    }
-    public void setTicketCodesEmpty() {
-        ticketList.clear();
-    }
-
-    public void addTicket(Ticket ticket) {
-        this.ticketList.add(ticket);
     }
 
     @Override

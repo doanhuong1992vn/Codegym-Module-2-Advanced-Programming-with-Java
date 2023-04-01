@@ -4,12 +4,13 @@ import case_study_Enjoy_Galaxy.model.builder.showtime_builder.IShowtimeBuilder;
 import case_study_Enjoy_Galaxy.model.builder.showtime_builder.ShowtimeConcreteBuilder;
 import case_study_Enjoy_Galaxy.model.entity.Movie;
 import case_study_Enjoy_Galaxy.model.entity.Showtime;
+import case_study_Enjoy_Galaxy.model.entity.Ticket;
 import case_study_Enjoy_Galaxy.model.entity.cinema.abstraction.Cinema;
 import case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction.MovieTheater;
 import case_study_Enjoy_Galaxy.model.entity.seat.abstraction.Seat;
 import case_study_Enjoy_Galaxy.model.factory.CinemaFactory;
 import case_study_Enjoy_Galaxy.model.utils.Converter;
-import case_study_Enjoy_Galaxy.model.utils.FileReadingUtils;
+import case_study_Enjoy_Galaxy.model.utils.FileReaderUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,8 +24,8 @@ public class MovieTheaterService {
     private static final String PATH_SHOWTIME_DATA = "src\\case_study_Enjoy_Galaxy\\model\\data\\showtime.csv";
 
     static {
-        movieTheaterList.addAll(FileReadingUtils.readMovieTheaterData(PATH_MOVIE_THEATER_DATA));
-        List<String> cinemaList = FileReadingUtils.readFile(PATH_CINEMA_DATA);
+        movieTheaterList.addAll(FileReaderUtils.readMovieTheaterData(PATH_MOVIE_THEATER_DATA));
+        List<String> cinemaList = FileReaderUtils.readFile(PATH_CINEMA_DATA);
         for (String lineOfCinemaList : cinemaList) {
             if (lineOfCinemaList.equals(cinemaList.get(0))) {
                 continue;
@@ -44,7 +45,7 @@ public class MovieTheaterService {
                 }
             }
         }
-        List<String> showtimeList = FileReadingUtils.readFile(PATH_SHOWTIME_DATA);
+        List<String> showtimeList = FileReaderUtils.readFile(PATH_SHOWTIME_DATA);
         for (String lineOfShowtimeList : showtimeList) {
             if (lineOfShowtimeList.equals(showtimeList.get(0))) {
                 continue;
@@ -96,6 +97,7 @@ public class MovieTheaterService {
                                 .setCinemaName(cinema.getName())
                                 .setIdCinema(cinema.getId())
                                 .setDate(date)
+                                .setPrice(cinema.getPrice())
                                 .setSeats(cinema.getSeats());
                         cinema.addShowtime(showtimeBuilder.build());
                     }
@@ -183,17 +185,28 @@ public class MovieTheaterService {
     }
 
 
-    public Seat[][] getSeatsByShowtimeId(int idShowtime) {
+    public Showtime getShowtimeById(int idShowtime) {
         for (MovieTheater movieTheater : movieTheaterList) {
             for (Cinema cinema : movieTheater.getCinemaList()) {
                 for (Showtime showtime : cinema.getShowtimeList()) {
                     if (showtime.getId() == idShowtime) {
-                        return showtime.getSeats();
+                        return showtime;
                     }
                 }
             }
         }
         return null;
+    }
+    public void reservationsSeat(int idShowtime, Ticket ticket) {
+        Showtime showtime = getShowtimeById(idShowtime);
+        String seatCode = ticket.getSeatCode();
+        for (Seat[] rowOfSeats : showtime.getSeats()) {
+            for (Seat seat : rowOfSeats) {
+                if (seat.getSeatCode().equals(seatCode)) {
+                    seat.setReady(false);
+                }
+            }
+        }
     }
 
     public StringBuilder getEmptySeats(Seat[][] seats) {

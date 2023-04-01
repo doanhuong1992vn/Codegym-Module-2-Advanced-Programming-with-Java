@@ -2,7 +2,7 @@ package case_study_Enjoy_Galaxy.model.service;
 
 import case_study_Enjoy_Galaxy.model.entity.Movie;
 import case_study_Enjoy_Galaxy.model.utils.Converter;
-import case_study_Enjoy_Galaxy.model.utils.FileReadingUtils;
+import case_study_Enjoy_Galaxy.model.utils.FileReaderUtils;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class MovieService {
 
     static {
         try {
-            movieList.addAll(FileReadingUtils.readMovieData(PATH));
+            movieList.addAll(FileReaderUtils.readMovieData(PATH));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -53,8 +53,8 @@ public class MovieService {
     public List<Movie> getMovieListByKeyword(String keyword) {
         List<Movie> movies = new ArrayList<>();
         for (Movie movie : movieList) {
-            String movieTitleConverted = Converter.removeAccent(movie.getName()).toUpperCase();
-            String keywordConverted = Converter.removeAccent(keyword).toUpperCase();
+            String movieTitleConverted = Converter.removeAccent(movie.getName());
+            String keywordConverted = Converter.removeAccent(keyword);
             if (movieTitleConverted.contains(keywordConverted)) {
                 movies.add(movie);
             }

@@ -19,7 +19,7 @@ public class CustomerView extends UserView {
         String fullName = Input.prompt("Enter your full name:", FULL_NAME_PATTERN);
         String phoneNumber = Input.prompt("Enter your phone number:", PHONE_NUMBER_PATTERN);
         String email = Input.prompt("Enter your email:", EMAIL_PATTERN);
-        String password = Input.prompt("Enter password:");
+        String password = Input.prompt("Enter password:", PASSWORD);
         UserService userService = UserService.getInstance();
         userService.createAccount("customer", fullName, phoneNumber, email, password);
         System.out.println(userService.getNotification());
@@ -27,9 +27,8 @@ public class CustomerView extends UserView {
 
     @Override
     public void displayInformation() {
-        UserService userService = UserService.getInstance();
         do {
-            System.out.println(userService.getCurrentUser().toString());
+            System.out.println(UserService.getInstance().getCurrentUser().toString());
             System.out.println("""
                     1. Edit full name
                     2. Edit phone number

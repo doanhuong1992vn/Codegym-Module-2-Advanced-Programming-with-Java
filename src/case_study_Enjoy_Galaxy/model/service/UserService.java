@@ -1,23 +1,27 @@
 package case_study_Enjoy_Galaxy.model.service;
 
+import case_study_Enjoy_Galaxy.model.builder.staff_builder.IStaffBuilder;
+import case_study_Enjoy_Galaxy.model.builder.staff_builder.StaffConcreteBuilder;
 import case_study_Enjoy_Galaxy.model.entity.users.Admin;
 import case_study_Enjoy_Galaxy.model.entity.users.Customer;
 import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
 import case_study_Enjoy_Galaxy.model.factory.UserFactory;
 import case_study_Enjoy_Galaxy.model.utils.Converter;
-import case_study_Enjoy_Galaxy.model.utils.FileReadingUtils;
+import case_study_Enjoy_Galaxy.model.utils.FileReaderUtils;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserService {
     private static final UserService userService = new UserService();
-    private static final List<User> USER_LIST = new ArrayList<>();
+    private static final List<User> userList = new ArrayList<>();
     private static final String PATH = "src\\case_study_Enjoy_Galaxy\\model\\data\\customer.csv";
 
     static {
-        List<Customer> dataList = FileReadingUtils.readCustomerData(PATH);
-        USER_LIST.addAll(dataList);
+        List<Customer> dataList = FileReaderUtils.readCustomerData(PATH);
+        userList.addAll(dataList);
+        userList.add(Admin.getInstance());
     }
 
     private UserService() {
@@ -36,14 +40,35 @@ public class UserService {
         } else {
             UserFactory userFactory = UserFactory.getInstance();
             currentUser = userFactory.getUser(typeUser, fullName, phoneNumber, email, password);
-            USER_LIST.add(currentUser);
+            userList.add(currentUser);
             notification = "Successful registration. Welcome " + fullName + " to Enjoy Galaxy!";
 
         }
     }
+    public void createAccount(String fullName, String phoneNumber, String email, String password, String education,
+                              String jobTitle, double salary, String birthday, String address) throws ParseException {
+        if (checkEmailAndPhoneNumberWhenSignUp(email, phoneNumber)) {
+            notification = "Phone number or email is already registered";
+        } else {
+            IStaffBuilder staffBuilder = new StaffConcreteBuilder()
+                    .setAddress(address)
+                    .setEducation(education)
+                    .setEmail(email)
+                    .setBirthDay(birthday)
+                    .setFullName(fullName)
+                    .setPassword(password)
+                    .setJobTitle(jobTitle)
+                    .setPhoneNumber(phoneNumber)
+                    .setSalary(salary);
+            userList.add(staffBuilder.build());
+            notification = "Successful registration for staff " + fullName + " to Enjoy Galaxy!";
+        }
+    }
+
+
 
     public boolean checkEmailAndPhoneNumberWhenSignUp(String email, String phoneNumber) {
-        for (User user : USER_LIST) {
+        for (User user : userList) {
             if (email.equals(user.getEmail()) || phoneNumber.equals(user.getPhoneNumber())) {
                 return true;
             }
@@ -52,7 +77,7 @@ public class UserService {
     }
 
     public boolean checkEmailAndPhoneNumber(String phoneNumberOrEmail) {
-        for (User user : USER_LIST) {
+        for (User user : userList) {
             if (phoneNumberOrEmail.equals(user.getEmail()) || phoneNumberOrEmail.equals(user.getPhoneNumber())) {
                 currentUser = user;
                 return true;
@@ -107,4 +132,5 @@ public class UserService {
     public String getWalletFormatOfUser() {
         return Converter.formatPrice(currentUser.getWallet());
     }
+
 }

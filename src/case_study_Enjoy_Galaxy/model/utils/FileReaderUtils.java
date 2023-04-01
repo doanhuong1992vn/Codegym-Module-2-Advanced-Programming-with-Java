@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class FileReadingUtils {
+public class FileReaderUtils {
     public static List<String> readFile(String path) {
         List<String> objectList = new ArrayList<>();
         File file = new File(path);
