@@ -33,10 +33,12 @@ public class Validation {
     }
     public static boolean isBeyondNow(String dateFormatInput) throws ParseException {
         Date dateInput = new SimpleDateFormat("MM/yyyy").parse(dateFormatInput);
-        Calendar calendar = Calendar.getInstance();
-        int amount = new Date().getDate() - 1;//tính số ngày hiện tại trừ đi 1
-        calendar.add(Calendar.DATE, -amount);//lấy về thời gian hiện tại của đầu tháng(vẫn có giờ phút giây trong này)
-        Date firstDateInThisMonth = Converter.convertToBeginningOfDate(calendar.getTime());
-        return dateInput.getTime() > firstDateInThisMonth.getTime();
+        return dateInput.getMonth() > new Date().getMonth()
+                && dateInput.getYear() >= new Date().getYear();
+//        Calendar calendar = Calendar.getInstance();
+//        int amount = new Date().getDate() - 1;//tính số ngày hiện tại trừ đi 1
+//        calendar.add(Calendar.DATE, -amount);//lấy về thời gian hiện tại của đầu tháng(vẫn có giờ phút giây trong này)
+//        Date firstDateInThisMonth = Converter.convertToBeginningOfDate(calendar.getTime());
+//        return dateInput.getTime() > firstDateInThisMonth.getTime();
     }
 }

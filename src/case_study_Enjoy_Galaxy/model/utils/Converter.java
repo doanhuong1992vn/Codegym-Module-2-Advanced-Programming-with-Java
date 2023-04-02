@@ -1,5 +1,7 @@
 package case_study_Enjoy_Galaxy.model.utils;
 
+import case_study_Enjoy_Galaxy.model.entity.Movie;
+
 import java.text.Normalizer;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -53,4 +55,22 @@ public class Converter {
         return new SimpleDateFormat("HH:mm a").format(date);
     }
 
+    public static Date convertToBeginningOfNextDay(Date date) throws ParseException {
+        date = convertToBeginningOfDate(date);
+        final long TIME_OF_ONE_DAY = 1000L * 60 * 60 * 24;
+        long timeOfNextDay = date.getTime() + TIME_OF_ONE_DAY;
+        return new Date(timeOfNextDay);
+    }
+    public static Date getEndTimeByShowtimeWithMovie(Date showtime, Movie movie) {
+        long timeOfShowtime = showtime.getTime();
+        long timeOfMovieDuration = movie.getMovieDuration() * 60 * 1000L;
+        long timeOfEndTime = timeOfShowtime + timeOfMovieDuration;
+        return new Date(timeOfEndTime);
+    }
+
+    public static Date convertToRealEndTimeAfterCleaningTime(Date endTime) {
+        final long TIME_DELAY = 30 * 60 * 1000;
+        long timeEnd = endTime.getTime();
+        return new Date(TIME_DELAY + timeEnd);
+    }
 }

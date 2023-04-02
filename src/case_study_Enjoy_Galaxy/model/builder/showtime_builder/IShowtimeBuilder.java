@@ -12,7 +12,8 @@ public interface IShowtimeBuilder {
     IShowtimeBuilder setMovieTheaterName(String movieTheaterName);
     IShowtimeBuilder setMovieTheaterAddress(String movieTheaterAddress);
     IShowtimeBuilder setCinemaName(String cinemaName);
-    IShowtimeBuilder setDate(Date date);
+    IShowtimeBuilder setShowtime(Date showtime);
+    IShowtimeBuilder setEndTime(Date endTime);
     IShowtimeBuilder setMovie(Movie movie);
     IShowtimeBuilder setSeats(Seat[][] seats);
     IShowtimeBuilder setPrice(double price);

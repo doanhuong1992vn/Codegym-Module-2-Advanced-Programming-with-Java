@@ -1,11 +1,10 @@
 package case_study_Enjoy_Galaxy.view;
 
 import case_study_Enjoy_Galaxy.model.entity.Movie;
-import case_study_Enjoy_Galaxy.model.entity.Ticket;
 import case_study_Enjoy_Galaxy.model.service.MovieService;
+import case_study_Enjoy_Galaxy.model.service.MovieTheaterService;
 import case_study_Enjoy_Galaxy.model.service.TicketService;
 import case_study_Enjoy_Galaxy.model.service.UserService;
-import case_study_Enjoy_Galaxy.model.utils.Converter;
 import case_study_Enjoy_Galaxy.model.utils.Input;
 import case_study_Enjoy_Galaxy.model.utils.Validation;
 import case_study_Enjoy_Galaxy.view.abstraction.UserView;
@@ -22,6 +21,43 @@ public class AdminView extends UserView {
 
     public static AdminView getInstance() {
         return adminView;
+    }
+
+    public void displayAdminHomePage() throws ParseException {
+        do {
+            System.out.println("""
+                    Viết tới đây thì ko kịp tính năng nộp case study nên lười viết tiếng anh rồi T_T
+                    1. Sign out
+                    2. Tạo tài khoản nhân viên
+                    3. Thống kê doanh thu theo tháng
+                    4. Thêm suất chiếu
+                    """);
+            int choice = Input.choiceIntegerPrompt("Enter your choice: ");
+            switch (choice) {
+                case 1 -> EnjoyGalaxyView.getInstance().signOut();
+                case 2 -> {
+                    displaySignUp();
+                    displayAdminHomePage();
+                }
+                case 3 -> displayRevenueOfMonth();
+                case 4 -> displayAddingShowtimeFeature();
+                default -> System.out.println("Invalid input!");
+            }
+        } while (true);
+    }
+
+    public void displayAddingShowtimeFeature() throws ParseException {
+        MovieTheaterService movieTheaterService = MovieTheaterService.getInstance();
+        movieTheaterService.getMovieTheaterList().forEach(System.out::println);
+        int idMovieTheater = Input.choiceIntegerPrompt("Enter movie theater ID:");
+        movieTheaterService.getCinemaListByMovieTheaterId(idMovieTheater).forEach(System.out::println);
+        int idCinema = Input.choiceIntegerPrompt("Enter cinema ID:");
+        movieTheaterService.getShowtimeListByCinemaId(idMovieTheater, idCinema).forEach(System.out::println);
+        MovieService.getInstance().getMovieList().forEach(System.out::println);
+        int idMovie = Input.choiceIntegerPrompt("Enter movie ID:");
+        String showtime = Input.prompt("Enter showtime with format \"dd/MM/yyyy hh:mm:ss\"");
+        MovieTheaterService.addShowtime(idMovieTheater, idCinema, showtime, idMovie);
+        System.out.println(MovieTheaterService.getNotification());
     }
 
     @Override
@@ -68,18 +104,6 @@ public class AdminView extends UserView {
             monthAndYear = Input.prompt("Nhập lại số tháng/năm muốn kiểm tra theo định dạng \"MM/yyyy\": ",
                     "month");
         }
-        List<Ticket> ticketList = TicketService.getInstance().getTicketListByMonth(monthAndYear);
-        if (ticketList.isEmpty()) {
-            System.out.println("Tháng " + monthAndYear + " không bán được cái mẹ gì hết T_T");
-        } else {
-            System.out.println("Danh sách vé bán được trong tháng " + monthAndYear + ":");
-            double revenue = 0;
-            for (Ticket ticket : ticketList) {
-                System.out.println(ticket);
-                revenue += ticket.getPrice();
-            }
-            String revenueFormat = Converter.formatPrice(revenue);
-            System.out.println("Tổng doanh thu trong tháng " + monthAndYear + " là " + revenueFormat);
-        }
+        System.out.println(TicketService.getInstance().getInformationOfRevenueByMonth(monthAndYear));
     }
 }

@@ -12,7 +12,8 @@ public class ShowtimeConcreteBuilder implements IShowtimeBuilder {
     private String movieTheaterName;
     private String movieTheaterAddress;
     private String cinemaName;
-    private Date date;
+    private Date showtime;
+    private Date endTime;
     private Movie movie;
     private double price;
     private Seat[][] seats;
@@ -48,8 +49,14 @@ public class ShowtimeConcreteBuilder implements IShowtimeBuilder {
     }
 
     @Override
-    public IShowtimeBuilder setDate(Date date) {
-        this.date = date;
+    public IShowtimeBuilder setShowtime(Date showtime) {
+        this.showtime = showtime;
+        return this;
+    }
+
+    @Override
+    public IShowtimeBuilder setEndTime(Date endTime) {
+        this.endTime = endTime;
         return this;
     }
 
@@ -79,7 +86,8 @@ public class ShowtimeConcreteBuilder implements IShowtimeBuilder {
                 movieTheaterName,
                 movieTheaterAddress,
                 cinemaName,
-                date,
+                showtime,
+                endTime,
                 movie,
                 price,
                 seats);

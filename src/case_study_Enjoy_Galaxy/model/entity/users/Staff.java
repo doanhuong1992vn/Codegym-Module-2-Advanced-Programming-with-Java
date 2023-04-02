@@ -77,15 +77,27 @@ public class Staff extends User {
 
     @Override
     public String toString() {
-        return "Nhân viên " + getFullName() + ": {"
-                + "SĐT: " + getPhoneNumber() + ", "
-                + "Email: " + getEmail() + ", "
-                + "Tuổi: " + getAge() + ", "
-                + "Học vấn: " + getEducation() + ", "
-                + "Chức vụ: " + getJobTitle() + ", "
-                + "Lương: " + Converter.formatPrice(getSalary()) + ", "
-                + "Sinh nhật: " + getBirthDay() + ", "
-                + "Địa chỉ: " + getAddress() + ", "
-                + "Tài khoản: " + Converter.formatPrice(getWallet()) + "}";
+        return String.format("""
+                Nhân viên: %s
+                Giới tính: Chưa xác định
+                SĐT: %s
+                Email: %s
+                Sinh nhật: %s
+                Tuổi: %d
+                Địa chỉ: %s
+                Học vấn: %s
+                Chức vụ: %s
+                Lương: %s/tháng
+                Tài khoản: %s""",
+                getFullName(),
+                getPhoneNumber(),
+                getEmail(),
+                getBirthDay(),
+                getAge(),
+                getAddress(),
+                getEducation(),
+                getJobTitle(),
+                Converter.formatPrice(getSalary()),
+                Converter.formatPrice(getWallet()));
     }
 }

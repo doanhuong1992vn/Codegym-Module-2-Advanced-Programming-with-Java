@@ -101,9 +101,8 @@ public class UserService {
         if (currentUser.getWallet() >= price) {
             final double AMOUNT_AFTER_PAYMENT = currentUser.getWallet() - price;
             currentUser.setWallet(AMOUNT_AFTER_PAYMENT);
-            Admin admin = Admin.getInstance();
-            final double AMOUNT_AVAILABLE_OF_ADMIN = admin.getWallet();
-            admin.setWallet(AMOUNT_AVAILABLE_OF_ADMIN + price);
+            AdminService adminService = AdminService.getInstance();
+            adminService.depositMoney(price);
             return false;
         }
         return true;

@@ -13,7 +13,7 @@ public abstract class UserView {
     public final String PASSWORD = "PASSWORD";
     public final String DATE = "DATE";
 
-    public abstract void displayInformation();
+    public abstract void displayInformation() throws ParseException;
 
     public abstract void displaySignUp() throws ParseException;
 

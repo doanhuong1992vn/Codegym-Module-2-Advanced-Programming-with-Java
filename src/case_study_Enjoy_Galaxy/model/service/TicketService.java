@@ -6,6 +6,7 @@ import case_study_Enjoy_Galaxy.model.entity.Showtime;
 import case_study_Enjoy_Galaxy.model.entity.Ticket;
 import case_study_Enjoy_Galaxy.model.entity.seat.abstraction.Seat;
 import case_study_Enjoy_Galaxy.model.entity.users.Customer;
+import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
 import case_study_Enjoy_Galaxy.model.utils.Converter;
 
 import java.text.ParseException;
@@ -29,10 +30,6 @@ public class TicketService {
         for (Seat[] rowOfSeats : showtime.getSeats()) {
             for (Seat seat : rowOfSeats) {
                 if (seatCode.equals(seat.getSeatCode())) {
-                    long timeOfShowtime = showtime.getShowtime().getTime();
-                    long timeOfMovieDuration = showtime.getMovie().getMovieDuration() * 60 * 1000L;
-                    long timeOfEndTime = timeOfShowtime + timeOfMovieDuration;
-                    Date endTime = new Date(timeOfEndTime);
                     double totalPrice = showtime.getPrice() + seat.getPrice();
                     UserService userService = UserService.getInstance();
                     ITicketBuilder ticketBuilder = new TicketConcreteBuilder()
@@ -45,7 +42,7 @@ public class TicketService {
                             .setMovieName(showtime.getMovie().getName())
                             .setMovieDuration(showtime.getMovie().getMovieDuration())
                             .setShowtime(showtime.getShowtime())
-                            .setEndTime(endTime)
+                            .setEndTime(showtime.getEndTime())
                             .setSeatCode(seatCode)
                             .setPersonNumber(seat.getCapacity())
                             .setPrice(totalPrice);
@@ -70,8 +67,13 @@ public class TicketService {
         ticket.setPaymentTime(new Date());
         ticketList.add(ticket);
         UserService userService = UserService.getInstance();
-        Customer user = (Customer) userService.getCurrentUser();
+        User user = userService.getCurrentUser();
         user.addTicket(ticket);
+    }
+
+    public void setPaidAndPaymentTime(Ticket ticket) {
+        ticket.setPaid(true);
+        ticket.setPaymentTime(new Date());
     }
 
     public String getDemoTicketAfterConfirm(Ticket ticket) {
@@ -106,6 +108,10 @@ public class TicketService {
         String bookingTimeFormat = Converter.getDateFormat24H(ticket.getBookingTime());
         String priceFormat = Converter.formatPrice(ticket.getPrice());
         String paidStatus = ticket.isPaid() ? "Đã thanh toán" : "Chưa thanh toán";
+        String checkinStatus = ticket.isChecked() ? "Đã checkin" : "Chưa checkin";
+        String paymentTime = ticket.getPaymentTime() == null
+                ? "Chưa thanh toán"
+                : Converter.getDateFormat24H(ticket.getPaymentTime());
         String information = String.format("""
                         ENJOY GALAXY MOVIE TICKET
                         Khách hàng: %s
@@ -136,13 +142,11 @@ public class TicketService {
                 bookingTimeFormat,
                 priceFormat,
                 paidStatus);
-        String paymentToString
-                = String.format("""
-                                                
-                        Ngày thanh toán: %s""",
-                ticket.getPaymentTime() == null
-                        ? "Chưa thanh toán"
-                        : Converter.getDateFormat24H(ticket.getPaymentTime()));
+        String paymentToString = String.format("""                    
+                        \nNgày thanh toán: %s
+                        Trạng thái checkin: %s""",
+                paymentTime,
+                checkinStatus);
         if (ticket.isPaid()) {
             return information.concat(paymentToString);
         }
@@ -151,36 +155,53 @@ public class TicketService {
     }
 
     public Ticket getTicketByTicketCode(String ticketCode) {
-        ticketCode = Converter.removeAccent(ticketCode);
         for (Ticket ticket : ticketList) {
-            if (ticket.getTicketCode().equals(ticketCode)) {
+            if (ticket.getTicketCode().equals(ticketCode.trim())) {
                 return ticket;
             }
         }
         return null;
     }
 
-    public double getRevenueOfMonth(int month) {
+    public StringBuilder getInformationOfRevenueByMonth(String monthAndYear) throws ParseException {
+        StringBuilder result = new StringBuilder();
         double revenue = 0;
-        for (Ticket ticket : ticketList) {
-            if (ticket.isPaid() && ticket.getPaymentTime().getMonth() == month) {
-                revenue += ticket.getPrice();
-            }
-        }
-        return revenue;
-    }
-    public List<Ticket> getTicketListByMonth(String monthAndYear) throws ParseException {
-        List<Ticket> list = new ArrayList<>();
         Date dateInput = new SimpleDateFormat("MM/yyyy").parse(monthAndYear);
         for (Ticket ticket : ticketList) {
             if (ticket.isPaid()) {
                 boolean isSameMonth = dateInput.getMonth() == ticket.getPaymentTime().getMonth();
                 boolean isSameYear = dateInput.getYear() == ticket.getPaymentTime().getYear();
                 if (isSameMonth && isSameYear) {
-                    list.add(ticket);
+                    result.append(ticket).append("\n");
+                    revenue += ticket.getPrice();
                 }
             }
         }
-        return list;
+        if (result.isEmpty()) {
+            final String NOTIFICATION = "Tháng " + monthAndYear + " không bán được cái mẹ gì hết T_T";
+            result.append(NOTIFICATION);
+            return result;
+        }
+        final String NOTIFICATION_OF_TICKET_LIST = "Danh sách vé bán được trong tháng " + monthAndYear + ":\n";
+        result.insert(0, NOTIFICATION_OF_TICKET_LIST);
+        String revenueFormat = Converter.formatPrice(revenue);
+        final String NOTIFICATION_OF_REVENUE = "Tổng doanh thu trong tháng " + monthAndYear + " là " + revenueFormat;
+        result.append(NOTIFICATION_OF_REVENUE);
+        return result;
+    }
+
+    public boolean isValidTimeToCheckinThisTicket(Ticket ticket) {
+        final long TIME_OF_FIFTEEN_MINUTES = 15 * 60 * 1000L;
+        return ticket.getShowtime().getTime() - TIME_OF_FIFTEEN_MINUTES < new Date().getTime();
+    }
+
+    public void checkinTicket(Ticket ticket) {
+        ticket.setChecked(true);
+    }
+
+    public String getFormatOfCheckinTime(Ticket ticket) {
+        final long TIME_OF_FIFTEEN_MINUTES = 15 * 60 * 1000L;
+        long checkinTime = ticket.getShowtime().getTime() - TIME_OF_FIFTEEN_MINUTES;
+        return Converter.getDateFormat24H(new Date(checkinTime));
     }
 }

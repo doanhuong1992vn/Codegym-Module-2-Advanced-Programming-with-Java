@@ -1,6 +1,7 @@
 package case_study_Enjoy_Galaxy.model.entity;
 
 import case_study_Enjoy_Galaxy.model.entity.seat.abstraction.Seat;
+import case_study_Enjoy_Galaxy.model.utils.Converter;
 
 import java.util.Date;
 
@@ -13,6 +14,7 @@ public class Showtime {
     private String movieTheaterAddress;
     private String cinemaName;
     private Date showtime;
+    private Date endTime;
     private Movie movie;
     private double price;
     private Seat[][] seats;
@@ -23,6 +25,7 @@ public class Showtime {
                     String movieTheaterAddress,
                     String cinemaName,
                     Date showtime,
+                    Date endTime,
                     Movie movie,
                     double price,
                     Seat[][] seats) {
@@ -33,6 +36,7 @@ public class Showtime {
         this.movieTheaterAddress = movieTheaterAddress;
         this.cinemaName = cinemaName;
         this.showtime = showtime;
+        this.endTime = endTime;
         this.movie = movie;
         this.price = price;
         this.seats = seats;
@@ -120,5 +124,21 @@ public class Showtime {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Suất chiếu %s từ %s tới %s",
+                getMovie().getName(),
+                Converter.getDateFormat24H(getShowtime()),
+                Converter.getDateFormat24H(getEndTime()));
     }
 }

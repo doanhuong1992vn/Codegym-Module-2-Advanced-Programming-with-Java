@@ -105,6 +105,7 @@ public abstract class Cinema implements ICapacity, IPrice {
 
     @Override
     public String toString() {
-        return "Phòng chiếu " + getName() + " có " + getCapacity() + " ghế.";
+        return String.format("<ID = %d> Phòng chiếu %s có %d ghế",
+                getId(), getName(), getCapacity());
     }
 }

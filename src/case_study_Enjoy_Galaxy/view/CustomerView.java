@@ -4,6 +4,8 @@ import case_study_Enjoy_Galaxy.model.service.UserService;
 import case_study_Enjoy_Galaxy.model.utils.Input;
 import case_study_Enjoy_Galaxy.view.abstraction.UserView;
 
+import java.text.ParseException;
+
 public class CustomerView extends UserView {
     private static final CustomerView customerView = new CustomerView();
 
@@ -13,6 +15,29 @@ public class CustomerView extends UserView {
     public static CustomerView getInstance() {
         return customerView;
     }
+
+    public void displayCustomerHomePage() throws ParseException {
+        do {
+            System.out.println("""
+                        1. Search movie
+                        2. Display movie list
+                        3. Display movie theater list
+                        4. Check ticket
+                        5. Update personal information
+                        6. Sign out""");
+            int choice = Input.choiceIntegerPrompt("Enter your choice:");
+            switch (choice) {
+                case 1 -> MovieView.getInstance().displaySearchingMovie();
+                case 2 -> MovieView.getInstance().displayList();
+                case 3 -> MovieTheaterView.getInstance().displayList();
+                case 4 -> TicketView.getInstance().displayFeatureCheckingTicket();
+                case 5 -> displayInformation();
+                case 6 -> EnjoyGalaxyView.getInstance().signOut();
+                default -> System.err.println("Invalid input!");
+            }
+        } while (true);
+    }
+
 
     @Override
     public void displaySignUp() {

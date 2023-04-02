@@ -127,10 +127,8 @@ public class MovieView implements IDisplayable {
 
     private void displayShowtimeListOfMovieByDateFormat(Movie movie, String dateFormat, List<StringBuilder> showtimeList)
             throws ParseException {
-        System.out.println("Có " + showtimeList.size() +
-                " suất chiếu " + movie.getName() +
-                " trong ngày " + dateFormat +
-                ":");
+        System.out.printf("Có %d rạp có suất chiếu %s trong ngày %s:\n",
+                showtimeList.size(), movie.getName(), dateFormat);
         showtimeList.forEach(System.out::println);
         do {
             System.out.println("""
@@ -174,8 +172,7 @@ public class MovieView implements IDisplayable {
         for (Seat[] seat : seats) {
             System.out.println(Arrays.toString(seat));
         }
-        StringBuilder informationInSeats = movieTheaterService.getInformationInSeats(seats);
-        System.out.println(informationInSeats);
+//        System.out.println(movieTheaterService.getInformationInSeats(seats));
         StringBuilder emptySeats = movieTheaterService.getEmptySeats(seats);
         System.out.println(emptySeats);
         do {
@@ -364,9 +361,8 @@ public class MovieView implements IDisplayable {
                     "DATE");
             dateFormatConverted = Converter.convertDateFormat(dateFormatInput);
             if (!dateFormatList.contains(dateFormatConverted)) {
-                System.out.println("Xin lỗi, không có suất chiếu " + movie.getName() +
-                        " trong ngày " + dateFormatConverted +
-                        ", hãy chọn một ngày khác.");
+                System.out.println("Xin lỗi, không có suất chiếu " + movie.getName() + " trong ngày " +
+                        dateFormatConverted + ", hãy chọn một ngày khác.");
             }
         } while (!dateFormatList.contains(dateFormatConverted));
         Date dateInput = new SimpleDateFormat("dd/MM/yyyy").parse(dateFormatConverted);

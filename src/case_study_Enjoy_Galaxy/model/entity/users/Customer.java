@@ -2,6 +2,7 @@ package case_study_Enjoy_Galaxy.model.entity.users;
 
 import case_study_Enjoy_Galaxy.model.entity.Ticket;
 import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
+import case_study_Enjoy_Galaxy.model.utils.Converter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,10 +20,16 @@ public class Customer extends User {
 
     @Override
     public String toString() {
-        return "Khách hàng " + getFullName() + " {"
-                + "SĐT: " + getPhoneNumber() + ", "
-                + "Email: " + getEmail() + ", "
-                + "Tài khoản: " + getWallet() + " VNĐ, "
-                + "Mã vé: " + getTicketCode() + "}";
+        return String.format("""
+                Khách hàng: %s
+                SĐT: %s
+                Email: %s
+                Tài khoản: %s
+                Mã vé: %s""",
+                getFullName(),
+                getPhoneNumber(),
+                getEmail(),
+                Converter.formatPrice(getWallet()),
+                getTicketCode());
     }
 }
