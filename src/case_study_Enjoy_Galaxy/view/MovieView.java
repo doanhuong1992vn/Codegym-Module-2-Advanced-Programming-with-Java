@@ -224,7 +224,7 @@ public class MovieView implements IDisplayable {
             seatCode = Input.prompt("Enter seat code: ");
             seatCode = seatCode.trim().toUpperCase();
             isEmptySeatsNotContainSeatCodeInput =
-                    !emptySeats.toString().contains(seatCode);
+                    !emptySeats.toString().contains(seatCode) || seatCode.equals("");
             if (isEmptySeatsNotContainSeatCodeInput) {
                 System.out.println("Seat code " + seatCode + " has been booked or does not exist");
             }
