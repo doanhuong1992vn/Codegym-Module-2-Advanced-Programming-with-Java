@@ -71,6 +71,7 @@ public class Converter {
     public static Date convertToRealEndTimeAfterCleaningTime(Date endTime) {
         final long TIME_DELAY = 30 * 60 * 1000;
         long timeEnd = endTime.getTime();
-        return new Date(TIME_DELAY + timeEnd);
+        long time = timeEnd + TIME_DELAY;
+        return new Date(time);
     }
 }

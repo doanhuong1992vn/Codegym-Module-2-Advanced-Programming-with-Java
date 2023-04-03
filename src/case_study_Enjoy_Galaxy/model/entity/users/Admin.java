@@ -1,6 +1,7 @@
 package case_study_Enjoy_Galaxy.model.entity.users;
 
 import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
+import case_study_Enjoy_Galaxy.model.utils.Converter;
 
 public class Admin extends User {
     private static final Admin ADMIN = new Admin(
@@ -17,6 +18,14 @@ public class Admin extends User {
     }
     @Override
     public String toString() {
-        return "Admin Đoàn Hưởng";
+        return String.format("""
+                Họ tên admin: %s
+                SĐT: %s
+                Email: %s
+                Tài khoản: %s""",
+                getFullName(),
+                getPhoneNumber(),
+                getEmail(),
+                Converter.formatPrice(getWallet()));
     }
 }

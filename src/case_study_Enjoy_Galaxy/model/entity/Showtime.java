@@ -136,9 +136,10 @@ public class Showtime {
 
     @Override
     public String toString() {
-        return String.format("Suất chiếu %s từ %s tới %s",
+        return String.format("Suất chiếu %s từ %s tới %s tại phòng %s",
                 getMovie().getName(),
                 Converter.getDateFormat24H(getShowtime()),
-                Converter.getDateFormat24H(getEndTime()));
+                Converter.getDateFormat24H(getEndTime()),
+                getCinemaName());
     }
 }

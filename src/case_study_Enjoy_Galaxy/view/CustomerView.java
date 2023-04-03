@@ -23,7 +23,7 @@ public class CustomerView extends UserView {
                         2. Display movie list
                         3. Display movie theater list
                         4. Check ticket
-                        5. Update personal information
+                        5. View personal information
                         6. Sign out""");
             int choice = Input.choiceIntegerPrompt("Enter your choice:");
             switch (choice) {

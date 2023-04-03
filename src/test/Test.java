@@ -16,6 +16,11 @@ public class Test {
     }
 
     public static void main(String[] args) throws ParseException {
+        Date date1 = new Date();
+        System.out.println(date1);
+        Date date2 = new Date(date1.getTime() + 1);
+        System.out.println(date2);
+        System.out.println(date2.after(date1));
         Date dateInput = new SimpleDateFormat("MM/yyyy").parse("4/2023");
         System.out.println(dateInput + "dateinput");
         Calendar calendar = Calendar.getInstance();

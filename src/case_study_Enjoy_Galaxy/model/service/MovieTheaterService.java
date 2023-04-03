@@ -63,7 +63,7 @@ public class MovieTheaterService {
             try {
                 addShowtime(idMovieTheater, idCinema, startShowtime, idMovie);
             } catch (ParseException e) {
-                System.out.println(e.getMessage());;
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -108,9 +108,13 @@ public class MovieTheaterService {
     public static void addShowtime(int idMovieTheater, int idCinema, String startShowtime, int idMovie) throws ParseException {
         Movie movie = MovieService.getInstance().getMovieById(idMovie);
         Date tempShowtime = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse(startShowtime);
+        if (tempShowtime.before(new Date())) {
+            notification = "Không thể thêm suất chiếu vào quá khứ kekeke";
+            return;
+        }
         Date tempEndTime = Converter.getEndTimeByShowtimeWithMovie(tempShowtime, movie);
         Date tempRealEndTime = Converter.convertToRealEndTimeAfterCleaningTime(tempEndTime);
-        MovieTheater movieTheater = getMovieTheaterById(idMovieTheater);
+        MovieTheater movieTheater = MovieTheaterService.getInstance().getMovieTheaterById(idMovieTheater);
         assert movieTheater != null;
         for (Cinema cinema : movieTheater.getCinemaList()) {
             if (cinema.getId() == idCinema) {
@@ -125,20 +129,11 @@ public class MovieTheaterService {
                         .setEndTime(tempEndTime)
                         .setPrice(cinema.getPrice())
                         .setSeats(cinema.getSeats());
-                if (cinema.getShowtimeList().isEmpty()) {
-                    cinema.addShowtime(showtimeBuilder.build());
-                    notification = String.format("Thêm thành công suất chiếu cho phim %s lúc %s " +
-                                    "tại phòng chiếu %s ở rạp %s",
-                            movie.getName(),
-                            Converter.getDateFormat24H(tempShowtime),
-                            cinema.getName(),
-                            movieTheater.getName());
-                } else {
+                if (!cinema.getShowtimeList().isEmpty()) {
                     for (Showtime showtime : cinema.getShowtimeList()) {
                         Date realShowtime = showtime.getShowtime();
                         Date realEndTime = Converter.convertToRealEndTimeAfterCleaningTime(showtime.getEndTime());
-                        if (tempShowtime.getTime() > realShowtime.getTime()
-                                && tempShowtime.getTime() < realEndTime.getTime()) {
+                        if (tempShowtime.after(realShowtime) && tempShowtime.before(realEndTime)) {
                             notification = String.format("Thêm không thành công vì suất chiếu bị trùng với " +
                                             "suất chiếu của phim %s từ %s tới %s tại phòng chiếu %s. " +
                                             "(Đã bao gồm 30 phút để vệ sinh phòng sau mỗi suất chiếu)",
@@ -147,28 +142,25 @@ public class MovieTheaterService {
                                     Converter.getDateFormat24H(realEndTime),
                                     showtime.getCinemaName());
                             return;
-                        } else if (tempShowtime.getTime() < realShowtime.getTime()
-                                && tempRealEndTime.getTime() > realShowtime.getTime()) {
+                        } else if (tempShowtime.before(realShowtime) && tempRealEndTime.after(realShowtime)) {
                             notification = String.format("Thêm không thành công vì không có đủ thời gian trống. " +
-                                            "Phim %s có thời lượng %s nhưng lúc %s có suất chiếu của phim %s rồi. " +
+                                            "Phim %s có thời lượng %s phút nhưng lúc %s có suất chiếu của phim %s rồi. " +
                                             "(Sau mỗi suất chiếu phải có 30 phút để vệ sinh phòng nữa)",
                                     movie.getName(),
                                     movie.getMovieDuration(),
                                     Converter.getDateFormat24H(realShowtime),
                                     showtime.getMovie().getName());
                             return;
-                        } else {
-                            cinema.addShowtime(showtimeBuilder.build());
-                            notification = String.format("Thêm thành công suất chiếu cho phim %s lúc %s " +
-                                            "tại phòng chiếu %s ở rạp %s",
-                                    movie.getName(),
-                                    Converter.getDateFormat24H(tempShowtime),
-                                    cinema.getName(),
-                                    movieTheater.getName());
-                            return;
                         }
                     }
                 }
+                cinema.addShowtime(showtimeBuilder.build());
+                notification = String.format("Thêm thành công suất chiếu cho phim %s lúc %s " +
+                                "tại phòng chiếu %s ở rạp %s",
+                        movie.getName(),
+                        Converter.getDateFormat24H(tempShowtime),
+                        cinema.getName(),
+                        movieTheater.getName());
             }
         }
 
@@ -179,7 +171,7 @@ public class MovieTheaterService {
         return movieTheaterList;
     }
 
-    public static MovieTheater getMovieTheaterById(int idMovieTheater) {
+    public MovieTheater getMovieTheaterById(int idMovieTheater) {
         for (MovieTheater movieTheater : movieTheaterList) {
             if (movieTheater.getId() == idMovieTheater) {
                 return movieTheater;
@@ -196,8 +188,7 @@ public class MovieTheaterService {
             for (Cinema cinema : movieTheater.getCinemaList()) {
                 for (Showtime showtime : cinema.getShowtimeList()) {
                     Date nextDay = Converter.convertToBeginningOfNextDay(date);
-                    if (showtime.getShowtime().after(date)
-                            && showtime.getShowtime().before(nextDay)
+                    if (showtime.getShowtime().after(date) && showtime.getShowtime().before(nextDay)
                             && movie.equals(showtime.getMovie())) {
                         ++showtimeNumberOfEachMovieTheater;
                         String showtimeFormat = Converter.getHourFormat24HByDate(showtime.getShowtime());
@@ -300,7 +291,7 @@ public class MovieTheaterService {
     }
 
     public List<Cinema> getCinemaListByMovieTheaterId(int idMovieTheater) {
-        return Objects.requireNonNull(getMovieTheaterById(idMovieTheater)).getCinemaList();
+        return getMovieTheaterById(idMovieTheater).getCinemaList();
     }
 
     public List<Showtime> getShowtimeListByCinemaId(int idMovieTheater, int idCinema) {

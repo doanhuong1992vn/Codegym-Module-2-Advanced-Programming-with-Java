@@ -40,7 +40,7 @@ public class TicketView {
     }
 
     private void displayProcessCheckingTicket() throws ParseException {
-        String ticketCode = Input.prompt("Enter your ticket code to checking: ");
+        String ticketCode = Input.prompt("Enter your ticket code to check: ");
         Ticket ticket = TicketService.getInstance().getTicketByTicketCode(ticketCode.trim());
         if (ticket == null) {
             System.out.println("Ticket code does not exist");
@@ -52,7 +52,7 @@ public class TicketView {
 
     private void displayMenuCheckingTicket() throws ParseException {
         System.out.println("""
-                1. Checking ticket code
+                1. Check ticket information
                 2. Go back to home page""");
         do {
             int choice = Input.choiceIntegerPrompt("Enter your choice: ");

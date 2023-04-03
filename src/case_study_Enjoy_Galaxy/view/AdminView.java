@@ -1,6 +1,7 @@
 package case_study_Enjoy_Galaxy.view;
 
 import case_study_Enjoy_Galaxy.model.entity.Movie;
+import case_study_Enjoy_Galaxy.model.entity.users.Admin;
 import case_study_Enjoy_Galaxy.model.service.MovieService;
 import case_study_Enjoy_Galaxy.model.service.MovieTheaterService;
 import case_study_Enjoy_Galaxy.model.service.TicketService;
@@ -31,6 +32,7 @@ public class AdminView extends UserView {
                     2. Tạo tài khoản nhân viên
                     3. Thống kê doanh thu theo tháng
                     4. Thêm suất chiếu
+                    5. Xem thông tin Admin
                     """);
             int choice = Input.choiceIntegerPrompt("Enter your choice: ");
             switch (choice) {
@@ -41,6 +43,7 @@ public class AdminView extends UserView {
                 }
                 case 3 -> displayRevenueOfMonth();
                 case 4 -> displayAddingShowtimeFeature();
+                case 5 -> System.out.println(Admin.getInstance());
                 default -> System.out.println("Invalid input!");
             }
         } while (true);
@@ -52,9 +55,9 @@ public class AdminView extends UserView {
         int idMovieTheater = Input.choiceIntegerPrompt("Enter movie theater ID:");
         movieTheaterService.getCinemaListByMovieTheaterId(idMovieTheater).forEach(System.out::println);
         int idCinema = Input.choiceIntegerPrompt("Enter cinema ID:");
-        movieTheaterService.getShowtimeListByCinemaId(idMovieTheater, idCinema).forEach(System.out::println);
         MovieService.getInstance().getMovieList().forEach(System.out::println);
         int idMovie = Input.choiceIntegerPrompt("Enter movie ID:");
+        movieTheaterService.getShowtimeListByCinemaId(idMovieTheater, idCinema).forEach(System.out::println);
         String showtime = Input.prompt("Enter showtime with format \"dd/MM/yyyy hh:mm:ss\"");
         MovieTheaterService.addShowtime(idMovieTheater, idCinema, showtime, idMovie);
         System.out.println(MovieTheaterService.getNotification());
