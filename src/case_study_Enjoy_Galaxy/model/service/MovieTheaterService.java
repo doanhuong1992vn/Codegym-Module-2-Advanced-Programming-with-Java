@@ -74,36 +74,10 @@ public class MovieTheaterService {
     public static MovieTheaterService getInstance() {
         return movieTheaterService;
     }
+
     public static String getNotification() {
         return notification;
     }
-
-
-//    public static void addShowtime(int idMovieTheater, int idCinema, String startShowtime, int idMovie)
-//            throws ParseException {
-//        for (MovieTheater movieTheater : movieTheaterList) {
-//            if (movieTheater.getId() == idMovieTheater) {
-//                for (Cinema cinema : movieTheater.getCinemaList()) {
-//                    if (cinema.getId() == idCinema) {
-//                        Date date = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse(startShowtime);
-//                        Movie movie = MovieService.getInstance().getMovieById(idMovie);
-//                        IShowtimeBuilder showtimeBuilder = new ShowtimeConcreteBuilder()
-//                                .setIdMovieTheater(movieTheater.getId())
-//                                .setMovie(movie)
-//                                .setMovieTheaterAddress(movieTheater.getAddress())
-//                                .setMovieTheaterName(movieTheater.getName())
-//                                .setCinemaName(cinema.getName())
-//                                .setIdCinema(cinema.getId())
-//                                .setShowtime(date)
-//                                .setEndTime(Converter.getEndTimeByShowtimeWithMovie(date, movie))
-//                                .setPrice(cinema.getPrice())
-//                                .setSeats(cinema.getSeats());
-//                        cinema.addShowtime(showtimeBuilder.build());
-//                    }
-//                }
-//            }
-//        }
-//    }
 
     public static void addShowtime(int idMovieTheater, int idCinema, String startShowtime, int idMovie) throws ParseException {
         Movie movie = MovieService.getInstance().getMovieById(idMovie);
