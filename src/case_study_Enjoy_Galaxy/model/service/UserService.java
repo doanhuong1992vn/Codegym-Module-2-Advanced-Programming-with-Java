@@ -42,7 +42,6 @@ public class UserService {
             currentUser = userFactory.getUser(typeUser, fullName, phoneNumber, email, password);
             userList.add(currentUser);
             notification = "Successful registration. Welcome " + fullName + " to Enjoy Galaxy!";
-
         }
     }
     public void createAccount(String fullName, String phoneNumber, String email, String password, String education,

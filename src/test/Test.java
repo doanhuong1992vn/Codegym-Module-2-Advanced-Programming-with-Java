@@ -3,6 +3,7 @@ package test;
 import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -16,6 +17,15 @@ public class Test {
     }
 
     public static void main(String[] args) throws ParseException {
+        ArrayList<Integer> intList = new ArrayList<>();
+        intList.add(1);
+        intList.add(2);
+        intList.add(3);
+        intList.add(4);
+        System.out.println(intList.size());
+        System.out.println(intList.get(3));
+
+
         Date date1 = new Date();
         System.out.println(date1);
         Date date2 = new Date(date1.getTime() + 1);

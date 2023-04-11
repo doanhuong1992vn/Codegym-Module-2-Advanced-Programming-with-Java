@@ -78,42 +78,16 @@ public class MovieTheaterService {
         return notification;
     }
 
-
-//    public static void addShowtime(int idMovieTheater, int idCinema, String startShowtime, int idMovie)
-//            throws ParseException {
-//        for (MovieTheater movieTheater : movieTheaterList) {
-//            if (movieTheater.getId() == idMovieTheater) {
-//                for (Cinema cinema : movieTheater.getCinemaList()) {
-//                    if (cinema.getId() == idCinema) {
-//                        Date date = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse(startShowtime);
-//                        Movie movie = MovieService.getInstance().getMovieById(idMovie);
-//                        IShowtimeBuilder showtimeBuilder = new ShowtimeConcreteBuilder()
-//                                .setIdMovieTheater(movieTheater.getId())
-//                                .setMovie(movie)
-//                                .setMovieTheaterAddress(movieTheater.getAddress())
-//                                .setMovieTheaterName(movieTheater.getName())
-//                                .setCinemaName(cinema.getName())
-//                                .setIdCinema(cinema.getId())
-//                                .setShowtime(date)
-//                                .setEndTime(Converter.getEndTimeByShowtimeWithMovie(date, movie))
-//                                .setPrice(cinema.getPrice())
-//                                .setSeats(cinema.getSeats());
-//                        cinema.addShowtime(showtimeBuilder.build());
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-    public static void addShowtime(int idMovieTheater, int idCinema, String startShowtime, int idMovie) throws ParseException {
+    public static void addShowtime(int idMovieTheater, int idCinema, String startShowtime, int idMovie)
+            throws ParseException {
         Movie movie = MovieService.getInstance().getMovieById(idMovie);
         Date tempShowtime = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse(startShowtime);
         if (tempShowtime.before(new Date())) {
             notification = "Không thể thêm suất chiếu vào quá khứ kekeke";
             return;
         }
-        Date tempEndTime = Converter.getEndTimeByShowtimeWithMovie(tempShowtime, movie);
-        Date tempRealEndTime = Converter.convertToRealEndTimeAfterCleaningTime(tempEndTime);
+        Date tempEndTime = Converter.getEndTimeBeforeCleaningTimeByShowtimeWithMovie(tempShowtime, movie);
+        Date tempEndTimeAfterCleaningTime = Converter.getEndTimeAfterCleaningTime(tempEndTime);
         MovieTheater movieTheater = MovieTheaterService.getInstance().getMovieTheaterById(idMovieTheater);
         assert movieTheater != null;
         for (Cinema cinema : movieTheater.getCinemaList()) {
@@ -132,7 +106,7 @@ public class MovieTheaterService {
                 if (!cinema.getShowtimeList().isEmpty()) {
                     for (Showtime showtime : cinema.getShowtimeList()) {
                         Date realShowtime = showtime.getShowtime();
-                        Date realEndTime = Converter.convertToRealEndTimeAfterCleaningTime(showtime.getEndTime());
+                        Date realEndTime = Converter.getEndTimeAfterCleaningTime(showtime.getEndTime());
                         if (tempShowtime.after(realShowtime) && tempShowtime.before(realEndTime)) {
                             notification = String.format("Thêm không thành công vì suất chiếu bị trùng với " +
                                             "suất chiếu của phim %s từ %s tới %s tại phòng chiếu %s. " +
@@ -142,7 +116,7 @@ public class MovieTheaterService {
                                     Converter.getDateFormat24H(realEndTime),
                                     showtime.getCinemaName());
                             return;
-                        } else if (tempShowtime.before(realShowtime) && tempRealEndTime.after(realShowtime)) {
+                        } else if (tempShowtime.before(realShowtime) && tempEndTimeAfterCleaningTime.after(realShowtime)) {
                             notification = String.format("Thêm không thành công vì không có đủ thời gian trống. " +
                                             "Phim %s có thời lượng %s phút nhưng lúc %s có suất chiếu của phim %s rồi. " +
                                             "(Sau mỗi suất chiếu phải có 30 phút để vệ sinh phòng nữa)",
@@ -165,6 +139,42 @@ public class MovieTheaterService {
         }
 
 
+    }
+
+    private static void autoAddShowtime() {
+        for (MovieTheater movieTheater : movieTheaterList) {
+            for (Cinema cinema : movieTheater.getCinemaList()) {
+                MovieService movieService = MovieService.getInstance();
+                int numberOfMovie = movieService.getMovieList().size();
+                int randomNumber = (int) Math.round(Math.random()*numberOfMovie);
+                Movie randomMovie = movieService.getMovieById(randomNumber);
+                if (cinema.getShowtimeList().isEmpty()) {
+                    Date now = new Date();
+                    addShowtime(movieTheater, cinema, randomMovie, now);
+                } else {
+                    Showtime lastShowtime = cinema.getShowtimeList().get(numberOfMovie - 1);
+                    Date endTimeOfLastShowtime = lastShowtime.getEndTime();
+                    Date availableTimeToAddShowtime = Converter.getEndTimeAfterCleaningTime(endTimeOfLastShowtime);
+                    addShowtime(movieTheater, cinema, randomMovie, availableTimeToAddShowtime);
+                }
+            }
+        }
+    }
+
+    private static void addShowtime(MovieTheater movieTheater, Cinema cinema, Movie randomMovie, Date showtime) {
+        Date endTime = Converter.getEndTimeBeforeCleaningTimeByShowtimeWithMovie(showtime, randomMovie);
+        IShowtimeBuilder showtimeBuilder = new ShowtimeConcreteBuilder()
+                .setIdMovieTheater(movieTheater.getId())
+                .setMovie(randomMovie)
+                .setMovieTheaterAddress(movieTheater.getAddress())
+                .setMovieTheaterName(movieTheater.getName())
+                .setCinemaName(cinema.getName())
+                .setIdCinema(cinema.getId())
+                .setShowtime(showtime)
+                .setEndTime(endTime)
+                .setPrice(cinema.getPrice())
+                .setSeats(cinema.getSeats());
+        cinema.addShowtime(showtimeBuilder.build());
     }
 
     public List<MovieTheater> getMovieTheaterList() {

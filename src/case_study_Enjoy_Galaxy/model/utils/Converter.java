@@ -61,14 +61,14 @@ public class Converter {
         long timeOfNextDay = date.getTime() + TIME_OF_ONE_DAY;
         return new Date(timeOfNextDay);
     }
-    public static Date getEndTimeByShowtimeWithMovie(Date showtime, Movie movie) {
+    public static Date getEndTimeBeforeCleaningTimeByShowtimeWithMovie(Date showtime, Movie movie) {
         long timeOfShowtime = showtime.getTime();
         long timeOfMovieDuration = movie.getMovieDuration() * 60 * 1000L;
         long timeOfEndTime = timeOfShowtime + timeOfMovieDuration;
         return new Date(timeOfEndTime);
     }
 
-    public static Date convertToRealEndTimeAfterCleaningTime(Date endTime) {
+    public static Date getEndTimeAfterCleaningTime(Date endTime) {
         final long TIME_DELAY = 30 * 60 * 1000;
         long timeEnd = endTime.getTime();
         long time = timeEnd + TIME_DELAY;
