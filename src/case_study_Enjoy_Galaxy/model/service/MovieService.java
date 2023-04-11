@@ -70,4 +70,10 @@ public class MovieService {
         }
         return null;
     }
+
+    public Movie getRandomMovie() {
+        int numberOfMovie = movieList.size();
+        int idMovieRandom = (int) Math.ceil(Math.random() * numberOfMovie);
+        return getMovieById(idMovieRandom);
+    }
 }

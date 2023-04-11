@@ -2,7 +2,6 @@ package case_study_Enjoy_Galaxy.model.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,4 +41,10 @@ public class Validation {
 //        Date firstDateInThisMonth = Converter.convertToBeginningOfDate(calendar.getTime());
 //        return dateInput.getTime() > firstDateInThisMonth.getTime();
     }
+
+    public static boolean isInWorkingTimeOfMovieTheater(Date date) throws ParseException {
+        Date datetimeAt8hAm = Converter.convertTo8hAmOfDate(date);
+        return date.after(datetimeAt8hAm);
+    }
+
 }

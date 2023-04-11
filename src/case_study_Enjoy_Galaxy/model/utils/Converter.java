@@ -1,6 +1,8 @@
 package case_study_Enjoy_Galaxy.model.utils;
 
 import case_study_Enjoy_Galaxy.model.entity.Movie;
+import case_study_Enjoy_Galaxy.model.entity.cinema.abstraction.Cinema;
+import case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction.MovieTheater;
 
 import java.text.Normalizer;
 import java.text.NumberFormat;
@@ -19,6 +21,7 @@ public class Converter {
         }
         return removeAccent(code);
     }
+
     public static StringBuilder removeAccent(StringBuilder text) {
         return new StringBuilder(removeAccent(text.toString()));
     }
@@ -61,6 +64,7 @@ public class Converter {
         long timeOfNextDay = date.getTime() + TIME_OF_ONE_DAY;
         return new Date(timeOfNextDay);
     }
+
     public static Date getEndTimeBeforeCleaningTimeByShowtimeWithMovie(Date showtime, Movie movie) {
         long timeOfShowtime = showtime.getTime();
         long timeOfMovieDuration = movie.getMovieDuration() * 60 * 1000L;
@@ -73,5 +77,32 @@ public class Converter {
         long timeEnd = endTime.getTime();
         long time = timeEnd + TIME_DELAY;
         return new Date(time);
+    }
+
+    public static Date convertTo8hAmOfDate(Date date) throws ParseException {
+        Date beginningOfDate = Converter.convertToBeginningOfDate(date);
+        long timeOfBeginningOfDate = beginningOfDate.getTime();
+        long timeOf8Hour = 8 * 60 * 60 * 1000;
+        return new Date(timeOfBeginningOfDate + timeOf8Hour);
+    }
+
+    public static Date convertTo7DaysLater(Date date) {
+        long timeOfDate = date.getTime();
+        long timeOf5Days = 7 * 24 * 60 * 60 * 1000;
+        return new Date(timeOfDate + timeOf5Days);
+    }
+
+    public static String convertToRecord(MovieTheater movieTheater, Cinema cinema, Date showtime, Movie movie) {
+        StringBuilder record = new StringBuilder();
+        String showtimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(showtime);
+        record.append("\n")
+                .append(movieTheater.getId())
+                .append(";")
+                .append(cinema.getId())
+                .append(";")
+                .append(showtimeFormat)
+                .append(";")
+                .append(movie.getId());
+        return record.toString();
     }
 }

@@ -1,17 +1,23 @@
 package case_study_Enjoy_Galaxy.view;
 
 import case_study_Enjoy_Galaxy.model.entity.Movie;
+import case_study_Enjoy_Galaxy.model.entity.cinema.abstraction.Cinema;
+import case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction.MovieTheater;
 import case_study_Enjoy_Galaxy.model.entity.users.Admin;
 import case_study_Enjoy_Galaxy.model.service.MovieService;
 import case_study_Enjoy_Galaxy.model.service.MovieTheaterService;
 import case_study_Enjoy_Galaxy.model.service.TicketService;
 import case_study_Enjoy_Galaxy.model.service.UserService;
+import case_study_Enjoy_Galaxy.model.utils.Converter;
+import case_study_Enjoy_Galaxy.model.utils.FileWriterUtils;
 import case_study_Enjoy_Galaxy.model.utils.Input;
 import case_study_Enjoy_Galaxy.model.utils.Validation;
 import case_study_Enjoy_Galaxy.view.abstraction.UserView;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class AdminView extends UserView {
@@ -58,8 +64,16 @@ public class AdminView extends UserView {
         MovieService.getInstance().getMovieList().forEach(System.out::println);
         int idMovie = Input.choiceIntegerPrompt("Enter movie ID:");
         movieTheaterService.getShowtimeListByCinemaId(idMovieTheater, idCinema).forEach(System.out::println);
-        String showtime = Input.prompt("Enter showtime with format \"dd/MM/yyyy hh:mm:ss\"");
-        MovieTheaterService.addShowtime(idMovieTheater, idCinema, showtime, idMovie);
+        String showtimeFormat = Input.prompt("Enter showtime with format \"dd/MM/yyyy hh:mm:ss\"");
+        Date showtime = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse(showtimeFormat);
+        MovieTheater movieTheater = movieTheaterService.getMovieTheaterById(idMovieTheater);
+        Cinema cinema = movieTheaterService.getCinemaById(idCinema);
+        Movie movie = MovieService.getInstance().getMovieById(idMovie);
+        boolean isSuccessfullyAdded = MovieTheaterService.addShowtime(idMovieTheater, idCinema, showtime, idMovie);
+        if (isSuccessfullyAdded) {
+            String record = Converter.convertToRecord(movieTheater, cinema, showtime, movie);
+            FileWriterUtils.writeFileShowtime(record);
+        }
         System.out.println(MovieTheaterService.getNotification());
     }
 
