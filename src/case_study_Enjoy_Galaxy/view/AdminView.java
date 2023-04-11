@@ -71,7 +71,7 @@ public class AdminView extends UserView {
         Movie movie = MovieService.getInstance().getMovieById(idMovie);
         boolean isSuccessfullyAdded = MovieTheaterService.addShowtime(idMovieTheater, idCinema, showtime, idMovie);
         if (isSuccessfullyAdded) {
-            String record = Converter.convertToRecord(movieTheater, cinema, showtime, movie);
+            String record = Converter.convertToRecordOfShowtime(movieTheater, cinema, showtime, movie);
             FileWriterUtils.writeFileShowtime(record);
         }
         System.out.println(MovieTheaterService.getNotification());

@@ -146,30 +146,30 @@ public class MovieTheaterService {
     private static Date autoAddShowtimeAndReturnLastShowtime(Date startTimeOfLastShowtime) throws ParseException {
         for (MovieTheater movieTheater : movieTheaterList) {
             for (Cinema cinema : movieTheater.getCinemaList()) {
-                Date showtime;
+                Date newShowtime;
                 MovieService movieService = MovieService.getInstance();
                 Movie randomMovie = movieService.getRandomMovie();
                 List<Showtime> showtimeList = cinema.getShowtimeList();
                 if (!showtimeList.isEmpty()) {
                     Showtime lastShowtime = showtimeList.get(showtimeList.size() - 1);
                     Date endTimeOfLastShowtime = lastShowtime.getEndTime();
-                    showtime = Converter.getEndTimeAfterCleaningTime(endTimeOfLastShowtime);
+                    Date sevenDaysLater = Converter.convertTo7DaysLater(new Date());
+                    if (endTimeOfLastShowtime.after(sevenDaysLater)) {
+                        startTimeOfLastShowtime = lastShowtime.getShowtime();
+                        continue;
+                    }
+                    newShowtime = Converter.getEndTimeAfterCleaningTime(endTimeOfLastShowtime);
                 } else {
-                    showtime = new Date();
+                    newShowtime = new Date();
                 }
-                if (Validation.isInWorkingTimeOfMovieTheater(showtime)) {
-                    Date endTime = Converter.getEndTimeBeforeCleaningTimeByShowtimeWithMovie(showtime, randomMovie);
-                    addShowtime(movieTheater, cinema, randomMovie, showtime, endTime);
-                    String record = Converter.convertToRecord(movieTheater, cinema, showtime, randomMovie);
-                    FileWriterUtils.writeFileShowtime(record);
-                } else {
-                    showtime = Converter.convertTo8hAmOfDate(showtime);
-                    Date endTime = Converter.getEndTimeBeforeCleaningTimeByShowtimeWithMovie(showtime, randomMovie);
-                    addShowtime(movieTheater, cinema, randomMovie, showtime, endTime);
-                    String record = Converter.convertToRecord(movieTheater, cinema, showtime, randomMovie);
-                    FileWriterUtils.writeFileShowtime(record);
+                if (!Validation.isInWorkingTimeOfMovieTheater(newShowtime)) {
+                    newShowtime = Converter.convertTo8hAmOfDate(newShowtime);
                 }
-                startTimeOfLastShowtime = (Date) showtime.clone();
+                Date endTime = Converter.getEndTimeBeforeCleaningTimeByShowtimeWithMovie(newShowtime, randomMovie);
+                addShowtime(movieTheater, cinema, randomMovie, newShowtime, endTime);
+                String record = Converter.convertToRecordOfShowtime(movieTheater, cinema, newShowtime, randomMovie);
+                FileWriterUtils.writeFileShowtime(record);
+                startTimeOfLastShowtime = (Date) newShowtime.clone();
             }
         }
         return startTimeOfLastShowtime;

@@ -92,7 +92,7 @@ public class Converter {
         return new Date(timeOfDate + timeOf5Days);
     }
 
-    public static String convertToRecord(MovieTheater movieTheater, Cinema cinema, Date showtime, Movie movie) {
+    public static String convertToRecordOfShowtime(MovieTheater movieTheater, Cinema cinema, Date showtime, Movie movie) {
         StringBuilder record = new StringBuilder();
         String showtimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(showtime);
         record.append("\n")
