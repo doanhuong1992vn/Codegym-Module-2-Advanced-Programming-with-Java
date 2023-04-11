@@ -9,14 +9,8 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 public class Test {
-    public static String removeAccent(String s) {
-        String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
-        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
-        temp = pattern.matcher(temp).replaceAll("");
-        return temp.replaceAll("đ", "d");
-    }
-
     public static void main(String[] args) throws ParseException {
+<<<<<<< HEAD
         ArrayList<Integer> intList = new ArrayList<>();
         intList.add(1);
         intList.add(2);
@@ -48,5 +42,7 @@ public class Test {
         System.out.println(new SimpleDateFormat("MM/yyyy").parse("04/2023"));
         System.out.println(Test.class);
         System.out.println(removeAccent("xin chào đồng chí! ă Â àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễòóọỏõôồốộổỗơờớợởỡìíịỉĩùúụủũưừứựửữỳýỵỷỹ"));
+=======
+>>>>>>> 84d3ff04a064086d1ec132070c1222cb4c104e56
     }
 }

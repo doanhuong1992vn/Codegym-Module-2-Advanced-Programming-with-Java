@@ -74,12 +74,17 @@ public class MovieTheaterService {
     public static MovieTheaterService getInstance() {
         return movieTheaterService;
     }
+
     public static String getNotification() {
         return notification;
     }
 
+<<<<<<< HEAD
     public static void addShowtime(int idMovieTheater, int idCinema, String startShowtime, int idMovie)
             throws ParseException {
+=======
+    public static void addShowtime(int idMovieTheater, int idCinema, String startShowtime, int idMovie) throws ParseException {
+>>>>>>> 84d3ff04a064086d1ec132070c1222cb4c104e56
         Movie movie = MovieService.getInstance().getMovieById(idMovie);
         Date tempShowtime = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse(startShowtime);
         if (tempShowtime.before(new Date())) {
