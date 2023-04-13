@@ -43,7 +43,6 @@ public abstract class Cinema implements ICapacity, IPrice {
                     case 2 -> seats[i][k] = seatFactory.getSeat("deluxeseat", seatCode);
                     default -> seats[i][k] = seatFactory.getSeat("sweetbox", seatCode);
                 }
-
             }
         }
     }
