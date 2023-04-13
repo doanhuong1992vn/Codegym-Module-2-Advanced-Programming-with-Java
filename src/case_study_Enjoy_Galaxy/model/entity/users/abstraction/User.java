@@ -6,24 +6,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class User {
-    private final List<Ticket> ticketList = new ArrayList<>();
-    private String fullName;
-    private String phoneNumber;
-    private String email;
-    private String password;
-    private double wallet;
-
-    protected User(String phoneNumber, String email, String password) {
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.password = password;
-    }
+    protected final List<Ticket> ticketList = new ArrayList<>();
+    protected long id;
+    protected String fullName;
+    protected String phoneNumber;
+    protected String email;
+    protected String password;
+    protected double wallet;
 
     protected User(String fullName, String phoneNumber, String email, String password) {
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
+    }
+
+    public User(long id, String fullName, String phoneNumber, String email, String password, double wallet) {
+        this.id = id;
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.password = password;
+        this.wallet = wallet;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTicketCode() {

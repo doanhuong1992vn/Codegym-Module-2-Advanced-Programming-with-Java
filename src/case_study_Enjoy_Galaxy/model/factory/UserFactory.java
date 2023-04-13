@@ -22,4 +22,5 @@ public class UserFactory {
         }
         return new Customer(fullName, phoneNumber, email, password);
     }
+    public User getUser()
 }

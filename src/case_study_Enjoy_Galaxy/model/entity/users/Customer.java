@@ -10,12 +10,12 @@ import java.util.List;
 
 public class Customer extends User {
 
-    public Customer(String phoneNumber, String email, String password) {
-        super(phoneNumber, email, password);
-    }
-
     public Customer(String fullName, String phoneNumber, String email, String password) {
         super(fullName, phoneNumber, email, password);
+    }
+
+    public Customer(long id, String fullName, String phoneNumber, String email, String password, double wallet) {
+        super(id, fullName, phoneNumber, email, password, wallet);
     }
 
     @Override

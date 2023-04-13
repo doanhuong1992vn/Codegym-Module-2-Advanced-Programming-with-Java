@@ -28,6 +28,15 @@ public class Staff extends User {
         this.address = address;
     }
 
+    public Staff(long id, String fullName, String phoneNumber, String email, String password, double wallet, String education, String jobTitle, double salary, Date birthDay, String address) {
+        super(id, fullName, phoneNumber, email, password, wallet);
+        this.education = education;
+        this.jobTitle = jobTitle;
+        this.salary = salary;
+        this.birthDay = birthDay;
+        this.address = address;
+    }
+
     public String getEducation() {
         return education;
     }

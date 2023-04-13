@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Codegym-Module-2-Advanced-Programming-with-Java.iml" filepath="$PROJECT_DIR$/Codegym-Module-2-Advanced-Programming-with-Java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Codegym-Module-3-Database/lesson-12-jdbc/user-manager/user-manager.iml" filepath="$PROJECT_DIR$/../Codegym-Module-3-Database/lesson-12-jdbc/user-manager/user-manager.iml" />
     </modules>
   </component>
 </project>

@@ -1,5 +1,7 @@
-package case_study_Enjoy_Galaxy.model.builder.staff_builder;
+package case_study_Enjoy_Galaxy.model.builder.user_builder;
 
+import case_study_Enjoy_Galaxy.model.builder.staff_builder.IStaffBuilder;
+import case_study_Enjoy_Galaxy.model.entity.users.Customer;
 import case_study_Enjoy_Galaxy.model.entity.users.Staff;
 import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
 
@@ -7,8 +9,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class StaffConcreteBuilder implements IStaffBuilder{
+public class UserConcreteBuilder implements IUserBuilder {
     private long id;
+    private String type;
     private String fullName;
     private String phoneNumber;
     private String email;
@@ -21,77 +24,83 @@ public class StaffConcreteBuilder implements IStaffBuilder{
     private double wallet;
 
     @Override
-    public IStaffBuilder setWallet(double wallet) {
+    public IUserBuilder type(String type) {
+        this.type = type;
+        return this;
+    }
+
+    @Override
+    public IUserBuilder wallet(double wallet) {
         this.wallet = wallet;
         return this;
     }
 
     @Override
-    public IStaffBuilder setId(long id) {
+    public IUserBuilder id(long id) {
         this.id = id;
         return this;
     }
 
     @Override
-    public IStaffBuilder setFullName(String fullName) {
+    public IUserBuilder fullName(String fullName) {
         this.fullName = fullName;
         return this;
     }
 
     @Override
-    public IStaffBuilder setPhoneNumber(String phoneNumber) {
+    public IUserBuilder phoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
 
     @Override
-    public IStaffBuilder setEmail(String email) {
+    public IUserBuilder email(String email) {
         this.email = email;
         return this;
     }
 
     @Override
-    public IStaffBuilder setPassword(String password) {
+    public IUserBuilder password(String password) {
         this.password = password;
         return this;
     }
 
     @Override
-    public IStaffBuilder setEducation(String education) {
+    public IUserBuilder education(String education) {
         this.education = education;
         return this;
     }
 
     @Override
-    public IStaffBuilder setJobTitle(String jobTitle) {
+    public IUserBuilder jobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
         return this;
     }
 
     @Override
-    public IStaffBuilder setSalary(double salary) {
+    public IUserBuilder salary(double salary) {
         this.salary = salary;
         return this;
     }
 
     @Override
-    public IStaffBuilder setBirthDay(String strBirthDay) throws ParseException {
-        this.birthDay = new SimpleDateFormat("dd/MM/yyyy").parse(strBirthDay);
+    public IUserBuilder birthDay(Date birthDay) {
+        this.birthDay = birthDay;
         return this;
     }
 
     @Override
-    public IStaffBuilder setAddress(String address) {
+    public IUserBuilder address(String address) {
         this.address = address;
         return this;
     }
 
     @Override
     public User build() {
-        return new Staff(fullName, phoneNumber, email, password, education, jobTitle, salary, birthDay, address);
-    }
-    @Override
-    public Staff buildFullInformation() {
-        return new Staff(id, fullName, phoneNumber, email, password, wallet, education, jobTitle, salary, birthDay, address);
+        if (type.equals("STAFF")) {
+            return new Staff(id, fullName, phoneNumber, email, password, wallet, education, jobTitle, salary, birthDay, address);
+        } else {
+            return new Customer(id, fullName, phoneNumber, email, password, wallet);
+        }
     }
 }
