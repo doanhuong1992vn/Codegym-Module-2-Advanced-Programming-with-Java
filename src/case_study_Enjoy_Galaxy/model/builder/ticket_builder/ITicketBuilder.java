@@ -9,10 +9,10 @@ public interface ITicketBuilder {
     ITicketBuilder setPersonNumber(int personNumber);
     ITicketBuilder setPrice(double price);
     ITicketBuilder setUserName(String userName);
-    ITicketBuilder setIdMovieTheater(int idMovieTheater);
+    ITicketBuilder setIdMovieTheater(long idMovieTheater);
     ITicketBuilder setMovieTheaterName(String movieTheaterName);
     ITicketBuilder setMovieTheaterAddress(String movieTheaterAddress);
-    ITicketBuilder setIdCinema(int idCinema);
+    ITicketBuilder setIdCinema(long idCinema);
     ITicketBuilder setCinemaName(String cinemaName);
     ITicketBuilder setMovieName(String movieName);
     ITicketBuilder setMovieDuration(int movieDuration);

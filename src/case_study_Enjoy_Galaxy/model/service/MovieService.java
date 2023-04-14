@@ -1,5 +1,6 @@
 package case_study_Enjoy_Galaxy.model.service;
 
+import case_study_Enjoy_Galaxy.model.dao.iplm.MovieDAO;
 import case_study_Enjoy_Galaxy.model.entity.Movie;
 import case_study_Enjoy_Galaxy.model.utils.Converter;
 import case_study_Enjoy_Galaxy.model.utils.FileReaderUtils;
@@ -15,11 +16,12 @@ public class MovieService {
     private static final String PATH = "src\\case_study_Enjoy_Galaxy\\model\\data\\movie.csv";
 
     static {
-        try {
-            movieList.addAll(FileReaderUtils.readMovieData(PATH));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        movieList.addAll(MovieDAO.getMovieDAO().getAll());
+//        try {
+//            movieList.addAll(FileReaderUtils.readMovieData(PATH));
+//        } catch (ParseException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     private MovieService() {

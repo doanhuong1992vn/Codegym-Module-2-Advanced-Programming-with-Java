@@ -18,5 +18,5 @@ public interface IUserBuilder {
     IUserBuilder birthDay(Date birthDay) throws ParseException;
     IUserBuilder address(String address);
     IUserBuilder wallet(double wallet);
-    User build() throws ParseException;
+    User build();
 }

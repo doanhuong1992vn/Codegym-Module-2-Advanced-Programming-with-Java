@@ -6,10 +6,10 @@ import java.util.Date;
 
 public class TicketConcreteBuilder implements ITicketBuilder {
     private String userName;
-    private int idMovieTheater;
+    private long idMovieTheater;
     private String movieTheaterName;
     private String movieTheaterAddress;
-    private int idCinema;
+    private long idCinema;
     private String cinemaName;
     private String movieName;
     private int movieDuration;
@@ -44,7 +44,7 @@ public class TicketConcreteBuilder implements ITicketBuilder {
     }
 
     @Override
-    public ITicketBuilder setIdMovieTheater(int idMovieTheater) {
+    public ITicketBuilder setIdMovieTheater(long idMovieTheater) {
         this.idMovieTheater = idMovieTheater;
         return this;
     }
@@ -62,7 +62,7 @@ public class TicketConcreteBuilder implements ITicketBuilder {
     }
 
     @Override
-    public ITicketBuilder setIdCinema(int idCinema) {
+    public ITicketBuilder setIdCinema(long idCinema) {
         this.idCinema = idCinema;
         return this;
     }

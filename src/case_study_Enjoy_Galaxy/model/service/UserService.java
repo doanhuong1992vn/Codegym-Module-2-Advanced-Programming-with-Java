@@ -1,16 +1,14 @@
 package case_study_Enjoy_Galaxy.model.service;
 
-import case_study_Enjoy_Galaxy.model.builder.staff_builder.IStaffBuilder;
-import case_study_Enjoy_Galaxy.model.builder.staff_builder.StaffConcreteBuilder;
-import case_study_Enjoy_Galaxy.model.entity.users.Admin;
-import case_study_Enjoy_Galaxy.model.entity.users.Customer;
+import case_study_Enjoy_Galaxy.model.builder.user_builder.IUserBuilder;
+import case_study_Enjoy_Galaxy.model.builder.user_builder.UserConcreteBuilder;
+import case_study_Enjoy_Galaxy.model.dao.iplm.UserDAO;
 import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
-import case_study_Enjoy_Galaxy.model.factory.UserFactory;
 import case_study_Enjoy_Galaxy.model.utils.Converter;
-import case_study_Enjoy_Galaxy.model.utils.FileReaderUtils;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class UserService {
@@ -19,9 +17,7 @@ public class UserService {
     private static final String PATH = "src\\case_study_Enjoy_Galaxy\\model\\data\\customer.csv";
 
     static {
-        List<Customer> dataList = FileReaderUtils.readCustomerData(PATH);
-        userList.addAll(dataList);
-        userList.add(Admin.getInstance());
+        userList.addAll(UserDAO.getInstance().getAll());
     }
 
     private UserService() {
@@ -34,36 +30,45 @@ public class UserService {
     private String notification;
     private User currentUser;
 
-    public void createAccount(String typeUser, String fullName, String phoneNumber, String email, String password) {
+    public void createCustomer(String fullName, String phoneNumber, String email, String password) {
         if (checkEmailAndPhoneNumberWhenSignUp(email, phoneNumber)) {
             notification = "Phone number or email is already registered";
         } else {
-            UserFactory userFactory = UserFactory.getInstance();
-            currentUser = userFactory.getUser(typeUser, fullName, phoneNumber, email, password);
-            userList.add(currentUser);
+            IUserBuilder userBuilder = new UserConcreteBuilder()
+                    .type("customer")
+                    .fullName(fullName)
+                    .phoneNumber(phoneNumber)
+                    .email(email)
+                    .password(password);
+            User customer = userBuilder.build();
+            userList.add(customer);
+            UserDAO.getInstance().insertUser(customer);
             notification = "Successful registration. Welcome " + fullName + " to Enjoy Galaxy!";
         }
     }
-    public void createAccount(String fullName, String phoneNumber, String email, String password, String education,
-                              String jobTitle, double salary, String birthday, String address) throws ParseException {
+
+    public void createStaff(String fullName, String phoneNumber, String email, String password, String education,
+                            String jobTitle, double salary, Date birthday, String address) throws ParseException {
         if (checkEmailAndPhoneNumberWhenSignUp(email, phoneNumber)) {
             notification = "Phone number or email is already registered";
         } else {
-            IStaffBuilder staffBuilder = new StaffConcreteBuilder()
-                    .setAddress(address)
-                    .setEducation(education)
-                    .setEmail(email)
-                    .setBirthDay(birthday)
-                    .setFullName(fullName)
-                    .setPassword(password)
-                    .setJobTitle(jobTitle)
-                    .setPhoneNumber(phoneNumber)
-                    .setSalary(salary);
-            userList.add(staffBuilder.build());
+            IUserBuilder userBuilder = new UserConcreteBuilder()
+                    .type("staff")
+                    .fullName(fullName)
+                    .password(password)
+                    .email(email)
+                    .phoneNumber(phoneNumber)
+                    .address(address)
+                    .salary(salary)
+                    .birthDay(birthday)
+                    .education(education)
+                    .jobTitle(jobTitle);
+            User staff = userBuilder.build();
+            userList.add(staff);
+            UserDAO.getInstance().insertUser(staff);
             notification = "Successful registration for staff " + fullName + " to Enjoy Galaxy!";
         }
     }
-
 
 
     public boolean checkEmailAndPhoneNumberWhenSignUp(String email, String phoneNumber) {
@@ -96,6 +101,7 @@ public class UserService {
     public String getNotification() {
         return notification;
     }
+
     public boolean isPaymentFailed(double price) {
         if (currentUser.getWallet() >= price) {
             final double AMOUNT_AFTER_PAYMENT = currentUser.getWallet() - price;
@@ -106,6 +112,7 @@ public class UserService {
         }
         return true;
     }
+
     public void editFullName(String fullName) {
         currentUser.setFullName(fullName);
     }

@@ -79,7 +79,7 @@ public class FileReaderUtils {
                     .setDirector(properties[INDEX_OF_DIRECTOR])
                     .setContent(properties[INDEX_OF_CONTENT])
                     .setLanguage(properties[INDEX_OF_LANGUAGE])
-                    .setPremiereDate(properties[INDEX_OF_PREMIERE_DATE]);
+                    .setStrPremiereDate(properties[INDEX_OF_PREMIERE_DATE]);
             movieList.add(movieBuilder.build());
         }
         return movieList;
@@ -98,6 +98,7 @@ public class FileReaderUtils {
             }
             String[] informationArray = lineOfInformationList.split(";");
             movieTheaterList.add(movieTheaterFactory.getMovieTheater(
+                    100,
                     informationArray[INDEX_OF_TYPE],
                     informationArray[INDEX_OF_NAME],
                     informationArray[INDEX_OF_ADDRESS]

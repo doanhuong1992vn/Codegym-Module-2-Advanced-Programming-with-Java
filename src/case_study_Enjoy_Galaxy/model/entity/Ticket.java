@@ -7,12 +7,12 @@ import java.util.Date;
 
 public class Ticket {
     private static int count = 0;
-    private int id;
+    private long id;
     private String userName;
-    private int idMovieTheater;
+    private long idMovieTheater;
     private String nameOfMovieTheater;
     private String addressOfMovieTheater;
-    private int idCinema;
+    private long idCinema;
     private String nameOfCinema;
     private String nameOfMovie;
     private int movieDuration;
@@ -27,10 +27,10 @@ public class Ticket {
     private boolean checked = false;
 
     public Ticket(String userName,
-                  int idMovieTheater,
+                  long idMovieTheater,
                   String nameOfMovieTheater,
                   String addressOfMovieTheater,
-                  int idCinema,
+                  long idCinema,
                   String nameOfCinema,
                   String nameOfMovie,
                   int movieDuration,
@@ -115,11 +115,11 @@ public class Ticket {
         return count;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public int getIdMovieTheater() {
+    public long getIdMovieTheater() {
         return idMovieTheater;
     }
 
@@ -131,7 +131,7 @@ public class Ticket {
         return addressOfMovieTheater;
     }
 
-    public int getIdCinema() {
+    public long getIdCinema() {
         return idCinema;
     }
 

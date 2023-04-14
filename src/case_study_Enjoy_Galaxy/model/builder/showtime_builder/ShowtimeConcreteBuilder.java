@@ -7,8 +7,8 @@ import case_study_Enjoy_Galaxy.model.entity.seat.abstraction.Seat;
 import java.util.Date;
 
 public class ShowtimeConcreteBuilder implements IShowtimeBuilder {
-    private int idMovieTheater;
-    private int idCinema;
+    private long idMovieTheater;
+    private long idCinema;
     private String movieTheaterName;
     private String movieTheaterAddress;
     private String cinemaName;
@@ -19,13 +19,13 @@ public class ShowtimeConcreteBuilder implements IShowtimeBuilder {
     private Seat[][] seats;
 
     @Override
-    public IShowtimeBuilder setIdMovieTheater(int idMovieTheater) {
+    public IShowtimeBuilder setIdMovieTheater(long idMovieTheater) {
         this.idMovieTheater = idMovieTheater;
         return this;
     }
 
     @Override
-    public IShowtimeBuilder setIdCinema(int idCinema) {
+    public IShowtimeBuilder setIdRoom(long idCinema) {
         this.idCinema = idCinema;
         return this;
     }
@@ -43,7 +43,7 @@ public class ShowtimeConcreteBuilder implements IShowtimeBuilder {
     }
 
     @Override
-    public IShowtimeBuilder setCinemaName(String cinemaName) {
+    public IShowtimeBuilder setRoomName(String cinemaName) {
         this.cinemaName = cinemaName;
         return this;
     }

@@ -7,6 +7,10 @@ public class StandardMovieTheater extends MovieTheater {
         super(name, address);
     }
 
+    public StandardMovieTheater(long id, String type, String name, String address) {
+        super(id, type, name, address);
+    }
+
     @Override
     public String toString(){
         return "ID = " + getId() +

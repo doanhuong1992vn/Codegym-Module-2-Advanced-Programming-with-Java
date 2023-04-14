@@ -14,8 +14,8 @@ public class Customer extends User {
         super(fullName, phoneNumber, email, password);
     }
 
-    public Customer(long id, String fullName, String phoneNumber, String email, String password, double wallet) {
-        super(id, fullName, phoneNumber, email, password, wallet);
+    public Customer(long id, String type, String fullName, String phoneNumber, String email, String password, double wallet) {
+        super(id, type, fullName, phoneNumber, email, password, wallet);
     }
 
     @Override

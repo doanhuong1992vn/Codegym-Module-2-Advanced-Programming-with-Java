@@ -10,10 +10,10 @@ public class MovieTheaterFactory {
     public static MovieTheaterFactory getInstance() {
         return movieTheaterFactory;
     }
-    public MovieTheater getMovieTheater(String typeMovieTheater, String name, String address) {
-        String typeMovieTheaterToUpperCase = typeMovieTheater.toUpperCase();
-        if (typeMovieTheaterToUpperCase.equals("STANDARD")) {
-            return new StandardMovieTheater(name, address);
+
+    public MovieTheater getMovieTheater(long id, String type, String name, String address) {
+        if (type.equalsIgnoreCase("STANDARD")) {
+            return new StandardMovieTheater(id, type, name, address);
         }
         return null;
     }

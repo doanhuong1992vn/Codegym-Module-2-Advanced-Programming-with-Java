@@ -1,29 +1,48 @@
 package case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction;
 
-import case_study_Enjoy_Galaxy.model.entity.cinema.abstraction.Cinema;
+import case_study_Enjoy_Galaxy.model.entity.cinema.abstraction.Room;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class MovieTheater {
     private static int count = 0;
-    private int id;
+    private long id;
+    private String type;
     private String name;
     private String address;
-    private List<Cinema> cinemas;
+    private List<Room> rooms;
 
     protected MovieTheater(String name, String address) {
         this.id = ++count;
         this.name = name;
         this.address = address;
-        cinemas = new ArrayList<>();
+        rooms = new ArrayList<>();
     }
-    public void addCinema(Cinema cinema) {
-        cinemas.add(cinema);
+
+    public MovieTheater(long id, String type, String name, String address) {
+        this.id = id;
+        this.type = type;
+        this.name = name;
+        this.address = address;
+        rooms = new ArrayList<>();
     }
-    public int getId() {
+
+    public void addCinema(Room room) {
+        rooms.add(room);
+    }
+    public long getId() {
         return id;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getName() {
         return name;
     }
@@ -40,12 +59,12 @@ public abstract class MovieTheater {
         this.address = address;
     }
 
-    public List<Cinema> getCinemaList() {
-        return cinemas;
+    public List<Room> getCinemaList() {
+        return rooms;
     }
 
-    public void setCinemas(List<Cinema> cinemas) {
-        this.cinemas = cinemas;
+    public void setCinemas(List<Room> rooms) {
+        this.rooms = rooms;
     }
 
     public int getCinemasNumber() {
@@ -54,8 +73,8 @@ public abstract class MovieTheater {
 
     public int getShowtimeNumber() {
         int number = 0;
-        for (Cinema cinema: getCinemaList()) {
-            number += cinema.getShowtimeList().size();
+        for (Room room : getCinemaList()) {
+            number += room.getShowtimeList().size();
         }
         return number;
     }

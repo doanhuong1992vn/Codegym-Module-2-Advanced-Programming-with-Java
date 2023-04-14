@@ -7,23 +7,23 @@ import java.util.Date;
 
 public class Showtime {
     private static int count = 0;
-    private int id;
-    private int idMovieTheater;
-    private int idCinema;
+    private long id;
+    private long idMovieTheater;
+    private long idRoom;
     private String movieTheaterName;
     private String movieTheaterAddress;
-    private String cinemaName;
+    private String nameOfRoom;
     private Date showtime;
     private Date endTime;
     private Movie movie;
     private double price;
     private Seat[][] seats;
 
-    public Showtime(int idMovieTheater,
-                    int idCinema,
+    public Showtime(long idMovieTheater,
+                    long idRoom,
                     String movieTheaterName,
                     String movieTheaterAddress,
-                    String cinemaName,
+                    String nameOfRoom,
                     Date showtime,
                     Date endTime,
                     Movie movie,
@@ -31,10 +31,10 @@ public class Showtime {
                     Seat[][] seats) {
         this.id = ++count;
         this.idMovieTheater = idMovieTheater;
-        this.idCinema = idCinema;
+        this.idRoom = idRoom;
         this.movieTheaterName = movieTheaterName;
         this.movieTheaterAddress = movieTheaterAddress;
-        this.cinemaName = cinemaName;
+        this.nameOfRoom = nameOfRoom;
         this.showtime = showtime;
         this.endTime = endTime;
         this.movie = movie;
@@ -42,15 +42,15 @@ public class Showtime {
         this.seats = seats;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getIdMovieTheater() {
+    public long getIdMovieTheater() {
         return idMovieTheater;
     }
 
@@ -58,12 +58,12 @@ public class Showtime {
         this.idMovieTheater = idMovieTheater;
     }
 
-    public int getIdCinema() {
-        return idCinema;
+    public long getIdRoom() {
+        return idRoom;
     }
 
-    public void setIdCinema(int idCinema) {
-        this.idCinema = idCinema;
+    public void setIdRoom(int idRoom) {
+        this.idRoom = idRoom;
     }
 
     public String getMovieTheaterName() {
@@ -82,12 +82,12 @@ public class Showtime {
         this.movieTheaterAddress = movieTheaterAddress;
     }
 
-    public String getCinemaName() {
-        return cinemaName;
+    public String getNameOfRoom() {
+        return nameOfRoom;
     }
 
-    public void setCinemaName(String cinemaName) {
-        this.cinemaName = cinemaName;
+    public void setNameOfRoom(String nameOfRoom) {
+        this.nameOfRoom = nameOfRoom;
     }
 
     public Date getShowtime() {
@@ -140,6 +140,6 @@ public class Showtime {
                 getMovie().getName(),
                 Converter.getDateFormat24H(getShowtime()),
                 Converter.getDateFormat24H(getEndTime()),
-                getCinemaName());
+                getNameOfRoom());
     }
 }

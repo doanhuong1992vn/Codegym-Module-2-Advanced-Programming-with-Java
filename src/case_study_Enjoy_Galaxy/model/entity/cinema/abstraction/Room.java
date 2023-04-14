@@ -8,27 +8,54 @@ import case_study_Enjoy_Galaxy.model.factory.SeatFactory;
 
 import java.util.*;
 
-public abstract class Cinema implements ICapacity, IPrice {
+public abstract class Room implements ICapacity, IPrice {
     private static final String[] seatCodes =
             {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"};
-    private static int count = 0;
-    private int id;
-    private String name;
-    private int seatColumnNumber = 4;
-    private int seatRowNumber = 4;
-    private Seat[][] seats;
-    private List<Showtime> showtimeList = new ArrayList<>();
+    protected static int count = 0;
+    protected long id;
+    protected String type;
+    protected String name;
+    private long idMovieTheater;
+    protected int seatColumnNumber = 4;
+    protected int seatRowNumber = 4;
+    protected Seat[][] seats;
+    protected List<Showtime> showtimeList = new ArrayList<>();
 
-    protected Cinema(String name) {
+    protected Room(String name) {
         this.id = ++count;
         this.name = name;
         setSeats(seatRowNumber, seatColumnNumber);
     }
 
-    protected Cinema(String name, int seatRowNumber, int seatColumnNumber) {
+    protected Room(String name, int seatRowNumber, int seatColumnNumber) {
         this.id = ++count;
         this.name = name;
         setSeats(seatRowNumber, seatColumnNumber);
+    }
+
+    public Room(long id, String type, String name, int seatRowNumber, int seatColumnNumber, long idMovieTheater) {
+        this.id = id;
+        this.type = type;
+        this.name = name;
+        this.seatColumnNumber = seatColumnNumber;
+        this.seatRowNumber = seatRowNumber;
+        this.idMovieTheater = idMovieTheater;
+    }
+
+    public long getIdMovieTheater() {
+        return idMovieTheater;
+    }
+
+    public void setIdMovieTheater(long idMovieTheater) {
+        this.idMovieTheater = idMovieTheater;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     private void createSeats(int seatRowNumber, int seatColumnNumber) {
@@ -47,7 +74,7 @@ public abstract class Cinema implements ICapacity, IPrice {
         }
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -90,7 +117,6 @@ public abstract class Cinema implements ICapacity, IPrice {
     public List<Showtime> getShowtimeList() {
         return showtimeList;
     }
-
 
     public void addShowtime(Showtime showtime) {
         showtimeList.add(showtime);

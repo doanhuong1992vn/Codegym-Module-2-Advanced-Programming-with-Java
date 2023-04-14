@@ -1,7 +1,7 @@
 package case_study_Enjoy_Galaxy.model.utils;
 
 import case_study_Enjoy_Galaxy.model.entity.Movie;
-import case_study_Enjoy_Galaxy.model.entity.cinema.abstraction.Cinema;
+import case_study_Enjoy_Galaxy.model.entity.cinema.abstraction.Room;
 import case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction.MovieTheater;
 
 import java.text.Normalizer;
@@ -88,17 +88,17 @@ public class Converter {
 
     public static Date convertTo7DaysLater(Date date) {
         long timeOfDate = date.getTime();
-        long timeOf5Days = 7 * 24 * 60 * 60 * 1000;
-        return new Date(timeOfDate + timeOf5Days);
+        long timeOf7Days = 7 * 24 * 60 * 60 * 1000;
+        return new Date(timeOfDate + timeOf7Days);
     }
 
-    public static String convertToRecordOfShowtime(MovieTheater movieTheater, Cinema cinema, Date showtime, Movie movie) {
+    public static String convertToRecordOfShowtime(MovieTheater movieTheater, Room room, Date showtime, Movie movie) {
         StringBuilder record = new StringBuilder();
         String showtimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(showtime);
         record.append("\n")
                 .append(movieTheater.getId())
                 .append(";")
-                .append(cinema.getId())
+                .append(room.getId())
                 .append(";")
                 .append(showtimeFormat)
                 .append(";")

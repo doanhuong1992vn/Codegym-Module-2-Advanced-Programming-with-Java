@@ -8,6 +8,7 @@ import java.util.List;
 public abstract class User {
     protected final List<Ticket> ticketList = new ArrayList<>();
     protected long id;
+    protected String type;
     protected String fullName;
     protected String phoneNumber;
     protected String email;
@@ -21,8 +22,9 @@ public abstract class User {
         this.password = password;
     }
 
-    public User(long id, String fullName, String phoneNumber, String email, String password, double wallet) {
+    public User(long id, String type, String fullName, String phoneNumber, String email, String password, double wallet) {
         this.id = id;
+        this.type = type;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -36,6 +38,14 @@ public abstract class User {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getTicketCode() {

@@ -97,10 +97,10 @@ public class UserConcreteBuilder implements IUserBuilder {
 
     @Override
     public User build() {
-        if (type.equals("STAFF")) {
-            return new Staff(id, fullName, phoneNumber, email, password, wallet, education, jobTitle, salary, birthDay, address);
+        if (type.equalsIgnoreCase("STAFF")) {
+            return new Staff(id, type, fullName, phoneNumber, email, password, wallet, education, jobTitle, salary, birthDay, address);
         } else {
-            return new Customer(id, fullName, phoneNumber, email, password, wallet);
+            return new Customer(id, type, fullName, phoneNumber, email, password, wallet);
         }
     }
 }

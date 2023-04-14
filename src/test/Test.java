@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 public class Test {
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws ParseException, CloneNotSupportedException {
+        Student student = new Student();
+        Student student2 = (Student) student.clone();
     }
 }

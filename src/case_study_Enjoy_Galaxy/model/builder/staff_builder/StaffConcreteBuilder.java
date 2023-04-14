@@ -92,6 +92,7 @@ public class StaffConcreteBuilder implements IStaffBuilder{
     }
     @Override
     public Staff buildFullInformation() {
-        return new Staff(id, fullName, phoneNumber, email, password, wallet, education, jobTitle, salary, birthDay, address);
+        return null;
+//        return new Staff(id, fullName, phoneNumber, email, password, wallet, education, jobTitle, salary, birthDay, address);
     }
 }

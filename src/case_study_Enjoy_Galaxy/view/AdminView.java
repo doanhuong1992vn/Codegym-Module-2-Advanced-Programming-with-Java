@@ -1,7 +1,7 @@
 package case_study_Enjoy_Galaxy.view;
 
 import case_study_Enjoy_Galaxy.model.entity.Movie;
-import case_study_Enjoy_Galaxy.model.entity.cinema.abstraction.Cinema;
+import case_study_Enjoy_Galaxy.model.entity.cinema.abstraction.Room;
 import case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction.MovieTheater;
 import case_study_Enjoy_Galaxy.model.entity.users.Admin;
 import case_study_Enjoy_Galaxy.model.service.MovieService;
@@ -60,18 +60,18 @@ public class AdminView extends UserView {
         movieTheaterService.getMovieTheaterList().forEach(System.out::println);
         int idMovieTheater = Input.choiceIntegerPrompt("Enter movie theater ID:");
         movieTheaterService.getCinemaListByMovieTheaterId(idMovieTheater).forEach(System.out::println);
-        int idCinema = Input.choiceIntegerPrompt("Enter cinema ID:");
+        int idCinema = Input.choiceIntegerPrompt("Enter room ID:");
         MovieService.getInstance().getMovieList().forEach(System.out::println);
         int idMovie = Input.choiceIntegerPrompt("Enter movie ID:");
         movieTheaterService.getShowtimeListByCinemaId(idMovieTheater, idCinema).forEach(System.out::println);
         String showtimeFormat = Input.prompt("Enter showtime with format \"dd/MM/yyyy hh:mm:ss\"");
         Date showtime = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse(showtimeFormat);
         MovieTheater movieTheater = movieTheaterService.getMovieTheaterById(idMovieTheater);
-        Cinema cinema = movieTheaterService.getCinemaById(idCinema);
+        Room room = movieTheaterService.getCinemaById(idCinema);
         Movie movie = MovieService.getInstance().getMovieById(idMovie);
         boolean isSuccessfullyAdded = MovieTheaterService.addShowtime(idMovieTheater, idCinema, showtime, idMovie);
         if (isSuccessfullyAdded) {
-            String record = Converter.convertToRecordOfShowtime(movieTheater, cinema, showtime, movie);
+            String record = Converter.convertToRecordOfShowtime(movieTheater, room, showtime, movie);
             FileWriterUtils.writeFileShowtime(record);
         }
         System.out.println(MovieTheaterService.getNotification());
@@ -91,10 +91,11 @@ public class AdminView extends UserView {
         String education = Input.prompt("Enter education:");
         String jobTitle = Input.prompt("Enter job title:");
         double salary = Input.choiceIntegerPrompt("Enter salary: ");
-        String birthday = Input.prompt("Enter birth day:", DATE);
+        String birthdayFormat = Input.prompt("Enter birth day with format \"dd/MM/yyyy\":", DATE);
+        Date birthday = new SimpleDateFormat("dd/MM/yyyy").parse(birthdayFormat);
         String address = Input.prompt("Enter address:");
         UserService userService = UserService.getInstance();
-        userService.createAccount(fullName, phoneNumber, email, password, education,
+        userService.createStaff(fullName, phoneNumber, email, password, education,
                 jobTitle, salary, birthday, address);
         System.out.println(userService.getNotification());
     }
@@ -102,7 +103,7 @@ public class AdminView extends UserView {
     public void displayMovieManagement() {
         do {
             List<Movie> movieList = MovieService.getInstance().getMovieList();
-            movieList.sort(Comparator.comparingInt(Movie::getId));
+            movieList.sort(Comparator.comparingLong(Movie::getId));
             movieList.forEach(System.out::println);
             System.out.println("""
                     1. Xem chi tiết phim theo ID""");

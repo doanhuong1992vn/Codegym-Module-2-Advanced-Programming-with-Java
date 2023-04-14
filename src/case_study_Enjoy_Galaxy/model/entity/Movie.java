@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class Movie {
     private static int count = 0;
-    private int id;
+    private long id;
     private String name;
     private String director;
     private String actors;
@@ -29,7 +29,20 @@ public class Movie {
         this.content = content;
     }
 
-    public int getId() {
+    public Movie(long id, String name, String director, String actors, String movieGenre, Date premiereDate, int movieDuration, String language, String content) {
+        this.id = id;
+        this.name = name;
+        this.director = director;
+        this.actors = actors;
+        this.movieGenre = movieGenre;
+        this.premiereDate = premiereDate;
+        this.movieDuration = movieDuration;
+        this.language = language;
+        this.content = content;
+    }
+
+
+    public long getId() {
         return id;
     }
 

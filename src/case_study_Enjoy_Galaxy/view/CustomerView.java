@@ -38,7 +38,6 @@ public class CustomerView extends UserView {
         } while (true);
     }
 
-
     @Override
     public void displaySignUp() {
         String fullName = Input.prompt("Enter your full name:", FULL_NAME_PATTERN);
@@ -46,7 +45,7 @@ public class CustomerView extends UserView {
         String email = Input.prompt("Enter your email:", EMAIL_PATTERN);
         String password = Input.prompt("Enter password:", PASSWORD);
         UserService userService = UserService.getInstance();
-        userService.createAccount("customer", fullName, phoneNumber, email, password);
+        userService.createCustomer(fullName, phoneNumber, email, password);
         System.out.println(userService.getNotification());
     }
 
