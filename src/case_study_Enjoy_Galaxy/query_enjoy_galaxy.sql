@@ -76,3 +76,36 @@ INSERT INTO MOVIE_THEATER(TYPE, NAME, ADDRESS) VALUES
 ("STANDARD", "EG Sư Vạn Hạnh", "11 Sư Vạn Hạnh, Phường 12, Quận 10"),
 ("STANDARD", "EG Đồng Khởi", "72 Lê Thánh Tôn & 45A Lý Tự Trọng, Quận 1"),
 ("STANDARD", "EG Thủ Đức", "216 Võ Văn Ngân, Phường Bình Thọ, Quận Thủ Đức");
+ALTER TABLE `enjoy_galaxy`.`showtime` 
+DROP FOREIGN KEY `showtime_ibfk_1`;
+ALTER TABLE `enjoy_galaxy`.`showtime` 
+CHANGE COLUMN `ID_CINEMA` `ID_ROOM` BIGINT NOT NULL ,
+DROP INDEX `ID_CINEMA` ,
+ADD INDEX `ID_ROOM` (`ID_ROOM` ASC) VISIBLE;
+;
+ALTER TABLE `enjoy_galaxy`.`showtime` 
+ADD CONSTRAINT `showtime_ibfk_1`
+  FOREIGN KEY (`ID_ROOM`)
+  REFERENCES `enjoy_galaxy`.`room` (`ID`);
+INSERT INTO ROOM(ID_MOVIE_THEATER, TYPE, NAME) VALUES
+(2,"4DX","Hoàng Hôn"),
+(2,"3D","Hoàng Tử"),
+(2,"2D","Hoàng Hậu"),
+(2,"IMAX","Hoàng Thượng"),
+(1,"2D","Hùng Hổ"),
+(1,"3D","Hùng Hục"),
+(1,"4DX","Hùng Bá"),
+(1,"IMAX","Hùng Hồn"),
+(3,"3D","Sư Cọ"),
+(3,"2D","Sư Cô"),
+(3,"IMAX","Sư Thầy Ông Nội"),
+(3,"4DX","Sư Phạm"),
+(4,"IMAX","Đồng Chí"),
+(4,"3D","Đồng Không Mông Lạnh"),
+(4,"2D","Đồng Bào"),
+(4,"4DX","Đồng Đô La"),
+(5,"4DX","Thủ Lợn"),
+(5,"2D","Thủ Dam"),
+(5,"3D","Thủ Phủ"),
+(5,"IMAX","Thủ Thành");
+CREATE INDEX INDEX_ID_MOVIE_THEATER ON ROOM (ID_MOVIE_THEATER);
