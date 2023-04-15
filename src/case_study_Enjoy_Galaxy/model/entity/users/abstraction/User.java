@@ -15,7 +15,8 @@ public abstract class User {
     protected String password;
     protected double wallet;
 
-    protected User(String fullName, String phoneNumber, String email, String password) {
+    protected User(String type, String fullName, String phoneNumber, String email, String password) {
+        this.type = type;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.email = email;

@@ -7,73 +7,73 @@ import case_study_Enjoy_Galaxy.model.entity.seat.abstraction.Seat;
 import java.util.Date;
 
 public class ShowtimeConcreteBuilder implements IShowtimeBuilder {
+    private long id;
     private long idMovieTheater;
-    private long idCinema;
-    private String movieTheaterName;
-    private String movieTheaterAddress;
-    private String cinemaName;
-    private Date showtime;
+    private long idRoom;
+    private String nameMovieTheater;
+    private String addressMovieTheater;
+    private String nameRoom;
+    private Date startTime;
     private Date endTime;
     private Movie movie;
     private double price;
-    private Seat[][] seats;
 
     @Override
-    public IShowtimeBuilder setIdMovieTheater(long idMovieTheater) {
+    public IShowtimeBuilder id(long id) {
+        this.id = id;
+        return this;
+    }
+
+    @Override
+    public IShowtimeBuilder idMovieTheater(long idMovieTheater) {
         this.idMovieTheater = idMovieTheater;
         return this;
     }
 
     @Override
-    public IShowtimeBuilder setIdRoom(long idCinema) {
-        this.idCinema = idCinema;
+    public IShowtimeBuilder idRoom(long idRoom) {
+        this.idRoom = idRoom;
         return this;
     }
 
     @Override
-    public IShowtimeBuilder setMovieTheaterName(String movieTheaterName) {
-        this.movieTheaterName = movieTheaterName;
+    public IShowtimeBuilder nameMovieTheater(String nameMovieTheater) {
+        this.nameMovieTheater = nameMovieTheater;
         return this;
     }
 
     @Override
-    public IShowtimeBuilder setMovieTheaterAddress(String movieTheaterAddress) {
-        this.movieTheaterAddress = movieTheaterAddress;
+    public IShowtimeBuilder addressMovieTheater(String addressMovieTheater) {
+        this.addressMovieTheater = addressMovieTheater;
         return this;
     }
 
     @Override
-    public IShowtimeBuilder setRoomName(String cinemaName) {
-        this.cinemaName = cinemaName;
+    public IShowtimeBuilder nameRoom(String nameRoom) {
+        this.nameRoom = nameRoom;
         return this;
     }
 
     @Override
-    public IShowtimeBuilder setShowtime(Date showtime) {
-        this.showtime = showtime;
+    public IShowtimeBuilder startTime(Date startTime) {
+        this.startTime = startTime;
         return this;
     }
 
     @Override
-    public IShowtimeBuilder setEndTime(Date endTime) {
+    public IShowtimeBuilder endTime(Date endTime) {
         this.endTime = endTime;
         return this;
     }
 
     @Override
-    public IShowtimeBuilder setMovie(Movie movie) {
+    public IShowtimeBuilder movie(Movie movie) {
         this.movie = movie;
         return this;
     }
 
     @Override
-    public IShowtimeBuilder setSeats(Seat[][] seats) {
-        this.seats = seats;
-        return this;
-    }
-
-    @Override
-    public IShowtimeBuilder setPrice(double price) {
+    public IShowtimeBuilder price(double price) {
         this.price = price;
         return this;
     }
@@ -81,15 +81,15 @@ public class ShowtimeConcreteBuilder implements IShowtimeBuilder {
     @Override
     public Showtime build() {
         return new Showtime(
+                id,
                 idMovieTheater,
-                idCinema,
-                movieTheaterName,
-                movieTheaterAddress,
-                cinemaName,
-                showtime,
+                idRoom,
+                nameMovieTheater,
+                addressMovieTheater,
+                nameRoom,
+                startTime,
                 endTime,
                 movie,
-                price,
-                seats);
+                price);
     }
 }

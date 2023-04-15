@@ -59,7 +59,7 @@ public abstract class MovieTheater {
         this.address = address;
     }
 
-    public List<Room> getCinemaList() {
+    public List<Room> getRooms() {
         return rooms;
     }
 
@@ -68,12 +68,12 @@ public abstract class MovieTheater {
     }
 
     public int getCinemasNumber() {
-        return getCinemaList().size();
+        return getRooms().size();
     }
 
     public int getShowtimeNumber() {
         int number = 0;
-        for (Room room : getCinemaList()) {
+        for (Room room : getRooms()) {
             number += room.getShowtimeList().size();
         }
         return number;

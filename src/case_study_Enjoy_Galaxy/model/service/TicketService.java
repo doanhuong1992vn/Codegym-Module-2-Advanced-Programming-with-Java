@@ -29,7 +29,7 @@ public class TicketService {
         Showtime showtime = MovieTheaterService.getInstance().getShowtimeById(idShowtime);
         for (Seat[] rowOfSeats : showtime.getSeats()) {
             for (Seat seat : rowOfSeats) {
-                if (seatCode.equals(seat.getSeatCode())) {
+                if (seatCode.equals(seat.getCode())) {
                     double totalPrice = showtime.getPrice() + seat.getPrice();
                     UserService userService = UserService.getInstance();
                     ITicketBuilder ticketBuilder = new TicketConcreteBuilder()

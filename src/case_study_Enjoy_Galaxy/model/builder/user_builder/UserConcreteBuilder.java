@@ -1,12 +1,10 @@
 package case_study_Enjoy_Galaxy.model.builder.user_builder;
 
-import case_study_Enjoy_Galaxy.model.builder.staff_builder.IStaffBuilder;
+import case_study_Enjoy_Galaxy.model.entity.users.Admin;
 import case_study_Enjoy_Galaxy.model.entity.users.Customer;
 import case_study_Enjoy_Galaxy.model.entity.users.Staff;
 import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class UserConcreteBuilder implements IUserBuilder {
@@ -99,8 +97,10 @@ public class UserConcreteBuilder implements IUserBuilder {
     public User build() {
         if (type.equalsIgnoreCase("STAFF")) {
             return new Staff(id, type, fullName, phoneNumber, email, password, wallet, education, jobTitle, salary, birthDay, address);
-        } else {
+        } else if (type.equalsIgnoreCase("CUSTOMER")) {
             return new Customer(id, type, fullName, phoneNumber, email, password, wallet);
+        } else {
+            return new Admin(type, fullName, phoneNumber, email, password);
         }
     }
 }

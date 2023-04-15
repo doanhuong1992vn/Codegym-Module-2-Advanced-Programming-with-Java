@@ -4,74 +4,36 @@ import case_study_Enjoy_Galaxy.model.builder.showtime_builder.IShowtimeBuilder;
 import case_study_Enjoy_Galaxy.model.builder.showtime_builder.ShowtimeConcreteBuilder;
 import case_study_Enjoy_Galaxy.model.dao.iplm.MovieTheaterDAO;
 import case_study_Enjoy_Galaxy.model.dao.iplm.RoomDAO;
+import case_study_Enjoy_Galaxy.model.dao.iplm.SeatDAO;
+import case_study_Enjoy_Galaxy.model.dao.iplm.ShowtimeDAO;
 import case_study_Enjoy_Galaxy.model.entity.Movie;
 import case_study_Enjoy_Galaxy.model.entity.Showtime;
 import case_study_Enjoy_Galaxy.model.entity.Ticket;
 import case_study_Enjoy_Galaxy.model.entity.cinema.abstraction.Room;
 import case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction.MovieTheater;
 import case_study_Enjoy_Galaxy.model.entity.seat.abstraction.Seat;
+import case_study_Enjoy_Galaxy.model.factory.SeatFactory;
 import case_study_Enjoy_Galaxy.model.utils.Converter;
-import case_study_Enjoy_Galaxy.model.utils.FileReaderUtils;
-import case_study_Enjoy_Galaxy.model.utils.FileWriterUtils;
 import case_study_Enjoy_Galaxy.model.utils.Validation;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class MovieTheaterService {
     private static final MovieTheaterService movieTheaterService = new MovieTheaterService();
     private static final List<MovieTheater> movieTheaterList = new ArrayList<>();
-    private static final String PATH_MOVIE_THEATER_DATA = "src\\case_study_Enjoy_Galaxy\\model\\data\\movie-theater.csv";
-    private static final String PATH_CINEMA_DATA = "src\\case_study_Enjoy_Galaxy\\model\\data\\cinema.csv";
-    private static final String PATH_SHOWTIME_DATA = "src\\case_study_Enjoy_Galaxy\\model\\data\\showtime.csv";
     private static String notification;
 
     static {
         movieTheaterList.addAll(MovieTheaterDAO.getInstance().getAll());
         for (MovieTheater movieTheater : movieTheaterList) {
             movieTheater.setCinemas(RoomDAO.getRoomDAO().getRoomListByIdMovieTheater(movieTheater.getId()));
-        }
-        //Sử dụng cách cũ fake database với file csv:
-/*        List<String> cinemaList = FileReaderUtils.readFile(PATH_CINEMA_DATA);
-        for (String lineOfCinemaList : cinemaList) {
-            if (lineOfCinemaList.equals(cinemaList.get(0))) {
-                continue;
-            }
-            String[] informationArray = lineOfCinemaList.split(";");
-            final int INDEX_OF_MOVIE_THEATER_ID = 0;
-            final int INDEX_OF_TYPE_CINEMA = 1;
-            final int INDEX_OF_NAME_CINEMA = 2;
-            int idMovieTheater = Integer.parseInt(informationArray[INDEX_OF_MOVIE_THEATER_ID]);
-            for (MovieTheater movieTheater : movieTheaterList) {
-                if (movieTheater.getId() == idMovieTheater) {
-                    RoomFactory roomFactory = RoomFactory.getInstance();
-                    movieTheater.addCinema(roomFactory.getRoom(
-                            informationArray[INDEX_OF_TYPE_CINEMA],
-                            informationArray[INDEX_OF_NAME_CINEMA]
-                    ));
+            for (Room room : movieTheater.getRooms()) {
+                List<Showtime> showtimeList = ShowtimeDAO.getShowtimeDAO().getShowtimeListByIdRoom(room.getId());
+                for (Showtime showtime : showtimeList) {
+                    Movie movie = MovieService.getInstance().getMovieById(showtime.getIdMovie());
+                    addShowtime(showtime.getId(), movieTheater, room, movie, showtime.getShowtime(), showtime.getEndTime(), "SELECT");
                 }
-            }
-        }*/
-        List<String> showtimeList = FileReaderUtils.readFile(PATH_SHOWTIME_DATA);
-        for (String lineOfShowtimeList : showtimeList) {
-            if (lineOfShowtimeList.equals(showtimeList.get(0))) {
-                continue;
-            }
-            String[] informationArray = lineOfShowtimeList.split(";");
-            final int INDEX_OF_MOVIE_THEATER_ID = 0;
-            final int INDEX_OF_CINEMA_ID = 1;
-            final int INDEX_OF_TIME = 2;
-            final int INDEX_OF_MOVIE_ID = 3;
-            int idMovieTheater = Integer.parseInt(informationArray[INDEX_OF_MOVIE_THEATER_ID]);
-            int idCinema = Integer.parseInt(informationArray[INDEX_OF_CINEMA_ID]);
-            String startShowtime = informationArray[INDEX_OF_TIME];
-            int idMovie = Integer.parseInt(informationArray[INDEX_OF_MOVIE_ID]);
-            try {
-                Date showtime = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse(startShowtime);
-                addShowtime(idMovieTheater, idCinema, showtime, idMovie);
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
             }
         }
         Date dateToCheck = new Date();
@@ -97,18 +59,17 @@ public class MovieTheaterService {
     }
 
 
-    public static boolean addShowtime(int idMovieTheater, int idCinema, Date tempShowtime, int idMovie)
-            throws ParseException {
+    public static void addShowtime(int idMovieTheater, int idCinema, Date tempShowtime, int idMovie) {
         Movie movie = MovieService.getInstance().getMovieById(idMovie);
         if (tempShowtime.before(new Date())) {
             notification = "Không thể thêm suất chiếu vào quá khứ kekeke";
-            return false;
+            return;
         }
         Date tempEndTime = Converter.getEndTimeBeforeCleaningTimeByShowtimeWithMovie(tempShowtime, movie);
         Date tempEndTimeAfterCleaningTime = Converter.getEndTimeAfterCleaningTime(tempEndTime);
         MovieTheater movieTheater = MovieTheaterService.getInstance().getMovieTheaterById(idMovieTheater);
         assert movieTheater != null;
-        for (Room room : movieTheater.getCinemaList()) {
+        for (Room room : movieTheater.getRooms()) {
             if (room.getId() == idCinema) {
                 if (!room.getShowtimeList().isEmpty()) {
                     for (Showtime showtime : room.getShowtimeList()) {
@@ -122,7 +83,7 @@ public class MovieTheaterService {
                                     Converter.getDateFormat24H(realShowtime),
                                     Converter.getDateFormat24H(realEndTime),
                                     showtime.getNameOfRoom());
-                            return false;
+                            return;
                         } else if (tempShowtime.before(realShowtime) && tempEndTimeAfterCleaningTime.after(realShowtime)) {
                             notification = String.format("Thêm không thành công vì không có đủ thời gian trống. " +
                                             "Phim %s có thời lượng %s phút nhưng lúc %s có suất chiếu của phim %s rồi. " +
@@ -131,26 +92,25 @@ public class MovieTheaterService {
                                     movie.getMovieDuration(),
                                     Converter.getDateFormat24H(realShowtime),
                                     showtime.getMovie().getName());
-                            return false;
+                            return;
                         }
                     }
                 }
-                addShowtime(movieTheater, room, movie, tempShowtime, tempEndTime);
+                addShowtime(Showtime.getNewId(), movieTheater, room, movie, tempShowtime, tempEndTime, "INSERT");
                 notification = String.format("Thêm thành công suất chiếu cho phim %s lúc %s " +
                                 "tại phòng chiếu %s ở rạp %s",
                         movie.getName(),
                         Converter.getDateFormat24H(tempShowtime),
                         room.getName(),
                         movieTheater.getName());
-                return true;
+                return;
             }
         }
-        return false;
     }
 
     private static Date autoAddShowtimeAndReturnLastShowtime(Date startTimeOfLastShowtime) throws ParseException {
         for (MovieTheater movieTheater : movieTheaterList) {
-            for (Room room : movieTheater.getCinemaList()) {
+            for (Room room : movieTheater.getRooms()) {
                 Date newShowtime;
                 MovieService movieService = MovieService.getInstance();
                 Movie randomMovie = movieService.getRandomMovie();
@@ -171,28 +131,55 @@ public class MovieTheaterService {
                     newShowtime = Converter.convertTo8hAmOfDate(newShowtime);
                 }
                 Date endTime = Converter.getEndTimeBeforeCleaningTimeByShowtimeWithMovie(newShowtime, randomMovie);
-                addShowtime(movieTheater, room, randomMovie, newShowtime, endTime);
-                String record = Converter.convertToRecordOfShowtime(movieTheater, room, newShowtime, randomMovie);
-                FileWriterUtils.writeFileShowtime(record);
+                addShowtime(Showtime.getNewId(), movieTheater, room, randomMovie, newShowtime, endTime, "INSERT");
                 startTimeOfLastShowtime = (Date) newShowtime.clone();
             }
         }
         return startTimeOfLastShowtime;
     }
 
-    private static void addShowtime(MovieTheater movieTheater, Room room, Movie movie, Date showtime, Date endTime) {
-        IShowtimeBuilder showtimeBuilder = new ShowtimeConcreteBuilder()
-                .setIdMovieTheater(movieTheater.getId())
-                .setMovie(movie)
-                .setMovieTheaterAddress(movieTheater.getAddress())
-                .setMovieTheaterName(movieTheater.getName())
-                .setRoomName(room.getName())
-                .setIdRoom(room.getId())
-                .setShowtime(showtime)
-                .setEndTime(endTime)
-                .setPrice(room.getPrice())
-                .setSeats(room.getSeats());
-        room.addShowtime(showtimeBuilder.build());
+    private static void addShowtime(
+            long id, MovieTheater movieTheater, Room room, Movie movie,
+            Date startTime, Date endTime, String insertOrSelect) {
+        if (endTime.after(new Date())) {
+            IShowtimeBuilder showtimeBuilder = new ShowtimeConcreteBuilder()
+                    .id(id)
+                    .idMovieTheater(movieTheater.getId())
+                    .movie(movie)
+                    .addressMovieTheater(movieTheater.getAddress())
+                    .nameMovieTheater(movieTheater.getName())
+                    .nameRoom(room.getName())
+                    .idRoom(room.getId())
+                    .startTime(startTime)
+                    .endTime(endTime)
+                    .price(room.getPrice());
+            Showtime showtime = showtimeBuilder.build();
+            Seat[][] seats = new Seat[room.getRowSeat()][room.getColumnSeat()];
+
+            if (insertOrSelect.equalsIgnoreCase("INSERT")) {
+                ShowtimeDAO.getShowtimeDAO().insertShowtime(showtime);
+                seats = SeatFactory.getInstance().getSeats(
+                        room.getRowSeat(),
+                        room.getColumnSeat(),
+                        id);
+                for (Seat[] rowSeat : seats) {
+                    for (Seat seat : rowSeat) {
+                        SeatDAO.getSeatDAO().insertSeat(seat);
+                    }
+                }
+            } else { // if (insertOrSelect.equalsIgnoreCase("SELECT"))
+                List<Seat> seatList = SeatDAO.getSeatDAO().getSeatsByIdShowtime(id);
+                final String alphabet = "ABCDEFGHIJKLMNOP";
+                for (Seat seat : seatList) {
+                    String code = seat.getCode();
+                    int indexRow = alphabet.indexOf(code.charAt(0));
+                    int indexColumn = Integer.parseInt(code.substring(1)) - 1;
+                    seats[indexRow][indexColumn] = seat;
+                }
+            }
+            showtime.setSeats(seats);
+            room.addShowtime(showtime);
+        }
     }
 
     public List<MovieTheater> getMovieTheaterList() {
@@ -213,7 +200,7 @@ public class MovieTheaterService {
         for (MovieTheater movieTheater : movieTheaterList) {
             StringBuilder informationOfEachMovieTheater = new StringBuilder();
             int showtimeNumberOfEachMovieTheater = 0;
-            for (Room room : movieTheater.getCinemaList()) {
+            for (Room room : movieTheater.getRooms()) {
                 for (Showtime showtime : room.getShowtimeList()) {
                     Date nextDay = Converter.convertToBeginningOfNextDay(date);
                     if (showtime.getShowtime().after(date) && showtime.getShowtime().before(nextDay)
@@ -240,7 +227,7 @@ public class MovieTheaterService {
     public Map<Date, Integer> getShowtimeDateMapByMovie(Movie movie) throws ParseException {
         Map<Date, Integer> resultMap = new TreeMap<>(Comparator.comparingLong(Date::getTime));
         for (MovieTheater movieTheater : movieTheaterList) {
-            for (Room room : movieTheater.getCinemaList()) {
+            for (Room room : movieTheater.getRooms()) {
                 for (Showtime showtime : room.getShowtimeList()) {
                     boolean isShowtimeAfterNow = showtime.getShowtime().after(new Date());
                     if (movie.equals(showtime.getMovie()) && isShowtimeAfterNow) {
@@ -264,7 +251,7 @@ public class MovieTheaterService {
 
     public Showtime getShowtimeById(int idShowtime) {
         for (MovieTheater movieTheater : movieTheaterList) {
-            for (Room room : movieTheater.getCinemaList()) {
+            for (Room room : movieTheater.getRooms()) {
                 for (Showtime showtime : room.getShowtimeList()) {
                     if (showtime.getId() == idShowtime) {
                         return showtime;
@@ -280,7 +267,7 @@ public class MovieTheaterService {
         String seatCode = ticket.getSeatCode();
         for (Seat[] rowOfSeats : showtime.getSeats()) {
             for (Seat seat : rowOfSeats) {
-                if (seat.getSeatCode().equals(seatCode)) {
+                if (seat.getCode().equals(seatCode)) {
                     seat.setReady(false);
                 }
             }
@@ -311,7 +298,7 @@ public class MovieTheaterService {
     public static String getInformationOfRowOfSeats(Seat[] rowOfSeats) {
         final int SAMPLE_INDEX = 0;
         return String.format("Hàng %s là loại ghế %s dành cho %d người. Kiểu %s. Giá chỉ %s chưa tính phụ thu\n",
-                rowOfSeats[SAMPLE_INDEX].getSeatCode().charAt(SAMPLE_INDEX),
+                rowOfSeats[SAMPLE_INDEX].getCode().charAt(SAMPLE_INDEX),
                 rowOfSeats[SAMPLE_INDEX].getSeatType(),
                 rowOfSeats[SAMPLE_INDEX].getCapacity(),
                 rowOfSeats[SAMPLE_INDEX].howToSeat(),
@@ -319,7 +306,7 @@ public class MovieTheaterService {
     }
 
     public List<Room> getCinemaListByMovieTheaterId(int idMovieTheater) {
-        return getMovieTheaterById(idMovieTheater).getCinemaList();
+        return getMovieTheaterById(idMovieTheater).getRooms();
     }
 
     public List<Showtime> getShowtimeListByCinemaId(int idMovieTheater, int idCinema) {
@@ -333,7 +320,7 @@ public class MovieTheaterService {
 
     public Room getCinemaById(int idCinema) {
         for (MovieTheater movieTheater : movieTheaterList) {
-            for (Room room : movieTheater.getCinemaList()) {
+            for (Room room : movieTheater.getRooms()) {
                 if (room.getId() == idCinema) {
                     return room;
                 }

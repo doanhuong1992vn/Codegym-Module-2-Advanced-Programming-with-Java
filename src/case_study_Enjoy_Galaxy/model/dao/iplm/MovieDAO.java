@@ -5,6 +5,7 @@ import case_study_Enjoy_Galaxy.model.builder.movie_builder.MovieConcreteBuilder;
 import case_study_Enjoy_Galaxy.model.dao.IMovieDAO;
 import case_study_Enjoy_Galaxy.model.entity.Movie;
 import case_study_Enjoy_Galaxy.model.factory.MovieTheaterFactory;
+import case_study_Enjoy_Galaxy.model.service.MovieService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,8 +16,12 @@ import java.util.List;
 
 public class MovieDAO implements IMovieDAO {
     private static final String SELECT_ALL = "SELECT * FROM MOVIE;";
+    private static final String INSERT_MOVIE = "INSERT INTO MOVIE(NAME, DIRECTOR, ACTORS, GENRE, PREMIERE_DATE, DURATION, LANGUAGE, CONTENT) VALUES (?,?,?,?,?,?,?,?);";
     private static final IMovieDAO movieDAO = new MovieDAO();
-    private MovieDAO(){}
+
+    private MovieDAO() {
+    }
+
     public static IMovieDAO getMovieDAO() {
         return movieDAO;
     }
@@ -33,7 +38,7 @@ public class MovieDAO implements IMovieDAO {
                 String director = resultSet.getString("DIRECTOR");
                 String actors = resultSet.getString("ACTORS");
                 String genre = resultSet.getString("GENRE");
-                Date premiereDate = resultSet.getDate("PREMIERE_DATE");
+                Date premiereDate = new Date(resultSet.getDate("PREMIERE_DATE").getTime());
                 int duration = resultSet.getInt("DURATION");
                 String language = resultSet.getString("LANGUAGE");
                 String content = resultSet.getString("CONTENT");
@@ -51,8 +56,27 @@ public class MovieDAO implements IMovieDAO {
                 movies.add(movie);
             }
         } catch (Exception e) {
-                 e.printStackTrace();
+            e.printStackTrace();
         }
         return movies;
+    }
+
+    @Override
+    public void insertMovie(Movie movie) {
+        try (Connection connection = ConnectionDAO.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_MOVIE)) {
+            preparedStatement.setString(1, movie.getName());
+            preparedStatement.setString(2, movie.getDirector());
+            preparedStatement.setString(3, movie.getActors());
+            preparedStatement.setString(4, movie.getMovieGenre());
+            preparedStatement.setDate(5, new java.sql.Date(movie.getTimeOfPremiereDate()));
+            preparedStatement.setInt(6, movie.getMovieDuration());
+            preparedStatement.setString(7, movie.getLanguage());
+            preparedStatement.setString(8, movie.getContent());
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

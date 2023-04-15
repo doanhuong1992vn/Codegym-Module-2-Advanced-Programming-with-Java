@@ -1,6 +1,8 @@
 package case_study_Enjoy_Galaxy.view;
 
+import case_study_Enjoy_Galaxy.model.dao.iplm.ShowtimeDAO;
 import case_study_Enjoy_Galaxy.model.entity.Movie;
+import case_study_Enjoy_Galaxy.model.entity.Showtime;
 import case_study_Enjoy_Galaxy.model.entity.cinema.abstraction.Room;
 import case_study_Enjoy_Galaxy.model.entity.movie_theater.abstraction.MovieTheater;
 import case_study_Enjoy_Galaxy.model.entity.users.Admin;
@@ -69,11 +71,7 @@ public class AdminView extends UserView {
         MovieTheater movieTheater = movieTheaterService.getMovieTheaterById(idMovieTheater);
         Room room = movieTheaterService.getCinemaById(idCinema);
         Movie movie = MovieService.getInstance().getMovieById(idMovie);
-        boolean isSuccessfullyAdded = MovieTheaterService.addShowtime(idMovieTheater, idCinema, showtime, idMovie);
-        if (isSuccessfullyAdded) {
-            String record = Converter.convertToRecordOfShowtime(movieTheater, room, showtime, movie);
-            FileWriterUtils.writeFileShowtime(record);
-        }
+        MovieTheaterService.addShowtime(idMovieTheater, idCinema, showtime, idMovie);
         System.out.println(MovieTheaterService.getNotification());
     }
 

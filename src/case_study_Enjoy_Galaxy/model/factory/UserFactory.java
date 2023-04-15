@@ -5,6 +5,8 @@ import case_study_Enjoy_Galaxy.model.entity.users.Customer;
 import case_study_Enjoy_Galaxy.model.entity.users.Staff;
 import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
 
+import java.util.EventListener;
+
 public class UserFactory {
     private static final UserFactory userFactory = new UserFactory();
 
@@ -15,11 +17,13 @@ public class UserFactory {
         return userFactory;
     }
 
-    public User getUser(String typeUser, String fullName, String phoneNumber, String email, String password) {
-        String typeUserToUpperCase = typeUser.toUpperCase();
-        if (typeUserToUpperCase.equals("STAFF")) {
-            return new Staff(fullName, phoneNumber, email, password);
+    public User getUser(String type, String fullName, String phoneNumber, String email, String password) {
+        if (type.equalsIgnoreCase("STAFF")) {
+            return new Staff(type, fullName, phoneNumber, email, password);
+        } else if (type.equalsIgnoreCase("CUSTOMER")) {
+            return new Customer(type, fullName, phoneNumber, email, password);
+        } else {
+            return new Admin(type, fullName, phoneNumber, email, password);
         }
-        return new Customer(fullName, phoneNumber, email, password);
     }
 }

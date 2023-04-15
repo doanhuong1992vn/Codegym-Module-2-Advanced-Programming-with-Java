@@ -45,11 +45,11 @@ public class FileReaderUtils {
                 continue;
             }
             String[] properties = propertiesOfCustomer.split(";");
-            customerList.add(new Customer(
-                    properties[INDEX_OF_FULL_NAME],
-                    properties[INDEX_OF_PHONE_NUMBER],
-                    properties[INDEX_OF_EMAIL],
-                    properties[INDEX_OF_PASSWORD]));
+//            customerList.add(new Customer(
+//                    properties[INDEX_OF_FULL_NAME],
+//                    properties[INDEX_OF_PHONE_NUMBER],
+//                    properties[INDEX_OF_EMAIL],
+//                    properties[INDEX_OF_PASSWORD]));
         }
         return customerList;
     }
@@ -80,7 +80,7 @@ public class FileReaderUtils {
                     .setContent(properties[INDEX_OF_CONTENT])
                     .setLanguage(properties[INDEX_OF_LANGUAGE])
                     .setStrPremiereDate(properties[INDEX_OF_PREMIERE_DATE]);
-            movieList.add(movieBuilder.build());
+//            movieList.add(movieBuilder.build());
         }
         return movieList;
     }

@@ -7,15 +7,15 @@ import case_study_Enjoy_Galaxy.model.entity.seat.abstraction.Seat;
 import java.util.Date;
 
 public interface IShowtimeBuilder {
-    IShowtimeBuilder setIdMovieTheater(long idMovieTheater);
-    IShowtimeBuilder setIdRoom(long idCinema);
-    IShowtimeBuilder setMovieTheaterName(String movieTheaterName);
-    IShowtimeBuilder setMovieTheaterAddress(String movieTheaterAddress);
-    IShowtimeBuilder setRoomName(String cinemaName);
-    IShowtimeBuilder setShowtime(Date showtime);
-    IShowtimeBuilder setEndTime(Date endTime);
-    IShowtimeBuilder setMovie(Movie movie);
-    IShowtimeBuilder setSeats(Seat[][] seats);
-    IShowtimeBuilder setPrice(double price);
+    IShowtimeBuilder id(long id);
+    IShowtimeBuilder idMovieTheater(long idMovieTheater);
+    IShowtimeBuilder idRoom(long idCinema);
+    IShowtimeBuilder nameMovieTheater(String nameMovieTheater);
+    IShowtimeBuilder addressMovieTheater(String addressMovieTheater);
+    IShowtimeBuilder nameRoom(String nameRoom);
+    IShowtimeBuilder startTime(Date startTime);
+    IShowtimeBuilder endTime(Date endTime);
+    IShowtimeBuilder movie(Movie movie);
+    IShowtimeBuilder price(double price);
     Showtime build();
 }

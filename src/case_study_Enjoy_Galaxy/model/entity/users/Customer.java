@@ -10,8 +10,8 @@ import java.util.List;
 
 public class Customer extends User {
 
-    public Customer(String fullName, String phoneNumber, String email, String password) {
-        super(fullName, phoneNumber, email, password);
+    public Customer(String type, String fullName, String phoneNumber, String email, String password) {
+        super(type, fullName, phoneNumber, email, password);
     }
 
     public Customer(long id, String type, String fullName, String phoneNumber, String email, String password, double wallet) {

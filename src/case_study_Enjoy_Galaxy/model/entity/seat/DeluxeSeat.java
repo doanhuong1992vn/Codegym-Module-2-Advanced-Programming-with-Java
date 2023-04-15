@@ -7,6 +7,14 @@ public class DeluxeSeat extends Seat {
         super(seatCode);
     }
 
+    public DeluxeSeat(long id, String type, String code, boolean ready, long idShowtime) {
+        super(id, type, code, ready, idShowtime);
+    }
+
+    public DeluxeSeat(String type, long idShowtime, String code, boolean ready) {
+        super(type, idShowtime, code, ready);
+    }
+
     @Override
     public int getCapacity() {
         return 1;

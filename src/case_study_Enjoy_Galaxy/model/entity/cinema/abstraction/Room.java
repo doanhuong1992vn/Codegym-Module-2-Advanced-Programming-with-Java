@@ -11,34 +11,21 @@ import java.util.*;
 public abstract class Room implements ICapacity, IPrice {
     private static final String[] seatCodes =
             {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"};
-    protected static int count = 0;
     protected long id;
     protected String type;
     protected String name;
     private long idMovieTheater;
-    protected int seatColumnNumber = 4;
-    protected int seatRowNumber = 4;
+    protected int columnSeat = 4;
+    protected int rowSeat = 4;
     protected Seat[][] seats;
     protected List<Showtime> showtimeList = new ArrayList<>();
 
-    protected Room(String name) {
-        this.id = ++count;
-        this.name = name;
-        setSeats(seatRowNumber, seatColumnNumber);
-    }
-
-    protected Room(String name, int seatRowNumber, int seatColumnNumber) {
-        this.id = ++count;
-        this.name = name;
-        setSeats(seatRowNumber, seatColumnNumber);
-    }
-
-    public Room(long id, String type, String name, int seatRowNumber, int seatColumnNumber, long idMovieTheater) {
+    public Room(long id, String type, String name, int rowSeat, int columnSeat, long idMovieTheater) {
         this.id = id;
         this.type = type;
         this.name = name;
-        this.seatColumnNumber = seatColumnNumber;
-        this.seatRowNumber = seatRowNumber;
+        this.columnSeat = columnSeat;
+        this.rowSeat = rowSeat;
         this.idMovieTheater = idMovieTheater;
     }
 
@@ -58,22 +45,6 @@ public abstract class Room implements ICapacity, IPrice {
         this.type = type;
     }
 
-    private void createSeats(int seatRowNumber, int seatColumnNumber) {
-        seats = new Seat[seatRowNumber][seatColumnNumber];
-        for (int i = 0; i < seatRowNumber; i++) {
-            for (int k = 0; k < seatColumnNumber; k++) {
-                SeatFactory seatFactory = SeatFactory.getInstance();
-                String seatCode = seatCodes[i] + String.valueOf(k + 1);
-                switch (i) {
-                    case 0 -> seats[i][k] = seatFactory.getSeat("standard", seatCode);
-                    case 1 -> seats[i][k] = seatFactory.getSeat("vipseat", seatCode);
-                    case 2 -> seats[i][k] = seatFactory.getSeat("deluxeseat", seatCode);
-                    default -> seats[i][k] = seatFactory.getSeat("sweetbox", seatCode);
-                }
-            }
-        }
-    }
-
     public long getId() {
         return id;
     }
@@ -90,32 +61,20 @@ public abstract class Room implements ICapacity, IPrice {
         return seats;
     }
 
-    public int getSeatColumnNumber() {
-        return seatColumnNumber;
+    public int getColumnSeat() {
+        return columnSeat;
     }
 
-    public void setSeatColumnNumber(int seatColumnNumber) {
-        this.seatColumnNumber = seatColumnNumber;
-        createSeats(seatRowNumber, seatColumnNumber);
-    }
-
-    public int getSeatRowNumber() {
-        return seatRowNumber;
-    }
-
-    public void setSeatRowNumber(int seatRowNumber) {
-        this.seatRowNumber = seatRowNumber;
-        createSeats(seatRowNumber, seatColumnNumber);
-    }
-
-    public void setSeats(int seatRowNumber, int seatColumnNumber) {
-        this.seatColumnNumber = seatColumnNumber;
-        this.seatRowNumber = seatRowNumber;
-        createSeats(seatRowNumber, seatColumnNumber);
+    public int getRowSeat() {
+        return rowSeat;
     }
 
     public List<Showtime> getShowtimeList() {
         return showtimeList;
+    }
+
+    public void setShowtimeList(List<Showtime> showtimeList) {
+        this.showtimeList = showtimeList;
     }
 
     public void addShowtime(Showtime showtime) {
@@ -125,7 +84,7 @@ public abstract class Room implements ICapacity, IPrice {
 
     @Override
     public int getCapacity() {
-        return seatColumnNumber * seatRowNumber;
+        return columnSeat * rowSeat;
     }
 
     @Override

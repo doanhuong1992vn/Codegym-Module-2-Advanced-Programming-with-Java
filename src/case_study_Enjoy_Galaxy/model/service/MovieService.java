@@ -17,11 +17,6 @@ public class MovieService {
 
     static {
         movieList.addAll(MovieDAO.getMovieDAO().getAll());
-//        try {
-//            movieList.addAll(FileReaderUtils.readMovieData(PATH));
-//        } catch (ParseException e) {
-//            throw new RuntimeException(e);
-//        }
     }
 
     private MovieService() {
@@ -64,7 +59,7 @@ public class MovieService {
         return movies;
     }
 
-    public Movie getMovieById(int idMovie) {
+    public Movie getMovieById(long idMovie) {
         for (Movie movie : movieList) {
             if (movie.getId() == idMovie) {
                 return movie;

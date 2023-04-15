@@ -7,6 +7,14 @@ public class SweetBox extends Seat {
         super(seatCode);
     }
 
+    public SweetBox(String type, long idShowtime, String code, boolean ready) {
+        super(type, idShowtime, code, ready);
+    }
+
+    public SweetBox(long id, String type, String code, boolean ready, long idShowtime) {
+        super(id, type, code, ready, idShowtime);
+    }
+
     @Override
     public String howToSeat() {
         return "cho cặp đôi chim chuột nhau";

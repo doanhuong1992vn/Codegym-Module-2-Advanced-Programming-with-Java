@@ -6,7 +6,7 @@ import case_study_Enjoy_Galaxy.model.utils.Converter;
 import java.util.Date;
 
 public class Showtime {
-    private static int count = 0;
+    private static long count = 0;
     private long id;
     private long idMovieTheater;
     private long idRoom;
@@ -15,11 +15,13 @@ public class Showtime {
     private String nameOfRoom;
     private Date showtime;
     private Date endTime;
+    private long idMovie;
     private Movie movie;
     private double price;
     private Seat[][] seats;
 
-    public Showtime(long idMovieTheater,
+    public Showtime(long id,
+                    long idMovieTheater,
                     long idRoom,
                     String movieTheaterName,
                     String movieTheaterAddress,
@@ -27,9 +29,9 @@ public class Showtime {
                     Date showtime,
                     Date endTime,
                     Movie movie,
-                    double price,
-                    Seat[][] seats) {
-        this.id = ++count;
+                    double price) {
+        count++;
+        this.id = id;
         this.idMovieTheater = idMovieTheater;
         this.idRoom = idRoom;
         this.movieTheaterName = movieTheaterName;
@@ -38,8 +40,32 @@ public class Showtime {
         this.showtime = showtime;
         this.endTime = endTime;
         this.movie = movie;
+        this.idMovie = movie.getId();
         this.price = price;
-        this.seats = seats;
+    }
+
+    public Showtime(long id, Date showtime, Date endTime, long idRoom, long idMovie) {
+        this.id = id;
+        this.idRoom = idRoom;
+        this.showtime = showtime;
+        this.endTime = endTime;
+        this.idMovie = idMovie;
+    }
+
+    public static long getNewId() {
+        return count + 1;
+    }
+
+    public void setIdRoom(long idRoom) {
+        this.idRoom = idRoom;
+    }
+
+    public long getIdMovie() {
+        return idMovie;
+    }
+
+    public void setIdMovie(long idMovie) {
+        this.idMovie = idMovie;
     }
 
     public long getId() {
@@ -70,25 +96,16 @@ public class Showtime {
         return movieTheaterName;
     }
 
-    public void setMovieTheaterName(String movieTheaterName) {
-        this.movieTheaterName = movieTheaterName;
-    }
 
     public String getMovieTheaterAddress() {
         return movieTheaterAddress;
     }
 
-    public void setMovieTheaterAddress(String movieTheaterAddress) {
-        this.movieTheaterAddress = movieTheaterAddress;
-    }
 
     public String getNameOfRoom() {
         return nameOfRoom;
     }
 
-    public void setNameOfRoom(String nameOfRoom) {
-        this.nameOfRoom = nameOfRoom;
-    }
 
     public Date getShowtime() {
         return showtime;

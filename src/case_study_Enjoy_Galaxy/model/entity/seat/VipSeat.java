@@ -7,6 +7,14 @@ public class VipSeat extends Seat {
         super(seatCode);
     }
 
+    public VipSeat(String type, long idShowtime, String code, boolean ready) {
+        super(type, idShowtime, code, ready);
+    }
+
+    public VipSeat(long id, String type, String code, boolean ready, long idShowtime) {
+        super(id, type, code, ready, idShowtime);
+    }
+
     @Override
     public String howToSeat() {
         return "ngồi sang trọng";

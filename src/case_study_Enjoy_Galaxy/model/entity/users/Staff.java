@@ -14,13 +14,13 @@ public class Staff extends User {
     private Date birthDay;
     private String address;
 
-    public Staff(String fullName, String phoneNumber, String email, String password) {
-        super(fullName, phoneNumber, email, password);
+    public Staff(String type, String fullName, String phoneNumber, String email, String password) {
+        super(type, fullName, phoneNumber, email, password);
     }
 
-    public Staff(String fullName, String phoneNumber, String email, String password, String education,
+    public Staff(String type, String fullName, String phoneNumber, String email, String password, String education,
                  String jobTitle, double salary, Date birthDay, String address) {
-        super(fullName, phoneNumber, email, password);
+        super(type, fullName, phoneNumber, email, password);
         this.education = education;
         this.jobTitle = jobTitle;
         this.salary = salary;

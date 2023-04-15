@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IMovieDAO {
     List<Movie> getAll();
+    void insertMovie(Movie movie);
 }
