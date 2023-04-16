@@ -6,7 +6,6 @@ import case_study_Enjoy_Galaxy.model.dao.IUserDAO;
 import case_study_Enjoy_Galaxy.model.entity.users.abstraction.User;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import java.util.List;
 
 public class UserDAO implements IUserDAO {
     private static final UserDAO userDAO = new UserDAO();
-    private static final String INSERT_USER_CUSTOMER = "INSERT INTO USER (TYPE, FULLNAME, PHONE_NUMBER, EMAIL, PASSWORD) VALUES (?,?,?,?,?);";
+    private static final String INSERT_USER = "INSERT INTO USER (TYPE, FULLNAME, PHONE_NUMBER, EMAIL, PASSWORD) VALUES (?,?,?,?,?);";
     private static final String SELECT_ALL = "SELECT * FROM USER;";
 
     private UserDAO() {
@@ -27,7 +26,7 @@ public class UserDAO implements IUserDAO {
     @Override
     public void insertUser(User user) {
         try (Connection connection = ConnectionDAO.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER_CUSTOMER)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER)) {
             preparedStatement.setString(1, user.getType());
             preparedStatement.setString(2, user.getFullName());
             preparedStatement.setString(3, user.getPhoneNumber());

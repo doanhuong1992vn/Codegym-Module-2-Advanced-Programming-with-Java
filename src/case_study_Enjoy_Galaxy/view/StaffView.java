@@ -86,7 +86,7 @@ public class StaffView extends UserView {
             System.out.println("Nói lời cảm ơn với khách");
             String checkinTime = ticketService.getFormatOfCheckinTime(ticket);
             System.out.println("Báo với khách có thể checkin lúc " + checkinTime +
-                    " tại phòng chiếu " + ticket.getNameOfCinema());
+                    " tại phòng chiếu " + ticket.getNameRoom());
         }
         displayStaffHomePage();
     }

@@ -5,6 +5,9 @@ import case_study_Enjoy_Galaxy.model.entity.Ticket;
 import java.util.Date;
 
 public class TicketConcreteBuilder implements ITicketBuilder {
+    private long id;
+    private long idUser;
+    private long idSeat;
     private String userName;
     private long idMovieTheater;
     private String movieTheaterName;
@@ -20,86 +23,106 @@ public class TicketConcreteBuilder implements ITicketBuilder {
     private double price;
 
     @Override
-    public ITicketBuilder setUserName(String userName) {
+    public ITicketBuilder id(long id) {
+        this.id = id;
+        return this;
+    }
+
+    @Override
+    public ITicketBuilder idUser(long idUser) {
+        this.idUser = idUser;
+        return this;
+    }
+
+    @Override
+    public ITicketBuilder idSeat(long idSeat) {
+        this.idSeat = idSeat;
+        return this;
+    }
+
+    @Override
+    public ITicketBuilder username(String userName) {
         this.userName = userName;
         return this;
     }
 
     @Override
-    public ITicketBuilder setSeatCode(String seatCode) {
+    public ITicketBuilder seatCode(String seatCode) {
         this.seatCode = seatCode;
         return this;
     }
 
     @Override
-    public ITicketBuilder setPersonNumber(int personNumber) {
+    public ITicketBuilder capacity(int personNumber) {
         this.personNumber = personNumber;
         return this;
     }
 
     @Override
-    public ITicketBuilder setPrice(double price) {
+    public ITicketBuilder price(double price) {
         this.price = price;
         return this;
     }
 
     @Override
-    public ITicketBuilder setIdMovieTheater(long idMovieTheater) {
+    public ITicketBuilder idMovieTheater(long idMovieTheater) {
         this.idMovieTheater = idMovieTheater;
         return this;
     }
 
     @Override
-    public ITicketBuilder setMovieTheaterName(String movieTheaterName) {
-        this.movieTheaterName = movieTheaterName;
+    public ITicketBuilder nameOfMovieTheater(String nameOfMovieTheater) {
+        this.movieTheaterName = nameOfMovieTheater;
         return this;
     }
 
     @Override
-    public ITicketBuilder setMovieTheaterAddress(String movieTheaterAddress) {
-        this.movieTheaterAddress = movieTheaterAddress;
+    public ITicketBuilder addressOfMovieTheater(String addressOfMovieTheater) {
+        this.movieTheaterAddress = addressOfMovieTheater;
         return this;
     }
 
     @Override
-    public ITicketBuilder setIdCinema(long idCinema) {
-        this.idCinema = idCinema;
+    public ITicketBuilder idRoom(long idRoom) {
+        this.idCinema = idRoom;
         return this;
     }
 
     @Override
-    public ITicketBuilder setCinemaName(String cinemaName) {
-        this.cinemaName = cinemaName;
+    public ITicketBuilder nameRoom(String nameRoom) {
+        this.cinemaName = nameRoom;
         return this;
     }
 
     @Override
-    public ITicketBuilder setMovieName(String movieName) {
+    public ITicketBuilder nameMovie(String movieName) {
         this.movieName = movieName;
         return this;
     }
 
     @Override
-    public ITicketBuilder setMovieDuration(int movieDuration) {
+    public ITicketBuilder movieDuration(int movieDuration) {
         this.movieDuration = movieDuration;
         return this;
     }
 
     @Override
-    public ITicketBuilder setShowtime(Date startTime) {
+    public ITicketBuilder startTime(Date startTime) {
         this.showtime = startTime;
         return this;
     }
 
     @Override
-    public ITicketBuilder setEndTime(Date endTime) {
+    public ITicketBuilder endTime(Date endTime) {
         this.endTime = endTime;
         return this;
     }
 
     @Override
     public Ticket build() {
-        return new Ticket(userName,
+        return new Ticket(id,
+                idUser,
+                userName,
                 idMovieTheater,
                 movieTheaterName,
                 movieTheaterAddress,
@@ -107,6 +130,7 @@ public class TicketConcreteBuilder implements ITicketBuilder {
                 cinemaName,
                 movieName,
                 movieDuration,
+                idSeat,
                 seatCode,
                 showtime,
                 endTime,

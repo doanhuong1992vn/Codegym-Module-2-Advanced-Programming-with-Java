@@ -26,7 +26,7 @@ public class ShowtimeDAO implements IShowtimeDAO {
     public void insertShowtime(Showtime showtime) {
         try (Connection connection = ConnectionDAO.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SHOWTIME)) {
-//            preparedStatement.setLong(1, showtime.getId());
+            preparedStatement.setLong(1, showtime.getId());
             preparedStatement.setTimestamp(1, new java.sql.Timestamp(showtime.getShowtime().getTime()));
             preparedStatement.setTimestamp(2, new java.sql.Timestamp(showtime.getEndTime().getTime()));
             preparedStatement.setLong(3, showtime.getIdRoom());

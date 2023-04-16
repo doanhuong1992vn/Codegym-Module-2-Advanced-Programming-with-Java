@@ -8,25 +8,25 @@ public abstract class Seat implements ISeat, IPrice, ICapacity {
     private String type;
     private long idShowtime;
     private String code;
-    private boolean ready = true;
+    private boolean isEmpty = true;
 
     public Seat(String code) {
         this.code = code;
     }
 
-    public Seat(long id, String type, String code, boolean ready, long idShowtime) {
+    public Seat(long id, String type, String code, boolean isEmpty, long idShowtime) {
         this.id = id;
         this.type = type;
         this.idShowtime = idShowtime;
         this.code = code;
-        this.ready = ready;
+        this.isEmpty = isEmpty;
     }
 
-    public Seat(String type, long idShowtime, String code, boolean ready) {
+    public Seat(String type, long idShowtime, String code, boolean isEmpty) {
         this.type = type;
         this.idShowtime = idShowtime;
         this.code = code;
-        this.ready = ready;
+        this.isEmpty = isEmpty;
     }
 
     public long getId() {
@@ -53,12 +53,12 @@ public abstract class Seat implements ISeat, IPrice, ICapacity {
         this.type = type;
     }
 
-    public void setReady(boolean ready) {
-        this.ready = ready;
+    public void setEmpty(boolean empty) {
+        this.isEmpty = empty;
     }
 
-    public boolean isReady() {
-        return ready;
+    public boolean isEmpty() {
+        return isEmpty;
     }
 
     public String getCode() {

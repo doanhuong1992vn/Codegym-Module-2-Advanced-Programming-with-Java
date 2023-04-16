@@ -262,13 +262,13 @@ public class MovieTheaterService {
         return null;
     }
 
-    public void reservationsSeat(int idShowtime, Ticket ticket) {
+    public void bookSeat(int idShowtime, Ticket ticket, boolean status) {
         Showtime showtime = getShowtimeById(idShowtime);
         String seatCode = ticket.getSeatCode();
         for (Seat[] rowOfSeats : showtime.getSeats()) {
             for (Seat seat : rowOfSeats) {
                 if (seat.getCode().equals(seatCode)) {
-                    seat.setReady(false);
+                    seat.setEmpty(status);
                 }
             }
         }
@@ -280,7 +280,7 @@ public class MovieTheaterService {
         for (Seat[] rowOfSeats : seats) {
             informationOfSeats.append(getInformationOfRowOfSeats(rowOfSeats));
             for (Seat seat : rowOfSeats) {
-                if (seat.isReady()) {
+                if (seat.isEmpty()) {
                     emptySeats.append(seat).append("  ");
                 }
             }

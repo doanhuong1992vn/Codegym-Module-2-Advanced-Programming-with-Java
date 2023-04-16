@@ -8,79 +8,103 @@ import java.util.Date;
 public class Ticket {
     private static int count = 0;
     private long id;
+    private long idUser;
     private String userName;
     private long idMovieTheater;
-    private String nameOfMovieTheater;
-    private String addressOfMovieTheater;
-    private long idCinema;
-    private String nameOfCinema;
-    private String nameOfMovie;
+    private String nameMovieTheater;
+    private String addressMovieTheater;
+    private long idRoom;
+    private String nameRoom;
+    private String nameMovie;
     private int movieDuration;
+    private long idSeat;
     private String seatCode;
-    private Date showtime;
+    private Date startTime;
     private Date endTime;
     private int numberOfPerson;
     private double price;
-    private Date bookingTime;
-    private boolean paid = false;
-    private Date paymentTime;
-    private boolean checked = false;
+    private Date timeBooking;
+    private boolean isPaid = false;
+    private Date timePayment;
+    private boolean isChecked = false;
 
-    public Ticket(String userName,
+    public Ticket(long id,
+                  long idUser,
+                  String userName,
                   long idMovieTheater,
-                  String nameOfMovieTheater,
-                  String addressOfMovieTheater,
-                  long idCinema,
-                  String nameOfCinema,
-                  String nameOfMovie,
+                  String nameMovieTheater,
+                  String addressMovieTheater,
+                  long idRoom,
+                  String nameRoom,
+                  String nameMovie,
                   int movieDuration,
+                  long idSeat,
                   String seatCode,
-                  Date showtime,
+                  Date startTime,
                   Date endTime,
                   int numberOfPerson,
                   double price) {
-        this.id = ++count;
+        this.id = id;
+        this.idUser = idUser;
         this.userName = userName;
         this.idMovieTheater = idMovieTheater;
-        this.nameOfMovieTheater = nameOfMovieTheater;
-        this.addressOfMovieTheater = addressOfMovieTheater;
-        this.idCinema = idCinema;
-        this.nameOfCinema = nameOfCinema;
-        this.nameOfMovie = nameOfMovie;
+        this.nameMovieTheater = nameMovieTheater;
+        this.addressMovieTheater = addressMovieTheater;
+        this.idRoom = idRoom;
+        this.nameRoom = nameRoom;
+        this.nameMovie = nameMovie;
         this.movieDuration = movieDuration;
+        this.idSeat = idSeat;
         this.seatCode = seatCode;
-        this.showtime = showtime;
+        this.startTime = startTime;
         this.endTime = endTime;
         this.numberOfPerson = numberOfPerson;
         this.price = price;
     }
 
 
+
     public String getTicketCode() {
-        StringBuilder codeMovieTheater = Converter.convertNameToCode(getNameOfMovieTheater());
-        StringBuilder codeCinema = Converter.convertNameToCode(getNameOfCinema());
-        StringBuilder codeMovie = Converter.convertNameToCode(getNameOfMovie());
+        StringBuilder codeMovieTheater = Converter.convertNameToCode(getNameMovieTheater());
+        StringBuilder codeCinema = Converter.convertNameToCode(getNameRoom());
+        StringBuilder codeMovie = Converter.convertNameToCode(getNameMovie());
         return "EG" + getId() + "-" +
                 codeMovieTheater + getIdMovieTheater() + "-" +
-                codeCinema + getIdCinema() + "-" +
+                codeCinema + getIdRoom() + "-" +
                 getSeatCode() + "-" +
                 codeMovie;
     }
 
-    public Date getBookingTime() {
-        return bookingTime;
+    public long getIdUser() {
+        return idUser;
     }
 
-    public void setBookingTime(Date bookingTime) {
-        this.bookingTime = bookingTime;
+    public void setIdUser(long idUser) {
+        this.idUser = idUser;
     }
 
-    public Date getPaymentTime() {
-        return paymentTime;
+    public long getIdSeat() {
+        return idSeat;
     }
 
-    public void setPaymentTime(Date paymentTime) {
-        this.paymentTime = paymentTime;
+    public void setIdSeat(long idSeat) {
+        this.idSeat = idSeat;
+    }
+
+    public Date getTimeBooking() {
+        return timeBooking;
+    }
+
+    public void setTimeBooking(Date timeBooking) {
+        this.timeBooking = timeBooking;
+    }
+
+    public Date getTimePayment() {
+        return timePayment;
+    }
+
+    public void setTimePayment(Date timePayment) {
+        this.timePayment = timePayment;
     }
 
     public double getPrice() {
@@ -96,19 +120,19 @@ public class Ticket {
     }
 
     public boolean isPaid() {
-        return paid;
+        return isPaid;
     }
 
     public boolean isChecked() {
-        return checked;
+        return isChecked;
     }
 
     public void setPaid(boolean paid) {
-        this.paid = paid;
+        this.isPaid = paid;
     }
 
     public void setChecked(boolean checked) {
-        this.checked = checked;
+        this.isChecked = checked;
     }
 
     public static int getCount() {
@@ -123,32 +147,32 @@ public class Ticket {
         return idMovieTheater;
     }
 
-    public String getNameOfMovieTheater() {
-        return nameOfMovieTheater;
+    public String getNameMovieTheater() {
+        return nameMovieTheater;
     }
 
-    public String getAddressOfMovieTheater() {
-        return addressOfMovieTheater;
+    public String getAddressMovieTheater() {
+        return addressMovieTheater;
     }
 
-    public long getIdCinema() {
-        return idCinema;
+    public long getIdRoom() {
+        return idRoom;
     }
 
-    public String getNameOfCinema() {
-        return nameOfCinema;
+    public String getNameRoom() {
+        return nameRoom;
     }
 
-    public String getNameOfMovie() {
-        return nameOfMovie;
+    public String getNameMovie() {
+        return nameMovie;
     }
 
     public void setSeatCode(String seatCode) {
         this.seatCode = seatCode;
     }
 
-    public Date getShowtime() {
-        return showtime;
+    public Date getStartTime() {
+        return startTime;
     }
 
     public Date getEndTime() {
@@ -172,6 +196,6 @@ public class Ticket {
         return String.format("Mã vé: %s. Giá: %s. Bán ngày: %s",
                 getTicketCode(),
                 Converter.formatPrice(getPrice()),
-                new SimpleDateFormat("dd MMMM yyyy HH:mm:ss a").format(getPaymentTime()));
+                new SimpleDateFormat("dd MMMM yyyy HH:mm:ss a").format(getTimePayment()));
     }
 }

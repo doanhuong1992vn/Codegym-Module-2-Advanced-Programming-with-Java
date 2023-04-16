@@ -244,7 +244,7 @@ public class MovieView implements IDisplayable {
                     UserService userService = UserService.getInstance();
                     System.out.println("Book ticket successful!");
                     System.out.println("You have " + userService.getWalletFormatOfUser() + " in wallet.");
-                    MovieTheaterService.getInstance().reservationsSeat(idShowtime, ticket);
+                    MovieTheaterService.getInstance().bookSeat(idShowtime, ticket, false);
                     displayPayment(idShowtime, ticket);
                 }
                 case "N", "n", "NO", "no", "No" -> {

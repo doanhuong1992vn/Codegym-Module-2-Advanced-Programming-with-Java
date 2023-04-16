@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class SeatDAO implements ISeatDAO {
@@ -46,7 +45,7 @@ public class SeatDAO implements ISeatDAO {
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SEAT)) {
             preparedStatement.setString(1, seat.getType());
             preparedStatement.setString(2, seat.getCode());
-            preparedStatement.setBoolean(3, seat.isReady());
+            preparedStatement.setBoolean(3, seat.isEmpty());
             preparedStatement.setLong(4, seat.getIdShowtime());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
