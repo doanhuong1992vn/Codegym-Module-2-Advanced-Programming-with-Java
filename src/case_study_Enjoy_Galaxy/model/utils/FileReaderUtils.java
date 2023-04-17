@@ -80,7 +80,7 @@ public class FileReaderUtils {
                     .setContent(properties[INDEX_OF_CONTENT])
                     .setLanguage(properties[INDEX_OF_LANGUAGE])
                     .setStrPremiereDate(properties[INDEX_OF_PREMIERE_DATE]);
-//            movieList.add(movieBuilder.build());
+            movieList.add(movieBuilder.build());
         }
         return movieList;
     }
